@@ -1,0 +1,29 @@
+/* 全局基础样式（对齐原型 Element UI 风格基调） */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 13px;
+  color: #303133;
+  background: #f0f2f5;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: #c0c4cc; border-radius: 4px; }
+
+/* 页面容器 */
+.page { padding: 14px; }
+
+/* 区块标题（左侧蓝色竖条） */
+.sec-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #303133;
+  margin: 0 0 12px;
+  padding-left: 8px;
+  border-left: 3px solid #409eff;
+}
+
+/* 通用小工具 */
+.muted { color: #909399; }
+.mb0 { margin-bottom: 0 !important; }
