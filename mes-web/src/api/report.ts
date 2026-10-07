@@ -27,20 +27,20 @@ export function getReportCatalog() {
   return get<ReportCatalog[]>('/api/reports/catalog')
 }
 
-/** 报表 code → 端点映射 */
+/** 报表 code → 端点映射（键与后端 catalog code 一致，连字符格式） */
 export const REPORT_ENDPOINTS: Record<string, string> = {
-  qc_daily: '/api/reports/qc-daily',
-  defect_stats: '/api/reports/defect-stats',
-  tube_weight_output: '/api/reports/tube-weight-output',
-  pack_inbound: '/api/reports/pack-inbound',
-  progress_tracking: '/api/reports/progress-tracking',
-  spinning_daily: '/api/reports/spinning-daily',
-  wool_top_daily: '/api/reports/wool-top-daily',
-  fore_spin_stats: '/api/reports/fore-spin-stats',
-  wool_rate: '/api/reports/wool-rate',
-  yarn_physical_stats: '/api/reports/yarn-physical-stats',
-  cv_stats: '/api/reports/cv-stats',
-  raw_qc_summary: '/api/reports/raw-qc-summary',
+  'qc-daily': '/api/reports/qc-daily',
+  'defect-stats': '/api/reports/defect-stats',
+  'tube-weight-output': '/api/reports/tube-weight-output',
+  'pack-inbound': '/api/reports/pack-inbound',
+  'progress-tracking': '/api/reports/progress-tracking',
+  'spinning-daily': '/api/reports/spinning-daily',
+  'wool-top-daily': '/api/reports/wool-top-daily',
+  'fore-spin-stats': '/api/reports/fore-spin-stats',
+  'wool-rate': '/api/reports/wool-rate',
+  'yarn-physical-stats': '/api/reports/yarn-physical-stats',
+  'cv-stats': '/api/reports/cv-stats',
+  'raw-qc-summary': '/api/reports/raw-qc-summary',
 }
 
 /** 通用报表查询：返回行集合（列动态） */

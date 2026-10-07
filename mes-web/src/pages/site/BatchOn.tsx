@@ -8,30 +8,40 @@ import type { RepBatchOn } from '@/api/site'
 import { BoolTag } from '@/components/StatusTag'
 import dayjs from 'dayjs'
 
+/** 列表行：后端 BatchOnListVO 为嵌套结构 { batchOn, scheduleNo, processName, ... } */
+type BatchOnRow = {
+  batchOn: RepBatchOn
+  scheduleNo?: string | null
+  processName?: string | null
+  machineNo?: string | null
+  teamName?: string | null
+  flagName?: string | null
+}
+
 /** 上批汇报：查看批次活动状态，支持手动下批 */
 export default function BatchOn() {
   const { message } = App.useApp()
   const { options: wsOptions, nameMap: wsName } = useWorkshops()
   const { nameMap: procName } = useProcesses()
-  const { rows, loading, pagination, setSearch, reload } = usePagedList<RepBatchOn>('/api/site/batch-on')
+  const { rows, loading, pagination, setSearch, reload } = usePagedList<BatchOnRow>('/api/site/batch-on')
   const [form] = Form.useForm()
 
-  const columns: ColumnsType<RepBatchOn> = [
-    { title: '上批单号', dataIndex: 'batchOnNo', width: 150, fixed: 'left' },
-    { title: '生产批号', dataIndex: 'batchNo', width: 115 },
-    { title: '追溯批号', dataIndex: 'traceBatchNo', width: 115 },
-    { title: '车间', dataIndex: 'workshopId', width: 130, render: (v) => wsName[v] ?? v ?? '-' },
-    { title: '工序', dataIndex: 'processId', width: 90, render: (v) => procName[v] ?? v ?? '-' },
-    { title: '产品名称', dataIndex: 'productName', width: 150, ellipsis: true },
-    { title: '班次', dataIndex: 'shift', width: 70 },
-    { title: '上批时间', dataIndex: 'batchOnTime', width: 145, render: (v) => (v ? dayjs(v).format('MM-DD HH:mm') : '-') },
-    { title: '是否下批', dataIndex: 'isBatchOff', width: 90, render: (v) => <BoolTag value={v} /> },
-    { title: '下批时间', dataIndex: 'batchOffTime', width: 145, render: (v) => (v ? dayjs(v).format('MM-DD HH:mm') : '-') },
-    { title: '来源', dataIndex: 'source', width: 80, render: (v) => (v === 2 ? 'PDA' : v === 1 ? 'PC' : v ?? '-') },
+  const columns: ColumnsType<BatchOnRow> = [
+    { title: '上批单号', dataIndex: ['batchOn', 'batchOnNo'], width: 150, fixed: 'left' },
+    { title: '生产批号', dataIndex: ['batchOn', 'batchNo'], width: 115 },
+    { title: '追溯批号', dataIndex: ['batchOn', 'traceBatchNo'], width: 115 },
+    { title: '车间', dataIndex: ['batchOn', 'workshopId'], width: 130, render: (v) => wsName[v] ?? v ?? '-' },
+    { title: '工序', dataIndex: 'processName', width: 90, render: (v, r) => v ?? procName[r.batchOn.processId] ?? '-' },
+    { title: '产品名称', dataIndex: ['batchOn', 'productName'], width: 150, ellipsis: true },
+    { title: '班次', dataIndex: ['batchOn', 'shift'], width: 70 },
+    { title: '上批时间', dataIndex: ['batchOn', 'batchOnTime'], width: 145, render: (v) => (v ? dayjs(v).format('MM-DD HH:mm') : '-') },
+    { title: '是否下批', dataIndex: ['batchOn', 'isBatchOff'], width: 90, render: (v) => <BoolTag value={v} /> },
+    { title: '下批时间', dataIndex: ['batchOn', 'batchOffTime'], width: 145, render: (v) => (v ? dayjs(v).format('MM-DD HH:mm') : '-') },
+    { title: '来源', dataIndex: ['batchOn', 'source'], width: 80, render: (v) => (v === 2 ? 'PDA' : v === 1 ? 'PC' : v ?? '-') },
     {
       title: '操作', width: 90, fixed: 'right',
-      render: (_, r) => !r.isBatchOff ? (
-        <Popconfirm title="确认手动下批？" onConfirm={async () => { await batchOff(r.id); message.success('下批成功'); reload() }}>
+      render: (_, r) => !r.batchOn.isBatchOff ? (
+        <Popconfirm title="确认手动下批？" onConfirm={async () => { await batchOff(r.batchOn.id); message.success('下批成功'); reload() }}>
           <a>下批</a>
         </Popconfirm>
       ) : <span className="muted">-</span>,
@@ -56,7 +66,7 @@ export default function BatchOn() {
         </Form>
       </Card>
       <Card size="small">
-        <Table rowKey="id" size="small" columns={columns} dataSource={rows} loading={loading} pagination={pagination} scroll={{ x: 1500 }} />
+        <Table rowKey={(r) => r.batchOn.id} size="small" columns={columns} dataSource={rows} loading={loading} pagination={pagination} scroll={{ x: 1500 }} />
       </Card>
     </div>
   )
