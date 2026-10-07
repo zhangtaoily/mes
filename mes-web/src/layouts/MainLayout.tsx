@@ -86,7 +86,7 @@ export default function MainLayout() {
             letterSpacing: 1, flexShrink: 0,
           }}
         >
-          新澳数智 · 生产执行系统
+          数智 · 生产执行系统
         </div>
         <Menu
           theme="dark"

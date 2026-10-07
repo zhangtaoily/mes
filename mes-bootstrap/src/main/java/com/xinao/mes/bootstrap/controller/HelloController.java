@@ -23,7 +23,7 @@ public class HelloController {
     @GetMapping
     public R<Map<String, Object>> hello() {
         Map<String, Object> data = new LinkedHashMap<>();
-        data.put("app", "新澳毛纺 MES");
+        data.put("app", "毛纺 MES");
         data.put("stage", "M0 工程奠基");
         data.put("modules", "common / domain(system) / engine(骨架) / plugin-api / bootstrap");
         data.put("time", LocalDateTime.now());

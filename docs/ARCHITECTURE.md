@@ -1,6 +1,6 @@
 # MES 混合架构设计（DDD 稳定域 + 元数据易变层 + 插件 SPI）
 
-> 依据：本项目逆向的 123 张表 / 10 大模块（docs/schema.sql）+ xinao-crm 元数据引擎模式（TableNode/Plugin/WorkFlow）
+> 依据：本项目逆向的 123 张表 / 10 大模块（docs/schema.sql）+ crm 元数据引擎模式（TableNode/Plugin/WorkFlow）
 > 核心诉求：**业务深度用 DDD，变更频率用引擎，集成点用插件，重启最少化**
 
 ## 1. 总体架构

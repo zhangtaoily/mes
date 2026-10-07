@@ -9,7 +9,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>mes-parent</name>
-    <description>新澳毛纺 MES - 混合架构（DDD稳定域 + 引擎易变层 + 插件SPI）</description>
+    <description>毛纺 MES - 混合架构（DDD稳定域 + 引擎易变层 + 插件SPI）</description>
 
     <modules>
         <module>mes-common</module>

@@ -42,7 +42,7 @@ export default function Login() {
       >
         <div style={{ textAlign: 'center', marginBottom: 26 }}>
           <div style={{ fontSize: 22, fontWeight: 700, color: '#1f2d3d', letterSpacing: 2 }}>
-            新澳数智 · 生产执行系统
+            数智 · 生产执行系统
           </div>
           <div className="muted" style={{ marginTop: 6, letterSpacing: 4 }}>MANUFACTURING EXECUTION SYSTEM</div>
         </div>
