@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>领退料确认 - 明细</title>
+<style>
+body{margin:0;background:#f0f2f5;font:13px/1.7 "Microsoft YaHei";color:#303133}
+.detail-shell{background:#fff;margin:12px;padding:14px;border-radius:4px}
+.hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #ebeef5}
+.hd h2{font-size:16px;margin:0}
+.back{color:#0099cc;text-decoration:none;font-size:13px}
+.btn{display:inline-block;height:28px;line-height:26px;padding:0 14px;border-radius:3px;border:1px solid #dcdfe6;background:#fff;color:#606266;cursor:pointer;font-size:13px}
+.btn.primary{background:#0099cc;border-color:#0099cc;color:#fff}
+.btn.warn{background:#e6a23c;border-color:#e6a23c;color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.info-bar{display:flex;gap:28px;flex-wrap:wrap;padding:10px 12px;background:#f5f7fa;border-radius:4px;margin-bottom:12px}
+.info-bar b{color:#606266;font-weight:600;margin-right:6px}
+.tabs{display:flex;gap:4px;border-bottom:2px solid #ebeef5;margin-bottom:0}
+.tabs .t{padding:8px 20px;cursor:pointer;color:#606266;border-radius:3px 3px 0 0;font-size:13px}
+.tabs .t.on{color:#0099cc;border-bottom:2px solid #0099cc;margin-bottom:-2px;font-weight:600}
+.btn-group{display:flex;gap:8px;margin:12px 0}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th,.tbl td{border-bottom:1px solid #ebeef5;padding:7px 8px;text-align:left;white-space:nowrap}
+.tbl th{background:#f5f7fa;color:#909399;font-weight:600}
+.tbl tbody tr:nth-child(2n){background:#fafafa}
+.tbl tbody tr:hover{background:#ecf5ff}
+.tbl td.empty{color:#c0c4cc}
+.tbl td.ck,.tbl th.ck{width:30px;text-align:center}
+.tag{display:inline-block;padding:0 8px;height:20px;line-height:20px;border-radius:3px;font-size:12px}
+.tag.blue{background:#ecf5ff;color:#409eff;border:1px solid #d9ecff}
+.tag.green{background:#f0f9eb;color:#67c23a;border:1px solid #e1f3d8}
+tr.confirmed{background:#f0f9eb!important}
+.badge{font-size:12px;color:#909399;align-self:center;margin-left:4px}
+.page{display:flex;justify-content:flex-end;margin-top:12px;color:#606266}
+#toast{position:fixed;top:18px;right:18px;z-index:99;padding:10px 16px;border-radius:4px;font-size:13px;display:none;background:#f0f9eb;border:1px solid #e1f3d8;color:#67c23a}
+</style>
+</head>
+<body>
+<div class="detail-shell">
+  <div class="hd">
+    <a class="back" href="feed.html">← 返回</a>
+    <h2>领退料确认</h2>
+  </div>
+
+  <div class="info-bar">
+    <span><b>订单号</b><span id="lblOrder">HCL000414915</span></span>
+    <span><b>批号</b><span id="lblBatch">RJ2506101-3T</span></span>
+    <span><b>类型</b><span class="tag gray">样品仓库</span></span>
+  </div>
+
+  <div class="tabs" id="ftabs">
+    <span class="t on" onclick="ft(this,0)">领料信息</span>
+    <span class="t" onclick="ft(this,1)">退料信息</span>
+  </div>
+
+  <!-- Tab0 领料信息 -->
+  <div id="f0">
+    <div class="btn-group">
+      <button class="btn primary" id="btnFeed" onclick="confirmRows(0)">领料</button>
+      <span class="badge" id="feedBadge">勾选行后点击「领料」完成确认</span>
+    </div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox" onclick="ckAll(0,this)"></th><th>序号</th><th>类型</th><th>车间</th><th>批号</th><th>领退料单编码</th><th>领退料时间</th><th>领退料人</th><th>仓库名称</th><th>库位名称</th><th>仓管</th><th>产品编码</th><th>产品名称</th><th>物料编号</th><th>物料名称</th><th>物料规格</th><th>辅助属性</th><th>产品英文名</th><th>色号</th></tr></thead>
+      <tbody>
+        <tr><td class="ck"><input type="checkbox" onchange="ckOne(0)"></td><td>1</td><td><span class="tag blue">领料单</span></td><td class="empty"></td><td>RJ2506101-3T</td><td>JDSC1L00023118</td><td>2025-10-21 00:00:00</td><td class="ck-user empty"></td><td>新澳绞纱仓</td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td>5.1.6.002.018</td><td>巴素兰(筒染)</td><td>2/80 NM</td><td>90%巴素兰</td><td class="empty"></td><td>-</td></tr>
+        <tr><td class="ck"><input type="checkbox" onchange="ckOne(0)"></td><td>2</td><td><span class="tag blue">领料单</span></td><td>总厂倒筒车间</td><td>RJ2506101-3T</td><td>JDSC1L00023125</td><td>2025-10-21 00:00:00</td><td class="ck-user empty"></td><td>新澳绞纱仓</td><td>A-01-02</td><td>钱国明</td><td class="empty"></td><td class="empty"></td><td>5.1.6.002.018</td><td>巴素兰(筒染)</td><td>2/80 NM</td><td>90%巴素兰</td><td class="empty"></td><td>-</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tab1 退料信息 -->
+  <div id="f1" style="display:none">
+    <div class="btn-group">
+      <button class="btn warn" id="btnReturn" onclick="confirmRows(1)">退料</button>
+      <span class="badge" id="returnBadge">勾选行后点击「退料」完成确认</span>
+    </div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox" onclick="ckAll(1,this)"></th><th>序号</th><th>类型</th><th>车间</th><th>批号</th><th>领退料单编码</th><th>领退料时间</th><th>领退料人</th><th>仓库名称</th><th>库位名称</th><th>仓管</th><th>产品编码</th><th>产品名称</th><th>物料编号</th><th>物料名称</th><th>物料规格</th><th>辅助属性</th><th>产品英文名</th><th>色号</th></tr></thead>
+      <tbody>
+        <tr><td class="ck"><input type="checkbox" onchange="ckOne(1)"></td><td>1</td><td><span class="tag green">退料单</span></td><td>总厂倒筒车间</td><td>RJ2506101-3T</td><td>JDSC1T00005231</td><td>2025-10-22 00:00:00</td><td class="ck-user empty"></td><td>新澳绞纱仓</td><td>A-01-02</td><td>钱国明</td><td class="empty"></td><td class="empty"></td><td>5.1.6.002.018</td><td>巴素兰(筒染)</td><td>2/80 NM</td><td>90%巴素兰</td><td class="empty"></td><td>-</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page"><span>第 1 条到第 2 条，记录总数 2</span></div>
+</div>
+<div id="toast"></div>
+<script>
+if(sessionStorage.getItem('feedOrder')){
+  document.getElementById('lblOrder').textContent=sessionStorage.getItem('feedOrder');
+  document.getElementById('lblBatch').textContent=sessionStorage.getItem('feedBatch');
+}
+function ft(el,i){
+  document.querySelectorAll('#ftabs .t').forEach(function(t){t.classList.remove('on')});
+  el.classList.add('on');
+  document.getElementById('f0').style.display=i===0?'':'none';
+  document.getElementById('f1').style.display=i===1?'':'none';
+}
+var toastTimer;
+function toast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.style.display='block';
+  clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.style.display='none'},2600);
+}
+function getPanel(i){return document.getElementById('f'+i);}
+function ckAll(i,el){getPanel(i).querySelectorAll('tbody .ck input').forEach(function(c){c.checked=el.checked;});ckOne(i);}
+function ckOne(i){
+  var n=getPanel(i).querySelectorAll('tbody .ck input:checked').length;
+  var badge=document.getElementById(i===0?'feedBadge':'returnBadge');
+  badge.textContent=n?('已勾选 '+n+' 条待确认'):(i===0?'勾选行后点击「领料」完成确认':'勾选行后点击「退料」完成确认');
+}
+function confirmRows(i){
+  var cks=getPanel(i).querySelectorAll('tbody .ck input:checked');
+  if(!cks.length){toast('请先勾选要确认的'+(i===0?'领料':'退料')+'行');return;}
+  var act=i===0?'领料':'退料';
+  if(!confirm('确定对勾选的 '+cks.length+' 条'+act+'单执行【'+act+'确认】吗？确认后将回写库存并通知仓管。'))return;
+  cks.forEach(function(c){
+    var tr=c.closest('tr');
+    var td=tr.querySelector('.ck-user');
+    td.textContent='admin';td.classList.remove('empty');
+    tr.classList.add('confirmed');
+    c.checked=false;
+  });
+  toast(act+'确认成功：'+cks.length+' 条已回写，仓管已通知');
+  ckOne(i);
+}
+</script>
+</body>
+</html>

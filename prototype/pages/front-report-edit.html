@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>前纺生产情况汇报-编辑</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="sec-title">前纺生产情况汇报 - 新增/编辑</div>
+  <div class="card">
+    <div class="btn-group" style="margin-top:0">
+      <a class="btn" href="front-report.html">← 返回</a>
+      <button class="btn primary" onclick="t('前纺生产情况汇报保存成功（车间/生产批号/温度/湿度/含油及绕毛情况）','ok')">💾 保存</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-item"><label>生产批号</label><div class="w"><input class="ipt" value="J2609988-10"></div></div>
+      <div class="form-item"><label>车间名称</label><div class="w"><select class="ipt"><option selected>纺十车间</option><option>纺四车间</option><option>总厂精梳车间(一)</option></select></div></div>
+      <div class="form-item"><label>温度(℃)</label><div class="w"><input class="ipt" value="24.5"></div></div>
+      <div class="form-item"><label>湿度(%)</label><div class="w"><input class="ipt" value="55"></div></div>
+      <div class="form-item"><label>原料含油(%)</label><div class="w"><input class="ipt" value="0.42"></div></div>
+      <div class="form-item"><label>成品含油(%)</label><div class="w"><input class="ipt" value="0.48"></div></div>
+      <div class="form-item"><label>机型</label><div class="w"><select class="ipt"><option selected>B412混条机</option><option>GC40针梳机</option><option>FA-306精梳机</option></select></div></div>
+      <div class="form-item"><label>绕针板</label><div class="w"><select class="ipt"><option>无</option><option selected>轻微</option><option>严重</option></select></div></div>
+      <div class="form-item"><label>绕圆梳</label><div class="w"><select class="ipt"><option selected>无</option><option>轻微</option><option>严重</option></select></div></div>
+      <div class="form-item"><label>绕气泡</label><div class="w"><select class="ipt"><option selected>无</option><option>轻微</option><option>严重</option></select></div></div>
+      <div class="form-item"><label>绕皮辊</label><div class="w"><select class="ipt"><option selected>无</option><option>轻微</option><option>严重</option></select></div></div>
+      <div class="form-item"><label>绕罗拉</label><div class="w"><select class="ipt"><option selected>无</option><option>轻微</option><option>严重</option></select></div></div>
+      <div class="form-item"><label>撒滑石粉</label><div class="w"><select class="ipt"><option selected>否</option><option>是</option></select></div></div>
+      <div class="form-item full"><label>备注</label><textarea>混条加油水按1.2%控制，温湿度正常。</textarea></div>
+    </div>
+  </div>
+</div>
+<script>
+function t(msg,ok){
+  var d=document.createElement('div');
+  d.textContent=msg;
+  d.style.cssText='position:fixed;top:18px;right:18px;z-index:99;padding:10px 16px;border-radius:4px;font-size:13px;background:'+(ok?'#f0f9eb;border:1px solid #e1f3d8;color:#67c23a':'#fdf6ec;border:1px solid #faecd8;color:#e6a23c');
+  document.body.appendChild(d);
+  setTimeout(function(){d.remove()},2600);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>工艺单打印</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+@media print{.no-print{display:none!important}body{background:#fff}.print-card{box-shadow:none;border:none}}
+.print-card{width:720px}
+.print-card .meta span{font-size:12px;color:#606266}
+.print-card h3{font-size:14px;margin:14px 0 6px;border-left:3px solid #409eff;padding-left:8px}
+.ptbl{width:100%;border-collapse:collapse}
+.ptbl th,.ptbl td{border:1px solid #303133;padding:5px 8px;font-size:12px;text-align:center}
+.ptbl th{background:#f5f7fa}
+.req-block{border:1px solid #ebeef5;border-radius:3px;padding:8px 12px;font-size:12px;color:#606266;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="no-print" style="max-width:760px;margin:14px auto;display:flex;gap:8px">
+  <a class="btn" href="plan-craft.html">← 返回</a>
+  <button class="btn primary" onclick="window.print()">打印</button>
+  <span class="muted" style="align-self:center;font-size:12px">A4纵向 · 打印时自动隐藏工具条</span>
+</div>
+
+<div class="print-card">
+  <h2>计 划 工 艺 单</h2>
+  <div class="meta">
+    <span id="mNo">单号：JH2609280011</span>
+    <span>打印时间：2026-09-29 16:20:35</span>
+  </div>
+
+  <div class="pgrid">
+    <div class="cell">生产批号：<b id="fBatch">J2609988-10</b></div>
+    <div class="cell">批号标识：<span class="flag purple" id="fFlag"></span></div>
+    <div class="cell">生产车间：<b id="fWs">纺十车间</b></div>
+    <div class="cell">车间产线：<b id="fLine">纺十车间2路</b></div>
+    <div class="cell" style="grid-column:1/-1">原料明细：<b id="fRaw">(细纱机纺纱)70s澳毛条</b></div>
+    <div class="cell">色号：杨柳马</div>
+    <div class="cell">实纺支数：1/40</div>
+    <div class="cell">投料量：394 KG</div>
+    <div class="cell">合并投料量：394 KG</div>
+    <div class="cell">计划产量：376 KG</div>
+    <div class="cell">下单日期：2026-09-16</div>
+    <div class="cell">预计交期：2026-10-15</div>
+  </div>
+
+  <h3>工序路线</h3>
+  <table class="ptbl">
+    <thead><tr><th>序号</th><th>工序</th><th>机型</th><th>投料</th><th>报产</th><th>上下料</th><th>计划产量</th><th>排程量</th><th>车间</th><th>工序标识</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>混条(一)</td><td>B412混条机</td><td>√</td><td>√</td><td>√</td><td>394</td><td>394</td><td>纺十车间</td><td>浅三粗纱管</td></tr>
+      <tr><td>2</td><td>头针</td><td>GC40针梳机</td><td>√</td><td>√</td><td></td><td>392</td><td>392</td><td>纺十车间</td><td>浅三粗纱管</td></tr>
+      <tr><td>3</td><td>二针</td><td>GC40针梳机</td><td>√</td><td>√</td><td></td><td>390</td><td>390</td><td>纺十车间</td><td>浅三粗纱管</td></tr>
+      <tr><td>4</td><td>三针</td><td>GV11针梳机</td><td>√</td><td>√</td><td></td><td>388</td><td>388</td><td>纺十车间</td><td>浅三粗纱管</td></tr>
+      <tr><td>5</td><td>四针</td><td>GV11针梳机</td><td>√</td><td>√</td><td></td><td>386</td><td>386</td><td>纺十车间</td><td>浅三粗纱管</td></tr>
+      <tr><td>6</td><td>粗纱</td><td>FA485粗纱机</td><td>√</td><td>√</td><td></td><td>382</td><td>382</td><td>纺十车间</td><td>浅三粗纱管</td></tr>
+      <tr><td>7</td><td>细纱</td><td>DTM129细纱机</td><td>√</td><td>√</td><td></td><td>378</td><td>378</td><td>纺十车间</td><td>深三筒管</td></tr>
+      <tr><td>8</td><td>并线</td><td>SINCRO B306</td><td></td><td>√</td><td></td><td>377</td><td>377</td><td>纺十车间</td><td>深三筒管</td></tr>
+      <tr><td>9</td><td>倍捻</td><td>VTS-08倍捻机</td><td></td><td>√</td><td></td><td>376</td><td>376</td><td>纺十车间</td><td>深三筒管</td></tr>
+    </tbody>
+  </table>
+
+  <h3>用料汇总</h3>
+  <table class="ptbl">
+    <thead><tr><th>序号</th><th>原料批号</th><th>原料名称</th><th>车间用料量</th><th>配料量</th><th>投料量</th><th>单位</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>F2609916</td><td>70s澳毛条(条染)</td><td>376</td><td>394</td><td>394</td><td>KG</td></tr>
+      <tr><td>2</td><td>F2609917</td><td>70s澳毛条(本白)</td><td>18</td><td>18</td><td>18</td><td>KG</td></tr>
+    </tbody>
+  </table>
+
+  <h3>工艺要求</h3>
+  <div class="req-block">
+    <b>特殊工艺要求：</b>进口紧密纺全毛批次，前纺注意与阳离子防缩批次隔离，换批清机防混色。<br>
+    <b>成品要求：</b>成品条干CV%≤16.5，千米疵点≤20，捻系数按105控制，蒸纱85℃×45min。<br>
+    <b>标签打印要求：</b>筒贴含RWS认证标识，英文版；包装要求：内销纸箱(标准)，每箱24筒。<br>
+    <b>后纺备注：</b>倍捻捻度620T/m，超喂1.06；了批后及时通知质检取样并回填实际支数。
+  </div>
+
+  <div class="qr">二维码<br>JH2609280011</div>
+  <div style="margin-top:40px;font-size:12px;color:#606266;display:flex;justify-content:space-between">
+    <span>编制人：王美芳　审核人：李强</span><span>第 1 页 / 共 1 页</span>
+  </div>
+</div>
+
+<script>
+var no=sessionStorage.getItem('pc_print')||'JH2609280011';
+document.getElementById('mNo').textContent='单号：'+no;
+var M={
+ 'JH2609280011':{batch:'J2609988-10',flag:'purple',ws:'纺十车间',line:'纺十车间2路',raw:'(细纱机纺纱)70s澳毛条',color:'杨柳马',count:'1/40',feed:'394'},
+ 'JH2609280012':{batch:'260912677',flag:'pink',ws:'总厂复精梳车间(二)',line:'复二4组',raw:'110s巴素兰(长毛)',color:'深灰',count:'0/0',feed:'400.0'},
+ 'JH2609280013':{batch:'26091340',flag:'blue',ws:'总厂精梳车间(一)',line:'精梳1线',raw:'普通毛(条染)',color:'HY-M63634',count:'2/60',feed:'140.2'},
+ 'JH2609280014':{batch:'26091519',flag:'orange',ws:'纺六车间',line:'纺六3路',raw:'90%防缩短毛条(阳离子)',color:'W100',count:'2/60',feed:'745.5'},
+ 'JH2609280015':{batch:'26091518',flag:'green',ws:'总厂倒筒车间',line:'倒筒1线',raw:'倒筒纱(条染)',color:'Bw100',count:'2/48',feed:'90.0'},
+ 'JH2609280016':{batch:'26091402',flag:'red',ws:'纺四车间',line:'纺四1路',raw:'(细纱机纺纱)普通毛(纺纱)',color:'杨柳马',count:'1/40',feed:'1,650.0'}
+};
+var d=M[no]||M['JH2609280011'];
+document.getElementById('fBatch').textContent=d.batch;
+document.getElementById('fFlag').className='flag '+d.flag;
+document.getElementById('fWs').textContent=d.ws;
+document.getElementById('fLine').textContent=d.line;
+document.getElementById('fRaw').textContent=d.raw;
+</script>
+</body>
+</html>

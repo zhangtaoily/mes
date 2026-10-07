@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>倒筒任务编辑</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.flag-tri{display:inline-block;width:14px;height:12px;background:#e6a23c;clip-path:polygon(50% 0,100% 100%,0 100%);vertical-align:-1px;margin-right:4px}
+.dot{display:inline-flex;width:18px;height:18px;border-radius:50%;align-items:center;justify-content:center;font-size:11px;color:#fff}
+.dot.ok{background:#67c23a}
+.dot.bad{background:#f56c6c}
+.req{color:#f56c6c;margin-right:2px}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="sec-title">倒筒任务编辑 - PT26092800124</div>
+  <div class="card">
+    <div class="btn-group" style="margin-top:0">
+      <a class="btn" href="prod-task-dt.html">← 返回</a>
+      <button class="btn primary" onclick="dtToast('PT26092800124 保存成功')">保存</button>
+      <button class="btn" onclick="dtToast('PT26092800124 提交成功，编制状态已更新为「生效」')">提交</button>
+      <button class="btn" onclick="dtToast('PT26092800124 已撤回至「编制中」')">撤回</button>
+      <button class="btn warn" onclick="dtToast('PT26092800124 了批成功')">了批</button>
+      <button class="btn" onclick="dtToast('已发送倒筒工艺单至打印队列')">打印工艺单</button>
+      <button class="btn" onclick="dtToast('已发送复称标签至打印队列')">复称标签打印</button>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-item"><label>任务编号</label><div class="w"><input value="PT26092800124" readonly></div></div>
+      <div class="form-item"><label>生产批号</label><div class="w"><input value="RK2608467"></div></div>
+      <div class="form-item"><label>生产订单</label><div class="w"><input value="FLC100466460"></div></div>
+      <div class="form-item"><label><span class="req">*</span>批号标识</label><div class="w"><span class="flag-tri"></span>倒三角<span class="lookup">✎</span></div></div>
+      <div class="form-item"><label><span class="req">*</span>生产车间</label><div class="w"><select style="border:none;outline:none;flex:1"><option>总厂倒筒车间</option><option>纺十车间</option></select></div></div>
+      <div class="form-item"><label>下单日期</label><div class="w"><input type="date" value="2026-09-27"></div></div>
+      <div class="form-item"><label><span class="req">*</span>预计交期</label><div class="w"><input type="date"></div></div>
+      <div class="form-item"><label>计划投料量</label><div class="w"><input value="4.42"></div></div>
+      <div class="form-item"><label>计划产量</label><div class="w"><input value="4.42"></div></div>
+      <div class="form-item"><label>车间/产线</label><div class="w"><input placeholder=""></div></div>
+      <div class="form-item"><label>包装车间</label><div class="w"><select style="border:none;outline:none;flex:1"><option>总厂倒筒车间</option></select></div></div>
+    </div>
+
+    <div class="tabs" id="dtabs">
+      <div class="t on" onclick="dtt(this,0)">订单明细</div>
+      <div class="t" onclick="dtt(this,1)">用料汇总</div>
+      <div class="t" onclick="dtt(this,2)">生产信息</div>
+      <div class="t" onclick="dtt(this,3)">工艺要求</div>
+      <div class="t" onclick="dtt(this,4)">工序路线</div>
+      <div class="t" onclick="dtt(this,5)">生产备注</div>
+    </div>
+
+    <!-- Tab1 订单明细 -->
+    <div id="d0">
+      <table class="tbl">
+        <thead><tr><th>序号</th><th>缸号</th><th>产品编码</th><th>产品名称</th><th>原料明细</th><th>股数/支数</th><th>计划产量</th><th>包装量</th><th>单位</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>260923B0723</td><td>5.1.3.901.1<span class="muted">…</span></td><td>防缩莱赛尔莫代尔纤维(染色)</td><td>90s LT防缩条(阳离子)30%莱赛尔25%莫<span class="muted">…</span></td><td>2/34</td><td>4.42</td><td></td><td>KG</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tab2 用料汇总 -->
+    <div id="d1" style="display:none">
+      <table class="tbl">
+        <thead><tr><th>序号</th><th>复精梳批号</th><th>缸号</th><th>原料编码</th><th>原料名称</th><th>计划投料量</th><th>已投料量</th><th>单位</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td></td><td>260923B0723</td><td>5.1.3.501.118</td><td>防缩莱赛尔低纤纤维(绞染)</td><td>4.42</td><td></td><td>KG</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tab3 生产信息 -->
+    <div id="d2" style="display:none">
+      <div class="form-grid">
+        <div class="form-item"><label>产品编号</label><div class="w">5.1.3.901.118</div></div>
+        <div class="form-item"><label>产品名称</label><div class="w">莱赛尔桑蚕丝纤维(绞染)</div></div>
+        <div class="form-item"><label>打印缩写</label><div class="w">MwlyPaper302842</div></div>
+        <div class="form-item"><label>产品英文名</label><div class="w"><input></div></div>
+        <div class="form-item"><label>客户</label><div class="w">样品仓库</div></div>
+        <div class="form-item"><label>缸号</label><div class="w">260923B0723</div></div>
+        <div class="form-item"><label>整精梳批号</label><div class="w"><input></div></div>
+        <div class="form-item"><label>染色类别</label><div class="w">绞染</div></div>
+        <div class="form-item"><label>产品规格</label><div class="w">2/34 NM</div></div>
+        <div class="form-item"><label>品名</label><div class="w">2/34 NM</div></div>
+        <div class="form-item"><label>员工</label><div class="w"><input></div></div>
+        <div class="form-item full"><label>辅助属性</label><div class="w">90s LT防缩条(阳离子)30%莱赛尔28%桑蚕丝纤维42%</div></div>
+        <div class="form-item"><label>确认色</label><div class="w"><input></div></div>
+        <div class="form-item"><label>客户色号</label><div class="w"><input></div></div>
+        <div class="form-item"><label>是否荧光</label><div class="w"><input type="checkbox"></div></div>
+      </div>
+    </div>
+
+    <!-- Tab4 工艺要求 -->
+    <div id="d3" style="display:none">
+      <div class="form-grid">
+        <div class="form-item full"><label>标签打印要求</label><textarea>标签按系统打印</textarea></div>
+        <div class="form-item"><label>编织袋(实重)</label><div class="w"><input></div></div>
+        <div class="form-item full"><label>包装要求</label><textarea></textarea></div>
+      </div>
+    </div>
+
+    <!-- Tab5 工序路线 -->
+    <div id="d4" style="display:none">
+      <div class="btn-group"><button class="btn primary mini">生产工序</button></div>
+      <table class="tbl">
+        <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>类型</th><th>工序</th><th>投料</th><th>报产</th><th>上下批</th><th>物料单位</th><th>生产单位</th><th>计划产量</th><th>投料量</th><th>产出量</th><th>车间</th><th>了批</th><th>工序标识</th></tr></thead>
+        <tbody>
+          <tr><td class="ck"><input type="checkbox"></td><td>1</td><td>倒毛</td><td>倒毛</td><td><span class="dot ok">✓</span></td><td><span class="dot ok">✓</span></td><td><span class="dot bad">✗</span></td><td></td><td></td><td>4.42</td><td>4.42</td><td>4.42</td><td>总厂倒筒车间</td><td><span class="dot ok">✓</span></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tab6 生产备注 -->
+    <div id="d5" style="display:none">
+      <div class="form-item full"><label>生产备注</label><textarea style="height:100px">倒筒批次，注意与染色批号 RK2608467 对应，复称后打印标签入库。</textarea></div>
+    </div>
+  </div>
+</div>
+<div id="dtToast" style="position:fixed;top:18px;right:18px;z-index:999;padding:10px 16px;border-radius:4px;font-size:13px;display:none;background:#f0f9eb;border:1px solid #e1f3d8;color:#67c23a"></div>
+<script>
+function dtt(el,i){document.querySelectorAll('#dtabs .t').forEach(t=>t.classList.remove('on'));el.classList.add('on');for(let k=0;k<6;k++)document.getElementById('d'+k).style.display=k===i?'':'none';}
+var dtTimer;
+function dtToast(msg){
+  var t=document.getElementById('dtToast');
+  t.textContent=msg; t.style.display='block';
+  clearTimeout(dtTimer); dtTimer=setTimeout(function(){t.style.display='none'},2600);
+}
+</script>
+</body>
+</html>

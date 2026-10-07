@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      # 提交/PR 一律跑单测（M0 起保障：合并不破坏既有用例）
+      - name: Build & Test
+        run: mvn -B package --file pom.xml
+
+      - name: Upload jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: mes-bootstrap
+          path: mes-bootstrap/target/mes-bootstrap-*.jar

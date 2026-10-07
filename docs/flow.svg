@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 1224" width="100%" style="font-family:'PingFang SC','Microsoft YaHei','Microsoft YaHei UI',sans-serif">
+  <style>
+    .ph{fill:#f4f6f5;stroke:#e2e6e4;stroke-width:1}
+    .nd{fill:#ffffff;stroke:#e2e6e4;stroke-width:1}
+    .ndi{fill:#ffffff;stroke:#e2e6e4;stroke-width:1;stroke-dasharray:5 3}
+    .t1{font-size:17px;font-weight:700;fill:#1f2429}
+    .t2{font-size:12px;fill:#69716d}
+    .pn{font-size:14px;font-weight:500;fill:#1f2429}
+    .num{font-size:12px;font-weight:700;fill:#ffffff}
+    .tag{font-size:11px;fill:#69716d}
+    .ngr{fill:#ffffff;stroke:#e2e6e4;stroke-width:1}
+    .nt{font-size:13px;font-weight:500;fill:#1f2429}
+    .ns{font-size:11px;fill:#69716d}
+    .ha{stroke:#9aa3a0;stroke-width:1.5;stroke-linecap:round}
+    .haf{fill:#9aa3a0}
+    .stem{stroke:#059669;stroke-width:2;stroke-linecap:round}
+    .tri{fill:#059669}
+    .lbl{font-size:12px;fill:#047857}
+    .ep{font-size:13px;font-weight:500;fill:#ffffff}
+    .fn{font-size:11px;fill:#9aa3a0}
+  </style>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+
+  <text x="380" y="48" text-anchor="middle" class="t1">从 ERP 订单到生产完成 —— 毛纺 MES 主线流程</text>
+  <text x="380" y="72" text-anchor="middle" class="t2">基于 127 张系统截图逆向 · 6 阶段主线 · 2026-09-29</text>
+
+  <!-- ═══ 阶段1 订单接入 ═══ -->
+  <rect x="40" y="100" width="680" height="128" rx="10" class="ph"/>
+  <circle cx="64" cy="130" r="13" fill="#059669"/><text x="64" y="134.5" text-anchor="middle" class="num">01</text>
+  <text x="86" y="135" class="pn">订单接入</text>
+  <rect x="565" y="120" width="139" height="20" rx="10" class="ngr"/><text x="634.5" y="134" text-anchor="middle" class="tag">生产管理 · K3订单查看</text>
+  <rect x="56" y="158" width="192" height="56" rx="8" class="nd"/>
+  <text x="66" y="178" class="nt">K3 订单同步</text><text x="66" y="195" class="ns">增量 · 幂等 · ID 映射</text>
+  <line x1="249" y1="186" x2="267" y2="186" class="ha"/><path d="M267 182 L274 186 L267 190 Z" class="haf"/>
+  <rect x="284" y="158" width="192" height="56" rx="8" class="nd"/>
+  <text x="294" y="178" class="nt">K3 订单查看</text><text x="294" y="195" class="ns">49 字段 · 四 Tab 详情</text>
+  <line x1="477" y1="186" x2="495" y2="186" class="ha"/><path d="M495 182 L502 186 L495 190 Z" class="haf"/>
+  <rect x="512" y="158" width="192" height="56" rx="8" class="nd"/>
+  <text x="522" y="178" class="nt">引入</text><text x="522" y="195" class="ns">勾选订单生成工艺单</text>
+
+  <line x1="380" y1="230" x2="380" y2="258" class="stem"/><path d="M375 258 L385 258 L380 266 Z" class="tri"/>
+  <text x="392" y="249" class="lbl">引入</text>
+
+  <!-- ═══ 阶段2 计划编制 ═══ -->
+  <rect x="40" y="272" width="680" height="128" rx="10" class="ph"/>
+  <circle cx="64" cy="302" r="13" fill="#059669"/><text x="64" y="306.5" text-anchor="middle" class="num">02</text>
+  <text x="86" y="307" class="pn">计划编制</text>
+  <rect x="572" y="292" width="132" height="20" rx="10" class="ngr"/><text x="638" y="306" text-anchor="middle" class="tag">工艺管理 · 计划工艺单</text>
+  <rect x="56" y="330" width="192" height="56" rx="8" class="nd"/>
+  <text x="66" y="350" class="nt">计划工艺单编制</text><text x="66" y="367" class="ns">7 Tab · 配料 / 工序路线</text>
+  <line x1="249" y1="358" x2="267" y2="358" class="ha"/><path d="M267 354 L274 358 L267 362 Z" class="haf"/>
+  <rect x="284" y="330" width="192" height="56" rx="8" class="nd"/>
+  <text x="294" y="350" class="nt">审批流转</text><text x="294" y="367" class="ns">保存并继续→编制工艺单→提交</text>
+  <line x1="477" y1="358" x2="495" y2="358" class="ha"/><path d="M495 354 L502 358 L495 362 Z" class="haf"/>
+  <rect x="512" y="330" width="192" height="56" rx="8" class="nd"/>
+  <text x="522" y="350" class="nt">生成生产任务</text><text x="522" y="367" class="ns">PI 号 · 主 / 子任务</text>
+
+  <line x1="380" y1="402" x2="380" y2="430" class="stem"/><path d="M375 430 L385 430 L380 438 Z" class="tri"/>
+  <text x="392" y="421" class="lbl">排程编制</text>
+
+  <!-- ═══ 阶段3 排产下发 ═══ -->
+  <rect x="40" y="444" width="680" height="128" rx="10" class="ph"/>
+  <circle cx="64" cy="474" r="13" fill="#059669"/><text x="64" y="478.5" text-anchor="middle" class="num">03</text>
+  <text x="86" y="479" class="pn">排产下发</text>
+  <rect x="561" y="464" width="143" height="20" rx="10" class="ngr"/><text x="632.5" y="478" text-anchor="middle" class="tag">生产管理 · 排程 / 制造卡</text>
+  <rect x="56" y="502" width="306" height="56" rx="8" class="nd"/>
+  <text x="66" y="522" class="nt">生产排程</text><text x="66" y="539" class="ns">生成 / 合并 / 刷新 · 按机台·工序·日期</text>
+  <line x1="364" y1="530" x2="382" y2="530" class="ha"/><path d="M382 526 L389 530 L382 534 Z" class="haf"/>
+  <rect x="398" y="502" width="306" height="56" rx="8" class="nd"/>
+  <text x="408" y="522" class="nt">上机制造卡</text><text x="408" y="539" class="ns">A4 打印下发 · 已排在做</text><text x="408" y="553" class="ns">撤回 → 恢复重排（排错 / 翻批）</text>
+
+  <line x1="380" y1="574" x2="380" y2="602" class="stem"/><path d="M375 602 L385 602 L380 610 Z" class="tri"/>
+  <text x="392" y="593" class="lbl">下发机台</text>
+
+  <!-- ═══ 阶段4 现场执行 ═══ -->
+  <rect x="40" y="616" width="680" height="128" rx="10" class="ph"/>
+  <circle cx="64" cy="646" r="13" fill="#059669"/><text x="64" y="650.5" text-anchor="middle" class="num">04</text>
+  <text x="86" y="651" class="pn">现场执行</text>
+  <rect x="583" y="636" width="121" height="20" rx="10" class="ngr"/><text x="643.5" y="650" text-anchor="middle" class="tag">现场管理 · 汇报中心</text>
+  <rect x="56" y="674" width="135" height="56" rx="8" class="nd"/>
+  <text x="66" y="694" class="nt">上批汇报</text><text x="66" y="711" class="ns">PDA 扫码</text><text x="66" y="725" class="ns">批号标识目视</text>
+  <line x1="193" y1="702" x2="211" y2="702" class="ha"/><path d="M211 698 L218 702 L211 706 Z" class="haf"/>
+  <rect x="227" y="674" width="135" height="56" rx="8" class="nd"/>
+  <text x="237" y="694" class="nt">投料记录</text><text x="237" y="711" class="ns">领退料确认</text><text x="237" y="725" class="ns">逐批投料</text>
+  <line x1="364" y1="702" x2="382" y2="702" class="ha"/><path d="M382 698 L389 702 L382 706 Z" class="haf"/>
+  <rect x="398" y="674" width="135" height="56" rx="8" class="nd"/>
+  <text x="408" y="694" class="nt">过程汇报</text><text x="408" y="711" class="ns">产量 · 启停 · 翻批</text><text x="408" y="725" class="ns">切疵 · 蒸纱</text>
+  <line x1="535" y1="702" x2="553" y2="702" class="ha"/><path d="M553 698 L560 702 L553 706 Z" class="haf"/>
+  <rect x="569" y="674" width="135" height="56" rx="8" class="nd"/>
+  <text x="579" y="694" class="nt">了批 / 了机</text><text x="579" y="711" class="ns">批次结束封账</text>
+
+  <line x1="380" y1="746" x2="380" y2="774" class="stem"/><path d="M375 774 L385 774 L380 782 Z" class="tri"/>
+  <text x="392" y="765" class="lbl">了机取样</text>
+
+  <!-- ═══ 阶段5 质检与包装 ═══ -->
+  <rect x="40" y="788" width="680" height="128" rx="10" class="ph"/>
+  <circle cx="64" cy="818" r="13" fill="#059669"/><text x="64" y="822.5" text-anchor="middle" class="num">05</text>
+  <text x="86" y="823" class="pn">质检与包装</text>
+  <rect x="581" y="808" width="123" height="20" rx="10" class="ngr"/><text x="642.5" y="822" text-anchor="middle" class="tag">质检管理 / 包装管理</text>
+  <rect x="56" y="846" width="135" height="56" rx="8" class="nd"/>
+  <text x="66" y="866" class="nt">抽样→检验报告</text><text x="66" y="883" class="ns">指标矩阵</text><text x="66" y="897" class="ns">JS 公式计算</text>
+  <line x1="193" y1="874" x2="211" y2="874" class="ha"/><path d="M211 870 L218 874 L211 878 Z" class="haf"/>
+  <rect x="227" y="846" width="135" height="56" rx="8" class="nd"/>
+  <text x="237" y="866" class="nt">包装任务</text><text x="237" y="883" class="ns">计重方式</text><text x="237" y="897" class="ns">公定 / 实测回潮</text>
+  <line x1="364" y1="874" x2="382" y2="874" class="ha"/><path d="M382 870 L389 874 L382 878 Z" class="haf"/>
+  <rect x="398" y="846" width="135" height="56" rx="8" class="nd"/>
+  <text x="408" y="866" class="nt">包装执行</text><text x="408" y="883" class="ns">逐箱称重</text><text x="408" y="897" class="ns">筒贴 / 箱贴打印</text>
+  <line x1="535" y1="874" x2="553" y2="874" class="ha"/><path d="M553 870 L560 874 L553 878 Z" class="haf"/>
+  <rect x="569" y="846" width="135" height="56" rx="8" class="nd"/>
+  <text x="579" y="866" class="nt">组托</text><text x="579" y="883" class="ns">码垛</text><text x="579" y="897" class="ns">生成托盘号</text>
+
+  <line x1="380" y1="918" x2="380" y2="946" class="stem"/><path d="M375 946 L385 946 L380 954 Z" class="tri"/>
+  <text x="392" y="937" class="lbl">组托完成</text>
+
+  <!-- ═══ 阶段6 成品入库 ═══ -->
+  <rect x="40" y="960" width="680" height="128" rx="10" class="ph"/>
+  <circle cx="64" cy="990" r="13" fill="#059669"/><text x="64" y="994.5" text-anchor="middle" class="num">06</text>
+  <text x="86" y="995" class="pn">成品入库</text>
+  <rect x="572" y="980" width="132" height="20" rx="10" class="ngr"/><text x="638" y="994" text-anchor="middle" class="tag">包装管理 · WMS 同步</text>
+  <rect x="56" y="1018" width="306" height="56" rx="8" class="nd"/>
+  <text x="66" y="1038" class="nt">WMS 入库同步</text><text x="66" y="1055" class="ns">箱号 · 托盘号 · 五列重量（公重 / 毛重 / 皮重 / 净重）</text>
+  <line x1="364" y1="1046" x2="382" y2="1046" class="ha"/><path d="M382 1042 L389 1046 L382 1050 Z" class="haf"/>
+  <rect x="398" y="1018" width="306" height="56" rx="8" class="ndi"/>
+  <text x="408" y="1038" class="nt">订单关闭（推断）</text><text x="408" y="1055" class="ns">回写 K3 · 依“是否关闭 / 已引入数量”字段推断</text>
+
+  <rect x="280" y="1106" width="200" height="30" rx="15" fill="#059669"/>
+  <text x="380" y="1126" text-anchor="middle" class="ep">批次完结 · 订单关闭</text>
+
+  <text x="380" y="1166" text-anchor="middle" class="fn">单号示例：订单 FBDC772348 · 任务 PI… · 排程 PSC260927000030 · 上批 SR26092900442</text>
+  <text x="380" y="1184" text-anchor="middle" class="fn">产量汇报 OR26092901064 · 检验报告 QC2026092901254 · 包装任务 PS20260929092 · 包装执行 PC2606929174</text>
+  <text x="380" y="1206" text-anchor="middle" class="fn">* 虚线节点（订单关闭）与“撤回→恢复重排”为推断；投料与上批实际并行，图中简化为串行</text>
+</svg>

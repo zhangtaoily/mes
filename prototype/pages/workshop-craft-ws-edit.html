@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>车间工艺编辑</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="card">
+    <div class="btn-group" style="margin-top:0">
+      <a class="btn" href="workshop-craft.html">← 返回</a>
+      <button class="btn primary" onclick="t('车间工艺 复二4组-普通毛(条染) 保存成功','ok')">💾 保存</button>
+      <button class="btn success" onclick="if(confirm('保存并启用后该车间工艺可被生产任务「工艺配置」引用，确认？'))t('已保存并启用','ok')">保存并启用</button>
+      <button class="btn purple" onclick="if(confirm('复制当前车间工艺（工序/机型/工艺项）为新方案？'))t('已复制为新方案（-副本），请修改车间/产线后保存','ok')">复制工艺库</button>
+      <button class="btn danger" onclick="if(confirm('删除后不可再被引用，确认删除该车间工艺？'))t('已删除，返回列表…','ok')">删除</button>
+    </div>
+    <div class="sec-title" style="margin-top:0">车间工艺编辑 - 复二4组-普通毛(条染)</div>
+    <div class="form-grid">
+      <div class="form-item"><label>车间工艺名称<span class="req">*</span></label><div class="w"><input value="复二4组-普通毛(条染)"></div></div>
+      <div class="form-item"><label>生产车间<span class="req">*</span></label><div class="w"><select style="border:none;outline:none;flex:1;font-size:13px;color:#606266"><option selected>总厂复精梳车间(二)</option><option>纺四车间</option><option>纺十二车间</option></select></div></div>
+      <div class="form-item"><label>车间产线<span class="req">*</span></label><div class="w"><select style="border:none;outline:none;flex:1;font-size:13px;color:#606266"><option selected>复二4组</option><option>复二3组</option><option>复二2组</option></select></div></div>
+      <div class="form-item"><label>原料明细</label><div class="w"><input value="70%澳毛条 HY-M36334"><span class="lookup">🔍</span></div></div>
+      <div class="form-item"><label>实纺支数</label><div class="w"><input value="2/60 NM"></div></div>
+      <div class="form-item"><label>捻度</label><div class="w"><input value="620T/m"></div></div>
+      <div class="form-item"><label>染色方式</label><div class="w"><select style="border:none;outline:none;flex:1;font-size:13px;color:#606266"><option selected>条染</option><option>胚纱</option><option>绞纱</option></select></div></div>
+      <div class="form-item"><label>工艺等级</label><div class="w"><select style="border:none;outline:none;flex:1;font-size:13px;color:#606266"><option selected>A级</option><option>B级</option><option>C级</option></select></div></div>
+      <div class="form-item"><label>关联技术工艺</label><div class="w"><input value="CT000011 巴素兰"><span class="lookup">🔍</span></div></div>
+      <div class="form-item"><label>是否启用</label><div class="w"><input type="checkbox" checked></div></div>
+      <div class="form-item"><label>创建人</label><div class="w">张伟</div></div>
+      <div class="form-item"><label>创建时间</label><div class="w">2026-02-18 09:20:15</div></div>
+      <div class="form-item full"><label>车间工艺备注</label><textarea>复二4组条染普通毛专线路线；换批时清槽防混色，复精梳加油水按1.2%控制，细纱按进口紧密纺机型执行。</textarea></div>
+    </div>
+
+    <div class="sub-tbl-title">一级：工序列表</div>
+    <div class="btn-group" style="margin-top:0">
+        <button class="btn primary mini" onclick="t('已新增工序行，请选择工序','ok')">新增工序</button>
+        <button class="btn mini" onclick="if(confirm('工序顺序影响车间工序链，确认上移？'))t('工序已上移','ok')">上移</button>
+        <button class="btn mini" onclick="if(confirm('确认下移？'))t('工序已下移','ok')">下移</button>
+        <button class="btn mini" onclick="if(confirm('删除选中工序及其下机型/工艺项，确认？'))t('工序已删除','ok')">删除工序</button>
+    </div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>工序名称<span class="req">*</span></th><th>排序</th><th>是否投料</th><th>是否报产</th><th>了批</th><th>机型数</th><th>是否启用</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr><td class="ck"><input type="checkbox"></td><td>1</td><td>混条(一)</td><td>10</td><td>是</td><td>是</td><td><span class="tag green">是</span></td><td>1</td><td><span class="tag green">启用</span></td><td>加油水1.2%</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>2</td><td>复精梳</td><td>20</td><td>是</td><td>是</td><td><span class="tag green">是</span></td><td>1</td><td><span class="tag green">启用</span></td><td>条染复精梳</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>3</td><td>头针</td><td>30</td><td>否</td><td>是</td><td><span class="tag gray">否</span></td><td>1</td><td><span class="tag green">启用</span></td><td>—</td></tr>
+        <tr style="background:#ecf5ff"><td class="ck"><input type="checkbox" checked></td><td>4</td><td>细纱</td><td>40</td><td>否</td><td>是</td><td><span class="tag green">是</span></td><td>2</td><td><span class="tag green">启用</span></td><td>当前选中工序</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>5</td><td>络筒</td><td>50</td><td>否</td><td>否</td><td><span class="tag gray">否</span></td><td>1</td><td><span class="tag green">启用</span></td><td>筒贴RWS标识</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sub-tbl-title">二级：机型列表（选中工序：细纱）</div>
+    <div class="btn-group" style="margin-top:0">
+      <button class="btn primary mini" onclick="t('已新增机型行（车间工艺按「工序+机型」两级组织工艺项）','ok')">新增机型</button>
+      <button class="btn mini" onclick="if(confirm('删除选中机型及其工艺项，确认？'))t('机型已删除','ok')">删除</button>
+    </div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>机型名称<span class="req">*</span></th><th>排产占比</th><th>锭数</th><th>是否默认</th><th>是否启用</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr style="background:#ecf5ff"><td class="ck"><input type="checkbox" checked></td><td>1</td><td>进口紧密纺</td><td>70%</td><td>1200</td><td><span class="tag green">默认</span></td><td><span class="tag green">启用</span></td><td>当前选中机型</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>2</td><td>EJM128K细纱机</td><td>30%</td><td>1008</td><td><span class="tag gray">—</span></td><td><span class="tag green">启用</span></td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sub-tbl-title">三级：工艺项列表（选中机型：进口紧密纺）</div>
+    <div class="btn-group" style="margin-top:0">
+      <button class="btn primary mini" onclick="t('已新增工艺项行，请填写工艺项/工艺值/上下限','ok')">新增工艺项</button>
+      <button class="btn mini" onclick="if(confirm('删除选中工艺项，确认？'))t('工艺项已删除','ok')">删除</button>
+    </div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>工艺项名称<span class="req">*</span></th><th>标准值</th><th>上限</th><th>下限</th><th>单位</th><th>是否必填</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr><td class="ck"><input type="checkbox" checked></td><td>1</td><td>牵伸倍数</td><td>18.5</td><td>19.0</td><td>18.0</td><td>倍</td><td><span class="tag green">是</span></td><td>—</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>2</td><td>锭速</td><td>11000</td><td>11500</td><td>10500</td><td>rpm</td><td><span class="tag green">是</span></td><td>—</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>3</td><td>捻度</td><td>620</td><td>630</td><td>610</td><td>T/m</td><td><span class="tag green">是</span></td><td>Z捻</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>4</td><td>超喂</td><td>1.06</td><td>1.08</td><td>1.04</td><td>—</td><td><span class="tag gray">否</span></td><td>—</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>5</td><td>成形重量</td><td>1.25</td><td>1.30</td><td>1.20</td><td>KG/管</td><td><span class="tag gray">否</span></td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+function t(msg,ok){
+  var d=document.createElement('div');
+  d.textContent=msg;
+  d.style.cssText='position:fixed;top:18px;right:18px;z-index:99;padding:10px 16px;border-radius:4px;font-size:13px;background:'+(ok?'#f0f9eb;border:1px solid #e1f3d8;color:#67c23a':'#fdf6ec;border:1px solid #faecd8;color:#e6a23c');
+  document.body.appendChild(d);
+  setTimeout(function(){d.remove()},2600);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>用户/角色/组织</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="card" style="margin-bottom:12px">
+    <div class="search-bar">
+      <div class="search-item"><label>用户名</label><input class="ipt" placeholder="admin"></div>
+      <div class="search-item"><label>姓名</label><input class="ipt" placeholder="张涛"></div>
+      <div class="search-item"><label>所属组织</label><select class="ipt"><option>全部</option><option selected>信息部</option><option>纺四车间</option><option>质检五组</option></select></div>
+      <div class="search-item"><label>状态</label><select class="ipt"><option>全部</option><option selected>启用</option><option>停用</option></select></div>
+      <button class="btn primary">搜索</button><button class="btn">重置</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="sec-title mt0">用户</div>
+    <div class="btn-group"><button class="btn primary">新增</button><button class="btn">删除</button><button class="btn">重置密码</button><button class="btn warn">解锁</button></div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>用户名</th><th>姓名</th><th>工号</th><th>所属组织</th><th>角色</th><th>手机号</th><th>状态</th><th>最后登录</th><th>操作</th></tr></thead>
+      <tbody>
+        <tr><td class="ck"><input type="checkbox" checked></td><td>1</td><td><a href="#">admin</a></td><td>系统管理员</td><td>—</td><td>信息部</td><td><span class="tag blue">超级管理员</span></td><td>—</td><td><span class="tag green">启用</span></td><td>2026-09-29 08:01:12</td><td class="op"><a href="#">编辑</a><a href="#">分配角色</a></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>2</td><td><a href="#">zhangtao</a></td><td>张涛</td><td>011365</td><td>信息部</td><td><span class="tag">系统管理员</span></td><td>138****2356</td><td><span class="tag green">启用</span></td><td>2026-09-29 07:55:40</td><td class="op"><a href="#">编辑</a><a href="#">分配角色</a></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>3</td><td><a href="#">xuhaitao</a></td><td>徐海涛</td><td>FS004-0012</td><td>纺四车间</td><td><span class="tag">设备管理员</span></td><td>139****8821</td><td><span class="tag green">启用</span></td><td>2026-09-28 16:42:05</td><td class="op"><a href="#">编辑</a><a href="#">分配角色</a></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>4</td><td><a href="#">chenjianguo</a></td><td>陈建国</td><td>ZJ005-0008</td><td>质检五组</td><td><span class="tag">包装操作工</span></td><td>137****4463</td><td><span class="tag green">启用</span></td><td>2026-09-29 08:12:33</td><td class="op"><a href="#">编辑</a><a href="#">分配角色</a></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>5</td><td><a href="#">wangjian</a></td><td>王建</td><td>FS012-0102</td><td>纺十二车间</td><td><span class="tag">工艺员</span></td><td>136****9017</td><td><span class="tag gray">停用</span></td><td>2026-08-30 09:18:44</td><td class="op"><a href="#">编辑</a><a href="#">分配角色</a></td></tr>
+      </tbody>
+    </table>
+    <div class="pager">共 86 条 <select><option>50条/页</option></select> <span class="pno">‹</span><span class="pno on">1</span><span class="pno">2</span><span class="pno">›</span></div>
+  </div>
+  <div class="card">
+    <div class="sec-title">角色</div>
+    <div class="btn-group"><button class="btn primary">新增</button><button class="btn">删除</button><button class="btn">分配权限</button></div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>角色名称</th><th>角色编码</th><th>用户数</th><th>备注</th><th>状态</th></tr></thead>
+      <tbody>
+        <tr><td class="ck"><input type="checkbox" checked></td><td>1</td><td><a href="#">超级管理员</a></td><td>ROLE_ADMIN</td><td>1</td><td>全部权限</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>2</td><td><a href="#">系统管理员</a></td><td>ROLE_SYS</td><td>3</td><td>系统管理+基础信息</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>3</td><td><a href="#">工艺员</a></td><td>ROLE_CRAFT</td><td>12</td><td>工艺管理</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>4</td><td><a href="#">调度员</a></td><td>ROLE_SCHED</td><td>8</td><td>排程/制造卡</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>5</td><td><a href="#">包装操作工</a></td><td>ROLE_PACK</td><td>36</td><td>包装执行(含PDA)</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>6</td><td><a href="#">质检员</a></td><td>ROLE_QC</td><td>15</td><td>质检管理</td><td><span class="tag green">启用</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <div class="sec-title">组织</div>
+    <div class="btn-group"><button class="btn primary">新增</button><button class="btn">删除</button></div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>组织名称</th><th>上级组织</th><th>组织类型</th><th>排序</th><th>状态</th></tr></thead>
+      <tbody>
+        <tr><td class="ck"><input type="checkbox" checked></td><td>1</td><td><a href="#">新澳纺织</a></td><td>—</td><td>集团</td><td>1</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>2</td><td><a href="#">信息部</a></td><td>新澳纺织</td><td>职能部门</td><td>2</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>3</td><td><a href="#">纺纱事业部</a></td><td>新澳纺织</td><td>事业部</td><td>3</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>4</td><td><a href="#">纺四车间</a></td><td>纺纱事业部</td><td>车间</td><td>4</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>5</td><td><a href="#">质检五组</a></td><td>纺纱事业部</td><td>班组</td><td>5</td><td><span class="tag green">启用</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

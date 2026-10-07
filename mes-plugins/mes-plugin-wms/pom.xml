@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.xinao</groupId>
+        <artifactId>mes-plugins</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>mes-plugin-wms</artifactId>
+    <name>mes-plugin-wms</name>
+    <description>WMS 插件 V1：扁平 JSON 报文（模拟对接旧版 WMS HTTP 接口）</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.xinao</groupId>
+            <artifactId>mes-plugin-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+</project>

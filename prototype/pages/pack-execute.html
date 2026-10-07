@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>包装执行</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="card" style="margin-bottom:12px">
+    <div class="search-bar">
+      <div class="search-item"><label>创建时间</label><input class="ipt" type="date" value="2026-09-01"> ~ <input class="ipt" type="date" value="2026-09-29"></div>
+      <div class="search-item"><label>车间</label><select class="ipt"><option>全部</option><option selected>质检五组</option><option>质检四组</option></select></div>
+      <div class="search-item"><label>编号</label><input class="ipt" placeholder="PC2606929174"></div>
+      <div class="search-item"><label>批号</label><input class="ipt" placeholder="XJP2610456-12"></div>
+      <div class="search-item"><label>缸号</label><input class="ipt" placeholder="260928B0612"></div>
+      <button class="btn primary">查询</button><button class="btn">重置</button>
+    </div>
+  </div>
+  <div class="card">
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>编号</th><th>包装车间</th><th>批号</th><th>缸号</th><th>是否了包</th><th>公重总和</th><th>毛重总和</th><th>净重总和</th><th>筒子数总和</th><th>包装箱数</th><th>创建时间</th><th>操作</th></tr></thead>
+      <tbody>
+        <tr ondblclick="location.href='pack-execute-edit.html'" style="cursor:pointer"><td class="ck"><input type="checkbox" checked></td><td>1</td><td><a href="pack-execute-edit.html">PC2606929174</a></td><td>质检五组</td><td>XJP2610456-12</td><td>260928B0612</td><td><span class="tag blue">是</span></td><td>25.6</td><td>35.16</td><td>25.12</td><td>104</td><td>4</td><td>2026-09-28 14:22:08</td><td class="op"><a href="pack-execute-edit.html">编辑</a></td></tr>
+        <tr ondblclick="location.href='pack-execute-edit.html'" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>2</td><td><a href="pack-execute-edit.html">PC2606929163</a></td><td>质检五组</td><td>XP2610151-4</td><td>260923B0612</td><td><span class="tag gray">否</span></td><td>18.2</td><td>25.08</td><td>17.86</td><td>72</td><td>3</td><td>2026-09-28 10:15:42</td><td class="op"><a href="pack-execute-edit.html">编辑</a></td></tr>
+        <tr ondblclick="location.href='pack-execute-edit.html'" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>3</td><td><a href="pack-execute-edit.html">PC2606929102</a></td><td>质检四组</td><td>RJ2601001-15</td><td>260921C0726</td><td><span class="tag blue">是</span></td><td>31.8</td><td>43.62</td><td>31.19</td><td>130</td><td>5</td><td>2026-09-27 16:48:30</td><td class="op"><a href="pack-execute-edit.html">编辑</a></td></tr>
+      </tbody>
+    </table>
+    <div class="pager">共 45 条 <select><option>50条/页</option></select> <span class="pno">‹</span><span class="pno on">1</span><span class="pno">›</span></div>
+  </div>
+</div>
+</body>
+</html>

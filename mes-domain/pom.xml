@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.xinao</groupId>
+        <artifactId>mes-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>mes-domain</artifactId>
+    <name>mes-domain</name>
+    <description>DDD 稳定域：system(M0) / plan / produce / pack / qc（M2 起逐域落地）</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.xinao</groupId>
+            <artifactId>mes-common</artifactId>
+        </dependency>
+        <!-- plan 域应用服务编排：编码取号 / 状态机 / 领域事件（M2 起） -->
+        <dependency>
+            <groupId>com.xinao</groupId>
+            <artifactId>mes-engine</artifactId>
+        </dependency>
+        <!-- M5 集成收口：插件 SPI 契约与加载器（k3/wms/printer/scale/pda 编排） -->
+        <dependency>
+            <groupId>com.xinao</groupId>
+            <artifactId>mes-plugin-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!-- 单测 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

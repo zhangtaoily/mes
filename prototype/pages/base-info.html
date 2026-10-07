@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>车间与班组</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="card" style="margin-bottom:12px">
+    <div class="search-bar">
+      <div class="search-item"><label>车间名称</label><input class="ipt" placeholder="纺四车间"></div>
+      <div class="search-item"><label>车间类型</label><select class="ipt"><option>全部</option><option selected>纺纱</option><option>复精梳</option><option>倒筒</option><option>包装质检</option></select></div>
+      <button class="btn primary">搜索</button><button class="btn">重置</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="sec-title mt0">车间</div>
+    <div class="btn-group"><button class="btn primary">新增</button><button class="btn">删除</button></div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>车间编码</th><th>车间名称</th><th>车间类型</th><th>K3车间ID</th><th>状态</th></tr></thead>
+      <tbody>
+        <tr><td class="ck"><input type="checkbox" checked></td><td>1</td><td>FS004</td><td><a href="#">纺四车间</a></td><td>纺纱</td><td>20003118</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>2</td><td>FS006</td><td><a href="#">纺六车间</a></td><td>纺纱</td><td>20003119</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>3</td><td>FS010</td><td><a href="#">纺十车间</a></td><td>纺纱</td><td>20003120</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>4</td><td>FS012</td><td><a href="#">纺十二车间</a></td><td>纺纱</td><td>20003121</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>5</td><td>FJ002</td><td><a href="#">总厂复精梳车间(二)</a></td><td>复精梳</td><td>20003105</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>6</td><td>DT001</td><td><a href="#">总厂倒筒车间</a></td><td>倒筒</td><td>20003108</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>7</td><td>ZJ005</td><td><a href="#">质检五组</a></td><td>包装质检</td><td>20003130</td><td><span class="tag green">启用</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <div class="sec-title">班组</div>
+    <div class="btn-group"><button class="btn primary">新增</button><button class="btn">删除</button></div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>班组名称</th><th>所属车间</th><th>班次</th><th>人数</th><th>状态</th></tr></thead>
+      <tbody>
+        <tr><td class="ck"><input type="checkbox" checked></td><td>1</td><td>甲班</td><td>纺十二车间</td><td>两班倒 08:00-16:30</td><td>86</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>2</td><td>乙班</td><td>纺十二车间</td><td>两班倒 16:30-01:00</td><td>82</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>3</td><td>丙班</td><td>纺十二车间</td><td>两班倒 01:00-08:00</td><td>80</td><td><span class="tag green">启用</span></td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>4</td><td>包装一班</td><td>质检五组</td><td>常日班 08:00-17:00</td><td>18</td><td><span class="tag green">启用</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

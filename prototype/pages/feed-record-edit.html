@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><title>投料记录编辑 - XINAO MES</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="sec-title">投料记录编辑</div>
+  <div class="card">
+    <div class="btn-group" style="margin-top:0">
+      <a class="btn" href="feed-record.html">← 返回</a>
+      <button class="btn primary" onclick="toast('投料记录 MF26092500006 保存成功','ok')">💾 保存</button>
+      <button class="btn" onclick="toast('保存成功，正在打开新增页…','ok');setTimeout(function(){toast('已进入新增投料记录','ok')},900)">＋ 保存并新增</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-item"><label>投料单号</label><div class="w"><input value="MF26092500006" readonly style="background:#f5f7fa"></div></div>
+      <div class="form-item"><label>生产任务</label><div class="w"><input value="PI26092800125"><span class="lookup" style="cursor:pointer" title="选择生产任务">🔍</span></div></div>
+      <div class="form-item"><label><span class="req">*</span>生产车间</label><div class="w"><select style="border:none;outline:none;flex:1"><option selected>总厂复精梳车间(一)</option><option>纺四车间</option><option>纺八车间</option></select></div></div>
+      <div class="form-item"><label><span class="req">*</span>工艺单车间</label><div class="w"><select style="border:none;outline:none;flex:1"><option selected>总厂复精梳车间(一)</option><option>纺四车间</option></select></div></div>
+      <div class="form-item"><label>班组</label><div class="w"><select style="border:none;outline:none;flex:1"><option>==请选择==</option><option>甲班</option><option>乙班</option></select></div></div>
+      <div class="form-item"><label>班次</label><div class="w"><select style="border:none;outline:none;flex:1"><option>==请选择==</option><option>早班</option><option>中班</option><option>晚班</option></select></div></div>
+      <div class="form-item"><label>批号</label><div class="w"><input value="F2609919"></div></div>
+      <div class="form-item full"><label>原料明细</label><div class="w"><input value="90s 防缩防蛀毛条(丝质子)" readonly style="background:#f5f7fa"></div></div>
+      <div class="form-item"><label><span class="req">*</span>投料量</label><div class="w"><input value="5480.2"></div></div>
+      <div class="form-item"><label><span class="req">*</span>投料日期</label><div class="w"><input value="2026-09-29 10:01:54"></div></div>
+      <div class="form-item"><label><span class="req">*</span>投料人</label><div class="w"><input value="沈圆圆"><span class="lookup" style="cursor:pointer" title="选择人员">🔍</span><span class="lookup" style="cursor:pointer" title="清空">🗑</span></div></div>
+      <div class="form-item"><label><span class="req">*</span>投料完毕</label><div class="w"><input type="checkbox" checked style="width:16px;height:16px"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="tabs"><div class="t on">投料明细</div></div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>原料批号</th><th>物料号</th><th>物料名称</th><th>物料规格</th><th>领料数量</th><th>本次投料量</th><th>已投料量</th></tr></thead>
+      <tbody>
+        <tr><td class="ck"><input type="checkbox" checked></td><td>1</td><td>2609FB1411-C</td><td>3.1.1.004.0141</td><td>本白阳离子防缩防蛀毛...</td><td>905</td><td>5480.2</td><td style="background:#fdf6ec">5480.2</td><td>5480.2</td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:12px;color:#909399;margin-top:8px">明细来自生产任务用料清单；「本次投料量」可改，投料完毕勾选后子批投料封账、不可再投</div>
+  </div>
+</div>
+<div id="toast" style="position:fixed;top:18px;right:18px;z-index:99;padding:10px 16px;border-radius:4px;font-size:13px;display:none;background:#f0f9eb;border:1px solid #e1f3d8;color:#67c23a"></div>
+<script>
+var tTimer;
+function toast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.style.display='block';
+  clearTimeout(tTimer);tTimer=setTimeout(function(){t.style.display='none'},2800);
+}
+</script>
+</body>
+</html>

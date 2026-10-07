@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>车间工艺库</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="card" style="margin-bottom:12px">
+    <div class="search-bar">
+      <div class="search-item"><label>车间名称</label><select class="ipt"><option>全部</option><option selected>总厂复精梳车间(二)</option></select></div>
+      <div class="search-item"><label>车间产线</label><select class="ipt"><option>全部</option><option selected>复二4组</option></select></div>
+      <div class="search-item"><label>原料明细</label><input class="ipt" placeholder="70%澳毛条"></div>
+      <button class="btn primary">搜索</button><button class="btn">更多</button><button class="btn">重置</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="btn-group">
+      <button class="btn primary" onclick="location.href='workshop-craft-ws-edit.html'">新增</button>
+      <button class="btn" onclick="op('删除',true,'删除后该车间工艺不可再被引用，确认删除？')">删除</button>
+      <button class="btn purple" onclick="op('复制工艺库',true,'将选中工艺库的全部工序/机型/工艺项复制为新方案（名称后缀\"-副本\"），确认复制？')">复制工艺库</button>
+      <button class="btn" onclick="if(confirm('按车间实际生产顺序刷新工序排列？'))toast('工序工艺排序已刷新','ok')">刷新工序工艺排序</button>
+      <button class="btn" onclick="if(op('打印预览',true,'按选中工艺库生成车间工艺卡预览（工序+机型+工艺项矩阵），确认打开？'))setTimeout(function(){window.print()},600)">打印预览</button>
+    </div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>车间工艺名称</th><th>生产车间</th><th>车间产线</th><th>原料明细</th><th>实纺支数</th><th>捻度</th><th>染色方式</th><th>工艺等级</th><th>是否启用</th><th>创建人</th><th>创建时间</th></tr></thead>
+      <tbody>
+        <tr ondblclick="location.href='workshop-craft-ws-edit.html'" style="cursor:pointer"><td class="ck"><input type="checkbox" checked></td><td>1</td><td><a href="workshop-craft-ws-edit.html">复二4组-普通毛(条染)</a></td><td>总厂复精梳车间(二)</td><td>复二4组</td><td>70%澳毛条 HY-M36334</td><td>2/60 NM</td><td>620T/m</td><td>条染</td><td>A级</td><td><span class="tag green">启用</span></td><td>张伟</td><td>2026-02-18 09:20:15</td></tr>
+        <tr ondblclick="location.href='workshop-craft-ws-edit.html'" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>2</td><td><a href="workshop-craft-ws-edit.html">复二3组-巴素兰(复精梳)</a></td><td>总厂复精梳车间(二)</td><td>复二3组</td><td>70%澳毛 30%尼龙</td><td>0/0 NM</td><td>—</td><td>条染</td><td>B级</td><td><span class="tag green">启用</span></td><td>张伟</td><td>2026-03-02 11:35:48</td></tr>
+        <tr ondblclick="location.href='workshop-craft-ws-edit.html'" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>3</td><td><a href="workshop-craft-ws-edit.html">纺四1路-超缩(胚纱)</a></td><td>纺四车间</td><td>纺四1路</td><td>100%羊毛条 W100</td><td>2/60 NM</td><td>680T/m</td><td>胚纱</td><td>B级</td><td><span class="tag green">启用</span></td><td>李强</td><td>2026-03-20 15:08:33</td></tr>
+        <tr ondblclick="location.href='workshop-craft-ws-edit.html'" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>4</td><td><a href="workshop-craft-ws-edit.html">纺十二1线-普通毛(纺纱)</a></td><td>纺十二车间</td><td>纺十二1线</td><td>70%澳毛条 HY-M36334</td><td>1/40 NM</td><td>540T/m</td><td>条染</td><td>A级</td><td><span class="tag green">启用</span></td><td>李强</td><td>2026-04-11 10:42:56</td></tr>
+      </tbody>
+    </table>
+    <div class="pager">共 52 条 <select><option>50条/页</option></select> <span class="pno">‹</span><span class="pno on">1</span><span class="pno">2</span><span class="pno">›</span></div>
+  </div>
+</div>
+<script>
+function toast(msg,ok){
+  var d=document.createElement('div');
+  d.textContent=msg;
+  d.style.cssText='position:fixed;top:18px;right:18px;z-index:99;padding:10px 16px;border-radius:4px;font-size:13px;background:'+(ok?'#f0f9eb;border:1px solid #e1f3d8;color:#67c23a':'#fef0f0;border:1px solid #fde2e2;color:#f56c6c');
+  document.body.appendChild(d);
+  setTimeout(function(){d.remove()},2600);
+}
+function op(act,needCk,msg){
+  var cks=document.querySelectorAll('tbody .ck input:checked');
+  if(needCk&&!cks.length){toast('请先勾选要'+act+'的工艺库');return false;}
+  if(confirm(msg)){
+    cks.forEach(function(c){
+      var tr=c.closest('tr');
+      if(act==='删除'){tr.remove();}
+      else if(act==='复制工艺库'){var nc=tr.cloneNode(true);tr.after(nc);toast('已复制为新方案「'+tr.cells[2].textContent+'-副本」（可双击进入编辑）','ok');}
+    });
+    if(act==='删除')toast('已删除 '+cks.length+' 条工艺库','ok');
+    else if(act==='打印预览'){toast('正在生成车间工艺卡预览…','ok');return true;}
+    return true;
+  }
+  return false;
+}
+</script>
+</body>
+</html>

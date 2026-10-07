@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>点检记录</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="card" style="margin-bottom:12px">
+    <div class="search-bar">
+      <div class="search-item"><label>生产车间</label><select class="ipt"><option>全部</option><option selected>纺四车间</option><option>纺六车间</option></select></div>
+      <div class="search-item"><label>点检计划</label><input class="ipt" placeholder="日常点检"></div>
+      <div class="search-item"><label>点检人员</label><input class="ipt" placeholder="吴建平"></div>
+      <div class="search-item"><label>点检日期</label><input class="ipt" type="date" value="2026-09-01"> ~ <input class="ipt" type="date" value="2026-09-29"></div>
+      <button class="btn primary">搜索</button><button class="btn">重置</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="btn-group"><button class="btn primary">新增</button><button class="btn danger">删除</button></div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>记录编码</th><th>车间</th><th>点检计划</th><th>点检人</th><th>点检日期</th><th>描述</th><th>创建人</th><th>创建时间</th></tr></thead>
+      <tbody>
+        <tr><td class="ck"><input type="checkbox" checked></td><td>1</td><td><a href="#">DJ-20260929-0036</a></td><td>纺四车间</td><td>细纱机日常点检</td><td>吴建平</td><td>2026-09-29</td><td>锭带张力正常，无异常</td><td>吴建平</td><td>2026-09-29 08:15:22</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>2</td><td><a href="#">DJ-20260929-0035</a></td><td>纺四车间</td><td>络筒机日常点检</td><td>吴建平</td><td>2026-09-29</td><td>3号槽筒有异响，已报修</td><td>吴建平</td><td>2026-09-29 08:02:18</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>3</td><td><a href="#">DJ-20260928-0031</a></td><td>纺六车间</td><td>倍捻机日常点检</td><td>郑国庆</td><td>2026-09-28</td><td>龙带跑偏，已调整</td><td>郑国庆</td><td>2026-09-28 07:55:40</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>4</td><td><a href="#">DJ-20260928-0030</a></td><td>纺六车间</td><td>细纱机日常点检</td><td>郑国庆</td><td>2026-09-28</td><td>一切正常</td><td>郑国庆</td><td>2026-09-28 07:40:05</td></tr>
+      </tbody>
+    </table>
+    <div class="pager">共 126 条 <select><option>50条/页</option></select> <span class="pno">‹</span><span class="pno on">1</span><span class="pno">2</span><span class="pno">3</span><span class="pno">›</span></div>
+  </div>
+</div>
+</body>
+</html>

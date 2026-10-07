@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.xinao</groupId>
+        <artifactId>mes-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>mes-plugins</artifactId>
+    <packaging>pom</packaging>
+    <name>mes-plugins</name>
+    <description>插件实现聚合：k3 / wms / printer / scale / pda（独立 jar，目录扫描加载，替换不重启核心）</description>
+
+    <modules>
+        <module>mes-plugin-k3</module>
+        <module>mes-plugin-wms</module>
+        <module>mes-plugin-wms-b</module>
+        <module>mes-plugin-printer</module>
+        <module>mes-plugin-scale</module>
+        <module>mes-plugin-pda</module>
+    </modules>
+</project>

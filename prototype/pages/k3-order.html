@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>K3订单查看</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.dot{display:inline-flex;width:16px;height:16px;border-radius:50%;align-items:center;justify-content:center;font-size:10px;color:#fff;vertical-align:-3px}
+.dot.ok{background:#67c23a}
+.dot.bad{background:#f56c6c}
+.ck-label{display:inline-flex;align-items:center;gap:4px;color:#606266;font-size:13px;cursor:pointer}
+</style></head>
+<body>
+<div class="page">
+  <div class="card">
+    <div class="search-bar">
+      <div class="search-item"><label>生产车间</label><select class="ipt"><option>--请选择--</option><option>倒毛车间</option><option>总厂精梳车间(一)</option><option>纺十车间</option><option>总厂倒筒车间</option></select></div>
+      <div class="search-item"><label>订单号</label><input class="ipt" placeholder="如 HCLD00466911"></div>
+      <div class="search-item"><label>批号</label><input class="ipt" placeholder="如 RBJP2606122"></div>
+      <div class="search-item" style="gap:4px"><label class="ck-label"><input type="checkbox"> 恢复删除</label><label class="ck-label"><input type="checkbox"> 引入量回刷</label></div>
+      <button class="btn primary">🔍 搜索</button><button class="btn">更多 ▾</button><button class="btn">↺ 重置</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <table class="tbl">
+      <thead><tr>
+        <th class="ck"><input type="checkbox"></th><th>序号</th><th>订单号</th><th>下单日期</th><th>类型</th><th>车间</th><th>生产线</th><th>批号</th><th>缸号</th><th>加急</th><th>删除</th><th>单位</th><th>数量</th><th>引入量</th><th>任务开始日期</th><th>任务结束日期</th><th>辅助属性</th>
+      </tr></thead>
+      <tbody>
+        <tr ondblclick="location.href='k3-order-view.html'" style="cursor:pointer;background:#fdf6ec"><td class="ck"><input type="checkbox" checked></td><td>1</td><td><a href="k3-order-view.html">HCLD00466911</a></td><td>2026-09-30</td><td><span class="tag blue">后处理</span></td><td>倒毛车间</td><td></td><td>RBJP2606122...</td><td>260929100...</td><td><span class="dot bad">✗</span></td><td><span class="dot bad">✗</span></td><td>KG</td><td>4.53</td><td></td><td>2026-09-30</td><td></td><td>90%防缩短毛条(阳离子)</td></tr>
+        <tr ondblclick="location.href='k3-order-view.html'" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>2</td><td><a href="k3-order-view.html">HCLD00466912</a></td><td>2026-09-30</td><td><span class="tag blue">后处理</span></td><td>倒毛车间</td><td></td><td>RL2507480-11</td><td>26092140...</td><td><span class="dot bad">✗</span></td><td><span class="dot bad">✗</span></td><td>KG</td><td>228</td><td></td><td></td><td></td><td>70% CASHFEEL</td></tr>
+        <tr ondblclick="location.href='k3-order-view.html'" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>3</td><td><a href="k3-order-view.html">HCLD00466909</a></td><td>2026-09-30</td><td><span class="tag blue">后处理</span></td><td>倒毛车间</td><td></td><td>RQIP2607729...</td><td>26092910...</td><td><span class="dot bad">✗</span></td><td><span class="dot bad">✗</span></td><td>KG</td><td>4.45</td><td></td><td>2026-09-30</td><td></td><td>110% LT防缩条(阳离子)</td></tr>
+        <tr ondblclick="location.href='k3-order-view.html'" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>4</td><td><a href="k3-order-view.html">FBDC772348</a></td><td>2026-09-29</td><td><span class="tag green">生产</span></td><td>总厂精梳车间(一)</td><td>精梳1线</td><td>26091340</td><td>-</td><td><span class="dot ok">✓</span></td><td><span class="dot bad">✗</span></td><td>KG</td><td>138.9</td><td>138.9</td><td>2026-10-09</td><td>2026-10-19</td><td>70%澳毛条 HY-M63634-中灰</td></tr>
+        <tr ondblclick="location.href='k3-order-view.html'" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>5</td><td><a href="k3-order-view.html">MO638057</a></td><td>2026-09-18</td><td><span class="tag green">生产</span></td><td>纺十车间</td><td>纺十2路</td><td>251013566</td><td>-</td><td><span class="dot ok">✓</span></td><td><span class="dot bad">✗</span></td><td>KG</td><td>368</td><td>368</td><td>2026-09-27</td><td>2026-10-08</td><td>70s防缩短毛条(阳离子)55%亚麻纱45%</td></tr>
+      </tbody>
+    </table>
+    <div class="pager">共 487,819 条 <select><option>50条/页</option><option>100条/页</option></select> <span class="pno">«</span><span class="pno">‹</span><span class="pno on">1</span><span class="pno">›</span><span class="pno">»</span></div>
+  </div>
+</div>
+<div id="toast" style="position:fixed;top:18px;right:18px;z-index:99;padding:10px 16px;border-radius:4px;font-size:13px;display:none;background:#f0f9eb;border:1px solid #e1f3d8;color:#67c23a"></div>
+<script>
+var tTimer;
+function toast(msg,err){
+  var t=document.getElementById('toast');
+  t.textContent=msg;
+  t.style.background=err?'#fef0f0':'#f0f9eb';
+  t.style.borderColor=err?'#fde2e2':'#e1f3d8';
+  t.style.color=err?'#f56c6c':'#67c23a';
+  t.style.display='block';
+  clearTimeout(tTimer);tTimer=setTimeout(function(){t.style.display='none'},2800);
+}
+/* K3订单查看为纯只读镜像；引入生成计划工艺单的入口在「工艺管理/计划工艺单」编辑页 */
+</script>
+</body>
+</html>

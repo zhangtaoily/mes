@@ -1,0 +1,52 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: xinao-mes
+  datasource:
+    # 开发环境数据库（与 xinao-crm 同一实例，MES 使用独立 mes 库）；部署时通过环境变量覆盖
+    url: ${MES_DB_URL:jdbc:mysql://192.168.0.75:3306/mes?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&autoReconnect=true&rewriteBatchedStatements=true}
+    username: ${MES_DB_USER:root}
+    password: ${MES_DB_PASSWORD:test123456}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: 0
+    encoding: UTF-8
+  data:
+    redis:
+      # 本机 Redis（redis/redis-server.exe，Windows 原生编译版 7.4.2）；远程环境通过环境变量覆盖
+      # 注意：192.168.0.91 为生产环境禁止使用；192.168.0.79 密码未知暂不可用
+      host: ${MES_REDIS_HOST:127.0.0.1}
+      port: ${MES_REDIS_PORT:6379}
+      password: ${MES_REDIS_PASSWORD:mes123456}
+      database: 0
+      timeout: 10s
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    banner: false
+
+mes:
+  jwt:
+    # 生产环境必须更换（HMAC-SHA256 要求 >= 32 字节）
+    secret: ${MES_JWT_SECRET:xinao-mes-dev-jwt-secret-0123456789abcdef}
+    expire-hours: 12
+  # 首次启动 admin 账号初始化密码（种子数据密码为占位值，启动时自动 BCrypt 回写）
+  init-password: ${MES_INIT_PASSWORD:admin@2026}
+  # M5 插件目录（相对工作目录；插件 jar 与 fat jar 分离，替换+reload 不重启核心）
+  plugins:
+    dir: ${MES_PLUGINS_DIR:plugins}
+
+logging:
+  level:
+    com.xinao.mes: debug
+    org.flywaydb: info

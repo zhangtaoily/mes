@@ -1,0 +1,109 @@
+/* 毛纺MES原型公共样式 - Element UI风格 */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif; font-size:13px; color:#303133; background:#f0f2f5; min-width:1100px; }
+a { text-decoration:none; color:#409eff; }
+::-webkit-scrollbar { width:8px; height:8px; }
+::-webkit-scrollbar-thumb { background:#c0c4cc; border-radius:4px; }
+
+/* ========== 布局 ========== */
+.page { padding:14px; }
+.card { background:#fff; border-radius:4px; padding:14px; box-shadow:0 1px 3px rgba(0,0,0,.06); margin-bottom:12px; }
+
+/* ========== 查询区 ========== */
+.search-bar { display:flex; flex-wrap:wrap; gap:10px 18px; margin-bottom:4px; align-items:center; }
+.search-item { display:flex; align-items:center; }
+.search-item label { color:#606266; margin-right:6px; white-space:nowrap; }
+input.ipt, select.ipt { height:30px; border:1px solid #dcdfe6; border-radius:3px; padding:0 8px; outline:none; font-size:13px; color:#606266; background:#fff; }
+input.ipt:focus, select.ipt:focus { border-color:#409eff; }
+input.ipt { width:160px; } select.ipt { width:170px; }
+
+/* ========== 按钮 ========== */
+.btn { display:inline-block; height:30px; line-height:28px; padding:0 14px; border:1px solid #dcdfe6; border-radius:3px; background:#fff; color:#606266; font-size:13px; cursor:pointer; white-space:nowrap; }
+.btn:hover { color:#409eff; border-color:#c6e2ff; background:#ecf5ff; }
+.btn.primary { background:#409eff; border-color:#409eff; color:#fff; }
+.btn.primary:hover { background:#66b1ff; }
+.btn.warn { background:#e6a23c; border-color:#e6a23c; color:#fff; }
+.btn.danger { background:#f56c6c; border-color:#f56c6c; color:#fff; }
+.btn.success { background:#67c23a; border-color:#67c23a; color:#fff; }
+.btn.mini { height:24px; line-height:22px; padding:0 8px; font-size:12px; }
+.btn.purple { background:#9b59b6; border-color:#9b59b6; color:#fff; }
+.btn-group { margin:10px 0; display:flex; gap:8px; flex-wrap:wrap; }
+
+/* ========== 表格 ========== */
+.tbl { width:100%; border-collapse:collapse; }
+.tbl th { background:#f5f7fa; color:#606266; font-weight:600; height:36px; border-bottom:1px solid #ebeef5; border-top:1px solid #ebeef5; padding:0 6px; white-space:nowrap; }
+.tbl td { height:36px; border-bottom:1px solid #ebeef5; padding:0 6px; color:#606266; white-space:nowrap; }
+.tbl tbody tr:hover { background:#f5f7fa; }
+.tbl .op a { margin:0 4px; font-size:12px; }
+.tbl .ck { width:36px; text-align:center; }
+
+/* ========== 标签/状态 ========== */
+.tag { display:inline-block; height:22px; line-height:20px; padding:0 8px; border-radius:3px; font-size:12px; border:1px solid; }
+.tag.blue { color:#409eff; background:#ecf5ff; border-color:#d9ecff; }
+.tag.green { color:#67c23a; background:#f0f9eb; border-color:#e1f3d8; }
+.tag.orange { color:#e6a23c; background:#fdf6ec; border-color:#faecd8; }
+.tag.red { color:#f56c6c; background:#fef0f0; border-color:#fde2e2; }
+.tag.gray { color:#909399; background:#f4f4f5; border-color:#e9e9eb; }
+.tag.purple { color:#9b59b6; background:#f4ecf7; border-color:#e8d5f0; }
+
+/* 批号标识色块 */
+.flag { display:inline-block; width:14px; height:14px; transform:rotate(45deg); margin-right:4px; vertical-align:-2px; border:1px solid rgba(0,0,0,.15); }
+.flag.purple { background:#9b59b6; } .flag.pink { background:#f78fb3; } .flag.blue { background:#4a90d9; }
+.flag.orange { background:#f39c12; } .flag.green { background:#2ecc71; } .flag.red { background:#e74c3c; }
+
+/* ========== 分页 ========== */
+.pager { display:flex; justify-content:flex-end; align-items:center; padding:12px 4px 2px; color:#606266; font-size:13px; gap:6px; }
+.pager .pno { min-width:28px; height:28px; line-height:26px; text-align:center; border:1px solid #dcdfe6; border-radius:3px; cursor:pointer; background:#fff; padding:0 6px; }
+.pager .pno.on { background:#409eff; color:#fff; border-color:#409eff; }
+.pager select { height:26px; border:1px solid #dcdfe6; border-radius:3px; }
+
+/* ========== Tab ========== */
+.tabs { display:flex; border-bottom:2px solid #e4e7ed; margin-bottom:14px; }
+.tabs .t { padding:0 20px; height:38px; line-height:38px; cursor:pointer; color:#606266; font-size:13px; border-bottom:2px solid transparent; margin-bottom:-2px; }
+.tabs .t:hover { color:#409eff; }
+.tabs .t.on { color:#409eff; border-bottom-color:#409eff; font-weight:600; }
+
+/* ========== 表单 ========== */
+.form-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px 20px; }
+.form-item label { display:block; color:#606266; margin-bottom:5px; }
+.form-item label .req { color:#f56c6c; margin-right:2px; }
+.form-item .w { height:30px; border:1px solid #dcdfe6; border-radius:3px; padding:0 8px; color:#606266; background:#fff; display:flex; align-items:center; justify-content:space-between; }
+.form-item .w input { border:none; outline:none; flex:1; font-size:13px; }
+.form-item .w .lookup { color:#c0c4cc; cursor:pointer; }
+.form-item textarea { width:100%; height:56px; border:1px solid #dcdfe6; border-radius:3px; padding:6px 8px; outline:none; resize:vertical; }
+.form-item.full { grid-column:1/-1; }
+.sec-title { font-size:14px; font-weight:600; color:#303133; margin:16px 0 10px; padding-left:8px; border-left:3px solid #409eff; }
+.sub-tbl-title { margin:10px 0 6px; font-weight:600; color:#303133; display:flex; align-items:center; gap:8px; }
+
+/* ========== 首页仪表盘 ========== */
+.dash-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:12px; }
+.dash-card { background:#fff; border-radius:5px; padding:18px; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+.dash-card .num { font-size:26px; font-weight:700; margin:6px 0 2px; }
+.dash-card .lbl { color:#909399; font-size:12px; }
+.dash-card .t { color:#606266; font-size:13px; font-weight:600; }
+.quick { display:grid; grid-template-columns:repeat(8,1fr); gap:10px; }
+.quick a { background:#fff; border-radius:5px; text-align:center; padding:14px 4px; color:#606266; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+.quick a:hover { color:#409eff; }
+.quick .qi { font-size:22px; margin-bottom:6px; display:block; }
+
+/* ========== 制造卡打印样式 ========== */
+.print-card { width:640px; margin:20px auto; background:#fff; padding:26px 30px; border:1px solid #dcdfe6; box-shadow:0 2px 8px rgba(0,0,0,.08); position:relative; }
+.print-card h2 { text-align:center; font-size:20px; letter-spacing:2px; margin-bottom:6px; }
+.print-card .meta { display:flex; justify-content:space-between; border-bottom:2px solid #303133; padding:6px 0; margin-bottom:10px; }
+.prow { display:flex; border-bottom:1px solid #ebeef5; }
+.prow .pl { width:100px; background:#f5f7fa; padding:7px 10px; color:#606266; border-right:1px solid #ebeef5; }
+.prow .pv { flex:1; padding:7px 10px; }
+.pgrid { display:grid; grid-template-columns:1fr 1fr; border-top:1px solid #ebeef5; }
+.pgrid .cell { border-bottom:1px solid #ebeef5; border-right:1px solid #ebeef5; padding:7px 10px; }
+.qr { position:absolute; right:26px; bottom:24px; width:82px; height:82px; border:1px solid #303133; display:flex; align-items:center; justify-content:center; font-size:10px; color:#909399; text-align:center; }
+
+/* 通用小工具 */
+.muted { color:#909399; } .mt0{margin-top:0} .mb0{margin-bottom:0}
+.flex { display:flex; align-items:center; gap:10px; }
+.right { text-align:right; }
+.dialog-mask { position:fixed; inset:0; background:rgba(0,0,0,.4); display:none; align-items:center; justify-content:center; z-index:99; }
+.dialog-mask.show { display:flex; }
+.dialog { background:#fff; border-radius:6px; width:560px; max-height:80vh; overflow:auto; }
+.dialog .dh { padding:14px 18px; border-bottom:1px solid #ebeef5; font-weight:600; display:flex; justify-content:space-between; }
+.dialog .db { padding:16px 18px; }
+.dialog .df { padding:10px 18px; border-top:1px solid #ebeef5; text-align:right; }

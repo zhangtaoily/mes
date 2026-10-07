@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>字典管理</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="card" style="margin-bottom:12px">
+    <div class="search-bar">
+      <div class="search-item"><label>字典名称</label><input class="ipt" placeholder="单据类型"></div>
+      <div class="search-item"><label>字典类型</label><select class="ipt"><option>全部</option><option selected>系统级</option><option>业务级</option></select></div>
+      <button class="btn primary">搜索</button><button class="btn">重置</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="btn-group"><button class="btn primary">新增</button><button class="btn">删除</button></div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>字典名称</th><th>字典编码</th><th>字典类型</th><th>描述</th><th>状态</th><th>更新时间</th></tr></thead>
+      <tbody>
+        <tr><td class="ck"><input type="checkbox" checked></td><td>1</td><td><a href="#">是否</a></td><td>sys_yes_no</td><td>系统级</td><td>通用布尔</td><td><span class="tag green">启用</span></td><td>2026-01-02 10:00:00</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>2</td><td><a href="#">单据状态</a></td><td>sys_doc_status</td><td>系统级</td><td>编制中/已提交/生效/已关闭</td><td><span class="tag green">启用</span></td><td>2026-01-02 10:00:00</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>3</td><td><a href="#">班次类型</a></td><td>biz_shift_type</td><td>业务级</td><td>常日班/两班倒/三班倒</td><td><span class="tag green">启用</span></td><td>2026-01-15 14:20:33</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>4</td><td><a href="#">产线变体</a></td><td>biz_line_variant</td><td>业务级</td><td>普通/复精梳/倒筒</td><td><span class="tag green">启用</span></td><td>2026-02-08 09:12:18</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>5</td><td><a href="#">计重方式</a></td><td>biz_weight_mode</td><td>业务级</td><td>实重/公定/标重</td><td><span class="tag green">启用</span></td><td>2026-02-20 16:35:42</td></tr>
+      </tbody>
+    </table>
+    <div class="pager">共 24 条 <select><option>50条/页</option></select> <span class="pno">‹</span><span class="pno on">1</span><span class="pno">›</span></div>
+    <div class="muted" style="padding:6px 2px">系统级字典（是否/状态等）与业务字典（班次/产线变体/计重方式等）统一管理；停机原因/疵纱分类等车间字典见 基础信息/字典</div>
+  </div>
+</div>
+</body>
+</html>

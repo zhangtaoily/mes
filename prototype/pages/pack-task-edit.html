@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>包装任务编辑</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="card">
+    <div class="btn-group" style="margin-top:0">
+      <a class="btn" href="pack-task.html">← 返回</a>
+      <button class="btn primary">保存</button>
+      <button class="btn success">执行</button>
+      <span style="border-left:1px solid #dcdfe6;margin:0 2px"></span>
+      <button class="btn purple">筒贴打印</button>
+      <button class="btn purple">箱单打印</button>
+      <button class="btn">打印预览</button>
+    </div>
+    <div class="sec-title" style="margin-top:0">包装任务编辑 - PS20260929092</div>
+    <div class="form-grid">
+      <div class="form-item"><label>任务编号</label><div class="w">PS20260929092</div></div>
+      <div class="form-item"><label>生产批号</label><div class="w"><input value="XP2610151-4"></div></div>
+      <div class="form-item"><label>生产订单号</label><div class="w"><input value="MO724249"></div></div>
+      <div class="form-item"><label>缸号</label><div class="w"><input value="260923B0612"></div></div>
+      <div class="form-item"><label>入库批号<span class="req">*</span></label><div class="w"><input value="2607933-4"></div></div>
+      <div class="form-item"><label>车间</label><div class="w"><select style="border:none;outline:none;flex:1;font-size:13px;color:#606266"><option selected>纺四车间</option><option>纺六车间</option><option>纺十车间</option></select></div></div>
+      <div class="form-item"><label>包装车间</label><div class="w"><select style="border:none;outline:none;flex:1;font-size:13px;color:#606266"><option selected>质检五组</option><option>质检四组</option></select></div></div>
+      <div class="form-item"><label>产品名称</label><div class="w"><input value="普通毛(条染)"></div></div>
+      <div class="form-item"><label>产品英文名</label><div class="w"><input value="WOOL TOP DYED"></div></div>
+      <div class="form-item"><label>原料明细</label><div class="w"><input value="70%澳毛条 HY-M36334"></div></div>
+      <div class="form-item"><label>色号</label><div class="w"><input value="HY-M36334"></div></div>
+      <div class="form-item"><label>产品规格</label><div class="w"><input value="1/72 NM"></div></div>
+      <div class="form-item"><label>客户</label><div class="w"><input value="浙江新澳纺织股份有限公司"></div></div>
+      <div class="form-item"><label>销售部门</label><div class="w"><input value="内销一部"></div></div>
+      <div class="form-item"><label>销售员</label><div class="w"><input value="王芳"></div></div>
+      <div class="form-item"><label>包装要求</label><div class="w"><select style="border:none;outline:none;flex:1;font-size:13px;color:#606266"><option selected>内销纸箱(标准)</option><option>内胆纸箱(实重)</option><option>外销纸箱</option></select></div></div>
+      <div class="form-item"><label>包装规格<span class="req">*</span></label><div class="w"><select style="border:none;outline:none;flex:1;font-size:13px;color:#606266"><option selected>620×420×580</option><option>580×400×560</option></select></div></div>
+      <div class="form-item"><label>箱单份数</label><div class="w"><input value="1"></div></div>
+      <div class="form-item"><label>交期</label><div class="w"><input type="date" value="2026-10-12"></div></div>
+      <div class="form-item"><label>毛重</label><div class="w"><input value=""></div></div>
+      <div class="form-item"><label>打印模板名称</label><div class="w"><select style="border:none;outline:none;flex:1;font-size:13px;color:#606266"><option selected>标准带RWS认证(英文)</option><option>标准</option></select></div></div>
+      <div class="form-item"><label>交货方式</label><div class="w"><select style="border:none;outline:none;flex:1;font-size:13px;color:#606266"><option selected>简装交货</option><option>绞纱交货</option></select></div></div>
+      <div class="form-item"><label>计重方式<span class="req">*</span></label><div class="w"><select style="border:none;outline:none;flex:1;font-size:13px;color:#606266"><option selected>标重交货</option><option>实磅交货</option></select></div></div>
+      <div class="form-item"><label>是否绞纱<span class="req">*</span></label><div class="w"><input type="checkbox" style="margin:auto"></div></div>
+      <div class="form-item"><label>是否混纤<span class="req">*</span></label><div class="w"><input type="checkbox" style="margin:auto"></div></div>
+      <div class="form-item"><label>客户订单号</label><div class="w"><input value=""></div></div>
+      <div class="form-item"><label>客户批号</label><div class="w"><input value=""></div></div>
+      <div class="form-item"><label>筒子数/绞数<span class="req">*</span></label><div class="w"><input value="24"></div></div>
+      <div class="form-item"><label>纸管重量<span class="req">*</span></label><div class="w"><input value="0.046"></div></div>
+      <div class="form-item"><label>纸箱重量<span class="req">*</span></label><div class="w"><input value="1.8"></div></div>
+      <div class="form-item"><label>薄膜袋重量</label><div class="w"><input value=""></div></div>
+      <div class="form-item"><label>公定回潮(%)</label><div class="w"><input value="13.32"></div></div>
+      <div class="form-item"><label>实测回潮(%)</label><div class="w"><input value="12.88"></div></div>
+      <div class="form-item"><label>去毛重量</label><div class="w"><input value="0.1"></div></div>
+    </div>
+
+    <div class="sec-title">筒贴打印配置</div>
+    <div class="form-grid">
+      <div class="form-item"><label>打印模板</label><div class="w"><select style="border:none;outline:none;flex:1;font-size:13px;color:#606266"><option selected>筒贴-标准带RWS(英文)</option><option>筒贴-标准</option></select></div></div>
+      <div class="form-item"><label>纸张类型</label><div class="w"><select style="border:none;outline:none;flex:1;font-size:13px;color:#606266"><option selected>热敏纸76×36</option><option>铜版纸80×40</option></select></div></div>
+      <div class="form-item"><label>品名</label><div class="w"><input value="普通毛(条染)"></div></div>
+      <div class="form-item"><label>原料</label><div class="w"><input value="70%澳毛条 HY-M36334"></div></div>
+      <div class="form-item"><label>支数</label><div class="w"><input value="1/72 NM"></div></div>
+      <div class="form-item"><label>色号</label><div class="w"><input value="HY-M36334"></div></div>
+      <div class="form-item"><label>英文色号</label><div class="w"><input value="MID GREY"></div></div>
+      <div class="form-item"><label>筒贴打印Logo</label><div class="w"><input value="RWS认证标识"></div></div>
+      <div class="form-item"><label>是否同步</label><div class="w"><input type="checkbox" checked style="margin:auto"></div></div>
+      <div class="form-item"><label>打印备注</label><div class="w"><input value=""></div></div>
+      <div class="form-item"><label>打印参数</label><div class="w"><input value="副本1;浓度3"></div></div>
+    </div>
+
+    <div class="sec-title">箱单打印配置</div>
+    <div class="form-grid">
+      <div class="form-item"><label>打印模板</label><div class="w"><select style="border:none;outline:none;flex:1;font-size:13px;color:#606266"><option selected>箱单-标准带RWS(英文)</option><option>箱单-标准</option></select></div></div>
+      <div class="form-item"><label>标签品名</label><div class="w"><input value="普通毛(条染)"></div></div>
+      <div class="form-item"><label>标签原料</label><div class="w"><input value="70%澳毛条 HY-M36334"></div></div>
+      <div class="form-item"><label>标签规格</label><div class="w"><input value="1/72 NM"></div></div>
+      <div class="form-item"><label>标签颜色</label><div class="w"><input value="中灰"></div></div>
+      <div class="form-item"><label>英文标签颜色</label><div class="w"><input value="MID GREY"></div></div>
+      <div class="form-item"><label>打印回潮(%)</label><div class="w"><input value="13.32"></div></div>
+      <div class="form-item"><label>扎绞线颜色</label><div class="w"><select style="border:none;outline:none;flex:1;font-size:13px;color:#606266"><option selected>白色</option><option>红色</option><option>蓝色</option></select></div></div>
+      <div class="form-item"><label>箱单打印Logo</label><div class="w"><input value="RWS认证标识"></div></div>
+      <div class="form-item"><label>打印备注</label><div class="w"><input value=""></div></div>
+      <div class="form-item"><label>打印参数</label><div class="w"><input value="副本1;A4"></div></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

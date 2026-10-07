@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>公示检验报告</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="card" style="margin-bottom:12px">
+    <div class="search-bar">
+      <div class="search-item"><label>检验日期</label><input class="ipt" type="date" value="2026-09-01"> ~ <input class="ipt" type="date" value="2026-09-29"></div>
+      <div class="search-item"><label>车间</label><select class="ipt"><option>全部</option><option selected>纺四车间</option><option>纺六车间</option></select></div>
+      <div class="search-item"><label>取样批次</label><input class="ipt" placeholder="XP2610151-4"></div>
+      <button class="btn primary">搜索</button><button class="btn">重置</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="sec-title" style="margin-top:0">公示检验报告（只读，已提交审核的检验结果向车间公示）</div>
+    <table class="tbl">
+      <thead><tr><th>序号</th><th>质检单号</th><th>车间</th><th>质检类型</th><th>取样批次</th><th>检验日期</th><th>每米重量</th><th>不匀率</th><th>含油</th><th>回潮</th><th>结论</th><th>操作</th></tr></thead>
+      <tbody>
+        <tr ondblclick="location.href='qc-report-edit.html'" style="cursor:pointer"><td>1</td><td><a href="qc-report-edit.html">QC2026092901253</a></td><td>纺四车间</td><td><span class="tag green">成品检</span></td><td>XP2610151-4</td><td>2026-09-29</td><td>2.15</td><td>2.3%</td><td>0.8%</td><td>15.2%</td><td><span class="tag green">合格</span></td><td class="op"><a href="qc-report-edit.html">查看</a></td></tr>
+        <tr ondblclick="location.href='qc-report-edit.html'" style="cursor:pointer"><td>2</td><td><a href="qc-report-edit.html">QC2026092901240</a></td><td>总厂复精梳车间(二)</td><td><span class="tag orange">工序检</span></td><td>F2609906</td><td>2026-09-28</td><td>18.6</td><td>3.1%</td><td>0.9%</td><td>16.0%</td><td><span class="tag green">合格</span></td><td class="op"><a href="qc-report-edit.html">查看</a></td></tr>
+        <tr ondblclick="location.href='qc-report-edit.html'" style="cursor:pointer"><td>3</td><td><a href="qc-report-edit.html">QC2026092901238</a></td><td>纺十车间</td><td><span class="tag orange">工序检</span></td><td>26091341</td><td>2026-09-28</td><td>0.62</td><td>4.2%</td><td>—</td><td>—</td><td><span class="tag red">不合格</span></td><td class="op"><a href="qc-report-edit.html">查看</a></td></tr>
+      </tbody>
+    </table>
+    <div class="pager">共 29 条 <select><option>50条/页</option></select> <span class="pno">‹</span><span class="pno on">1</span><span class="pno">›</span></div>
+  </div>
+</div>
+</body>
+</html>

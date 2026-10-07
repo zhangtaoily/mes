@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>检验报告</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="card" style="margin-bottom:12px">
+    <div class="search-bar">
+      <div class="search-item"><label>检验日期</label><input class="ipt" type="date" value="2026-09-01"> ~ <input class="ipt" type="date" value="2026-09-29"></div>
+      <div class="search-item"><label>车间</label><select class="ipt"><option>全部</option><option selected>纺十二车间</option><option>纺四车间</option><option>总厂复精梳车间(二)</option><option>纺六车间</option></select></div>
+      <div class="search-item"><label>类型</label><select class="ipt"><option>全部</option><option selected>原料检</option><option>工序检</option><option>成品检</option></select></div>
+      <div class="search-item"><label>取样批次</label><input class="ipt" placeholder="XJP2610052"></div>
+      <div class="search-item"><label>质检单号</label><input class="ipt" placeholder="QC2026092901254"></div>
+      <button class="btn primary">搜索</button><button class="btn">重置</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="btn-group">
+      <button class="btn primary" onclick="location.href='qc-report-edit.html'">新增</button>
+      <button class="btn" onclick="t('请先勾选要删除的质检单（已审核报告不可删除）')">删除</button>
+      <button class="btn" onclick="if(!document.querySelectorAll('tbody .ck input:checked').length){t('请先勾选 1 条质检单');return;}if(confirm('复制选中质检单为新单（检验值清空，质检方案带出）？'))t('已复制新质检单 QC2026093001260','ok')">复制</button>
+    </div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>质检单号</th><th>车间</th><th>车间产线</th><th>质检类型</th><th>取样批次</th><th>检验日期</th><th>抽检序号</th><th>机台</th><th>班组名称</th><th>创建人</th><th>创建时间</th><th>操作</th></tr></thead>
+      <tbody>
+        <tr ondblclick="location.href='qc-report-edit.html'" style="cursor:pointer"><td class="ck"><input type="checkbox" checked></td><td>1</td><td><a href="qc-report-edit.html">QC2026092901254</a></td><td>纺十二车间</td><td>纺十二1线</td><td><span class="tag blue">原料检</span></td><td>XJP2610052</td><td>2026-09-29</td><td>1</td><td>混条一03</td><td>甲班</td><td>沈晓燕</td><td>2026-09-29 08:32:11</td><td class="op"><a href="qc-report-edit.html">编辑</a><a href="#" onclick="if(confirm('删除后检验数据不可恢复，确认？'))t('已删除','ok');return false">删除</a></td></tr>
+        <tr ondblclick="location.href='qc-report-edit.html'" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>2</td><td><a href="qc-report-edit.html">QC2026092901253</a></td><td>纺四车间</td><td>纺四1路</td><td><span class="tag green">成品检</span></td><td>XP2610151-4</td><td>2026-09-29</td><td>3</td><td>细纱05</td><td>乙班</td><td>沈晓燕</td><td>2026-09-29 08:10:45</td><td class="op"><a href="qc-report-edit.html">编辑</a><a href="#" onclick="if(confirm('删除后检验数据不可恢复，确认？'))t('已删除','ok');return false">删除</a></td></tr>
+        <tr ondblclick="location.href='qc-report-edit.html'" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>3</td><td><a href="qc-report-edit.html">QC2026092901240</a></td><td>总厂复精梳车间(二)</td><td>复二4组</td><td><span class="tag orange">工序检</span></td><td>F2609906</td><td>2026-09-28</td><td>2</td><td>后针一06</td><td>甲班</td><td>夏晓红</td><td>2026-09-28 15:42:03</td><td class="op"><a href="qc-report-edit.html">编辑</a><a href="#" onclick="if(confirm('删除后检验数据不可恢复，确认？'))t('已删除','ok');return false">删除</a></td></tr>
+        <tr ondblclick="location.href='qc-report-edit.html'" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>4</td><td><a href="qc-report-edit.html">QC2026092901238</a></td><td>纺十车间</td><td>纺十2路</td><td><span class="tag orange">工序检</span></td><td>26091341</td><td>2026-09-28</td><td>1</td><td>前针二11</td><td>丙班</td><td>沈晓燕</td><td>2026-09-28 10:05:19</td><td class="op"><a href="qc-report-edit.html">编辑</a><a href="#" onclick="if(confirm('删除后检验数据不可恢复，确认？'))t('已删除','ok');return false">删除</a></td></tr>
+        <tr ondblclick="location.href='qc-report-edit.html'" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>5</td><td><a href="qc-report-edit.html">QC2026092701199</a></td><td>纺六车间</td><td>纺六3路</td><td><span class="tag blue">原料检</span></td><td>F2609888</td><td>2026-09-27</td><td>1</td><td>混条一01</td><td>甲班</td><td>夏晓红</td><td>2026-09-27 09:18:37</td><td class="op"><a href="qc-report-edit.html">编辑</a><a href="#" onclick="if(confirm('删除后检验数据不可恢复，确认？'))t('已删除','ok');return false">删除</a></td></tr>
+      </tbody>
+    </table>
+    <div class="pager">共 86 条 <select><option>50条/页</option><option>20条/页</option></select> <span class="pno">‹</span><span class="pno on">1</span><span class="pno">2</span><span class="pno">›</span></div>
+  </div>
+</div>
+<script>
+function t(msg,ok){
+  var d=document.createElement('div');
+  d.textContent=msg;
+  d.style.cssText='position:fixed;top:18px;right:18px;z-index:99;padding:10px 16px;border-radius:4px;font-size:13px;background:'+(ok?'#f0f9eb;border:1px solid #e1f3d8;color:#67c23a':'#fef0f0;border:1px solid #fde2e2;color:#f56c6c');
+  document.body.appendChild(d);
+  setTimeout(function(){d.remove()},2600);
+}
+</script>
+</body>
+</html>

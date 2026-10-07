@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>计划工艺单编辑</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="sec-title">计划工艺单编辑 - JH2609280011</div>
+  <div class="card">
+    <div class="btn-group" style="margin-top:0">
+      <a class="btn" href="plan-craft.html">返回</a>
+      <button class="btn primary" onclick="edToast('JH2609280011 保存成功，单据保存为「编制中」草稿','ok')">保存</button>
+      <button class="btn success" onclick="saveAndContinue()">保存并继续</button>
+      <button class="btn" onclick="edConfirm('提交确认','确定提交 JH2609280011 吗？提交前请确认已保存，提交后单据锁定编辑，如需修改须先撤回。',function(){edToast('JH2609280011 提交成功，状态已更新为「已提交」','ok')})">提交</button>
+      <button class="btn" onclick="edConfirm('撤回确认','确定撤回 JH2609280011 吗？撤回后回到「编制中」可继续编辑。',function(){edToast('JH2609280011 已撤回至「编制中」','ok')})">撤回</button>
+      <button class="btn danger" onclick="edConfirm('删除确认','删除后不可恢复，确定删除 JH2609280011 吗？',function(){edToast('JH2609280011 已删除，即将返回列表','ok');setTimeout(function(){location.href='plan-craft.html'},1200)})">删除</button>
+      <button class="btn warn" onclick="edConfirm('生成排程','将按 JH2609280011 的工序路线（9 道工序）自动生成排程：系统自动分配机台、序号与计划起止时间，生成后可在「生产管理 → 生产排程」查看。',function(){sessionStorage.setItem('pc_generated',JSON.stringify({mode:'single',nos:['JH2609280011'],by:'当前用户',time:'2026-09-29 16:28:41',rows:[
+ {psc:'PSC260929000201',machine:'B412混条1',model:'B412混条机',proc:'混条(一)',ws:'纺十车间',batch:'J2609988-10',raw:'(细纱机纺纱)70s澳毛条',qty:376},
+ {psc:'PSC260929000202',machine:'GC40头针3',model:'GC40针梳机',proc:'头针',ws:'纺十车间',batch:'J2609988-10',raw:'(细纱机纺纱)70s澳毛条',qty:376},
+ {psc:'PSC260929000203',machine:'GC40二针5',model:'GC40针梳机',proc:'二针',ws:'纺十车间',batch:'J2609988-10',raw:'(细纱机纺纱)70s澳毛条',qty:376},
+ {psc:'PSC260929000204',machine:'GV11三针2',model:'GV11针梳机',proc:'三针',ws:'纺十车间',batch:'J2609988-10',raw:'(细纱机纺纱)70s澳毛条',qty:376},
+ {psc:'PSC260929000205',machine:'GV11四针1',model:'GV11针梳机',proc:'四针',ws:'纺十车间',batch:'J2609988-10',raw:'(细纱机纺纱)70s澳毛条',qty:376},
+ {psc:'PSC260929000206',machine:'F9粗纱1',model:'FA485粗纱机',proc:'粗纱',ws:'纺十车间',batch:'J2609988-10',raw:'(细纱机纺纱)70s澳毛条',qty:376},
+ {psc:'PSC260929000207',machine:'纺十细纱1',model:'DTM129细纱机',proc:'细纱',ws:'纺十车间',batch:'J2609988-10',raw:'(细纱机纺纱)70s澳毛条',qty:376},
+ {psc:'PSC260929000208',machine:'F10并线1',model:'SINCRO B306',proc:'并线',ws:'纺十车间',batch:'J2609988-10',raw:'(细纱机纺纱)70s澳毛条',qty:376},
+ {psc:'PSC260929000209',machine:'110倍捻12',model:'VTS-08倍捻机',proc:'倍捻',ws:'纺十车间',batch:'J2609988-10',raw:'(细纱机纺纱)70s澳毛条',qty:376}
+]}));edToast('已自动生成 9 条排程记录，正在跳转生产排程…','ok');setTimeout(function(){location.href='schedule.html'},1000)})">生成排程</button>
+      <button class="btn purple" onclick="edRefresh()">刷新排程</button>
+      <button class="btn" id="btnImportK3" onclick="toggleOrderPicker()" style="display:none">引入K3订单</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-item"><label>批号标识</label><div class="w"><span class="flag purple"></span>紫叶子<span class="lookup">✎</span></div></div>
+      <div class="form-item"><label><span class="req">*</span>生产批号</label><div class="w"><input id="pcBatch" value="J2609988-10"></div></div>
+      <div class="form-item"><label>原料明细</label><div class="w"><input id="pcRaw" value="(细纱机纺纱)70s澳毛条"></div></div>
+      <div class="form-item"><label>原料规格</label><div class="w"><input value="19.5MIC"></div></div>
+      <div class="form-item"><label>色号</label><div class="w"><input id="pcColor" value="杨柳马"></div></div>
+      <div class="form-item"><label>实纺支数</label><div class="w"><input value="1/40"></div></div>
+      <div class="form-item"><label>投料量</label><div class="w"><input id="pcFeed" value="396.68"></div></div>
+      <div class="form-item"><label>合并投料量</label><div class="w"><input value="394"></div></div>
+      <div class="form-item"><label>生产订单</label><div class="w"><input id="pcOrder" value="M0729515"><span class="lookup" style="cursor:pointer" onclick="toggleOrderPicker()" title="选择K3订单引入">🔍</span></div></div>
+      <div class="form-item"><label>车间</label><div class="w"><select id="pcWs" style="border:none;outline:none;flex:1"><option>纺十车间</option><option>纺四车间</option><option>总厂精梳车间(一)</option><option>倒毛车间</option></select></div></div>
+      <div class="form-item"><label>车间产线</label><div class="w"><select style="border:none;outline:none;flex:1"><option>纺十车间2路</option><option>纺十车间1路</option></select></div></div>
+      <div class="form-item"><label>下单日期</label><div class="w"><input type="date" id="pcDate" value="2026-09-16"></div></div>
+      <div class="form-item"><label>预计交期</label><div class="w"><input type="date" value="2026-10-15"></div></div>
+      <div class="form-item"><label>生产标识</label><div class="w"><input value="P26-0988"><span class="lookup">🔍</span></div></div>
+      <div class="form-item"><label><span class="req">*</span>计划产量</label><div class="w"><input id="pcQty" value="376"></div></div>
+    </div>
+
+    <!-- ══ 引入K3订单面板 ══ -->
+    <div id="orderPicker" style="display:none;border:1px solid #409eff;border-radius:6px;margin-top:10px;padding:14px;background:#f8fbff">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap">
+        <b style="font-size:13px;color:#303133">引入K3订单</b>
+        <input class="ipt" id="opKw" style="height:28px;border:1px solid #dcdfe6;border-radius:3px;padding:0 8px" placeholder="订单号 / 批号 搜索">
+        <button class="btn mini" onclick="filterOrders()">搜索</button>
+        <span style="font-size:12px;color:#909399">勾选 1 条订单引入，订单信息自动填充到本工艺单（生产批号/原料明细/色号/车间/数量等）</span>
+      </div>
+      <table class="tbl">
+        <thead><tr><th style="width:36px"></th><th>订单号</th><th>下单日期</th><th>类型</th><th>车间</th><th>批号</th><th>缸号</th><th>数量</th><th>辅助属性</th></tr></thead>
+        <tbody id="opTb"></tbody>
+      </table>
+      <div style="margin-top:10px;display:flex;gap:8px">
+        <button class="btn primary mini" id="opConfirm" onclick="pickOrder()" disabled>确认引入</button>
+        <button class="btn mini" onclick="toggleOrderPicker()">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="tabs" id="ptabs">
+      <div class="t on" onclick="pt(this,0)">订单明细</div>
+      <div class="t" onclick="pt(this,1)">用料汇总</div>
+      <div class="t" onclick="pt(this,2)">生产信息</div>
+      <div class="t" onclick="pt(this,3)">工序要求</div>
+      <div class="t" onclick="pt(this,4)">工序路线</div>
+      <div class="t" onclick="pt(this,5)">原料检验报告</div>
+      <div class="t" onclick="pt(this,6)">生产备注</div>
+    </div>
+
+    <!-- Tab0 订单明细 -->
+    <div id="p0">
+      <table class="tbl">
+        <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>类型</th><th>工序</th><th>排序</th><th>投料</th><th>报产</th><th>上下料</th><th>线边仓</th><th>物料单位</th><th>生产单位</th><th>计划产量</th><th>排程量</th><th>产出量</th><th>车间</th><th>了批</th><th>工序标识</th><th>机型</th></tr></thead>
+        <tbody>
+          <tr><td class="ck"><input type="checkbox"></td><td>1</td><td><span class="tag blue">主</span></td><td>混条(一)</td><td>10</td><td>是</td><td>是</td><td>是</td><td>是</td><td>KG</td><td>KG</td><td>396.68</td><td>396.68</td><td>388.5</td><td>纺十车间</td><td><span class="tag green">是</span></td><td>混条标识A</td><td>混条机</td></tr>
+          <tr><td class="ck"><input type="checkbox"></td><td>2</td><td><span class="tag blue">主</span></td><td>头针</td><td>20</td><td>否</td><td>是</td><td>是</td><td>是</td><td>KG</td><td>KG</td><td>392.0</td><td>392.0</td><td>386.1</td><td>纺十车间</td><td><span class="tag green">是</span></td><td>针梳标识B</td><td>GC15</td></tr>
+          <tr><td class="ck"><input type="checkbox"></td><td>3</td><td><span class="tag blue">主</span></td><td>粗纱</td><td>50</td><td>否</td><td>是</td><td>是</td><td>是</td><td>KG</td><td>KG</td><td>382.4</td><td>380.0</td><td>379.2</td><td>纺十车间</td><td><span class="tag green">是</span></td><td>浅三粗纱管</td><td>F9粗纱1</td></tr>
+          <tr><td class="ck"><input type="checkbox"></td><td>4</td><td><span class="tag blue">主</span></td><td>细纱</td><td>60</td><td>否</td><td>是</td><td>是</td><td>是</td><td>KG</td><td>KG</td><td>376.0</td><td>376.0</td><td>368.4</td><td>纺十车间</td><td><span class="tag gray">否</span></td><td>细纱标识C</td><td>进口紧密纺</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tab1 用料汇总 -->
+    <div id="p1" style="display:none">
+      <table class="tbl">
+        <thead><tr><th>序号</th><th>原料批号</th><th>原料名称</th><th>车间用料量</th><th>配料量</th><th>投料量</th><th>单位</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>F2609906</td><td>70s澳毛条</td><td>396.68</td><td>394.0</td><td>388.5</td><td>KG</td></tr>
+          <tr><td>2</td><td>F2609916</td><td>复精梳毛条</td><td>2.68</td><td>2.5</td><td>2.5</td><td>KG</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tab2 生产信息 -->
+    <div id="p2" style="display:none">
+      <div class="form-grid">
+        <div class="form-item"><label>产品编号</label><div class="w">5.1.2.004.099</div></div>
+        <div class="form-item"><label>产品名称</label><div class="w">超缩(胚纱)</div></div>
+        <div class="form-item"><label>打印缩写</label><div class="w">W100</div></div>
+        <div class="form-item"><label>产品英文名</label><div class="w">Superwash Wool Yarn</div></div>
+        <div class="form-item"><label>产品规格</label><div class="w">2/60 NM</div></div>
+        <div class="form-item"><label>辅助属性</label><div class="w">90%防缩短毛条(阳离子)</div></div>
+        <div class="form-item"><label>色号</label><div class="w">W100</div></div>
+        <div class="form-item"><label>纺纱支数</label><div class="w">2/60 NM</div></div>
+        <div class="form-item"><label>公司色号</label><div class="w">W100</div></div>
+        <div class="form-item"><label>条染打版色号</label><div class="w">-</div></div>
+        <div class="form-item"><label>绞纱打版色号</label><div class="w">-</div></div>
+        <div class="form-item"><label>实际支数</label><div class="w">2/60</div></div>
+        <div class="form-item"><label>复精梳批号</label><div class="w">F2609916</div></div>
+        <div class="form-item"><label>复精梳编号</label><div class="w">FX26091602</div></div>
+        <div class="form-item"><label>细纱支数</label><div class="w">1/60</div></div>
+        <div class="form-item"><label>单位</label><div class="w">KG</div></div>
+        <div class="form-item full"><label>英文打印</label><div class="w">100%superwash wool-17.5MIC</div></div>
+        <div class="form-item full"><label>中文打印</label><div class="w">100%90s防缩羊毛</div></div>
+        <div class="form-item"><label>用途</label><div class="w">横机</div></div>
+        <div class="form-item"><label>客户名称</label><div class="w">浙江新澳纺织股份有限公司</div></div>
+        <div class="form-item"><label>销售部门</label><div class="w">销售一部</div></div>
+        <div class="form-item"><label>销售员</label><div class="w">张丽</div></div>
+        <div class="form-item"><label>是否荧光</label><div class="w"><input type="checkbox"></div></div>
+        <div class="form-item"><label>股数/支数</label><div class="w">2/60</div></div>
+      </div>
+    </div>
+
+    <!-- Tab3 工序要求 -->
+    <div id="p3" style="display:none">
+      <div class="form-grid" style="grid-template-columns:1fr 1fr">
+        <div class="form-item"><label>特殊工艺要求</label><textarea>防缩处理批次，注意阳离子改性剂残留</textarea></div>
+        <div class="form-item"><label>计划工艺/纺纱要求</label><textarea>细纱牵伸倍数18.5，锭速11000rpm</textarea></div>
+        <div class="form-item"><label>技术工艺/纺纱要求</label><textarea>捻系数按105控制，捻向Z/S，蒸纱85℃×45min</textarea></div>
+        <div class="form-item"><label>工艺及倍捻要求</label><textarea>倍捻捻度620T/m，超喂1.06</textarea></div>
+        <div class="form-item"><label>成品要求</label><textarea>成品条干CV%≤16.5，千米疵点≤20</textarea></div>
+        <div class="form-item"><label>标签打印要求</label><textarea>筒贴含RWS认证标识，英文版</textarea></div>
+        <div class="form-item"><label>包装要求</label><textarea>内销纸箱(标准)，每箱24筒</textarea></div>
+        <div class="form-item"><label>前纺备注</label><textarea>混条加油水按1.2%控制</textarea></div>
+        <div class="form-item"><label>翻槽纺纱备注</label><textarea>换批时清槽，防止混批</textarea></div>
+        <div class="form-item"><label>后纺备注</label><textarea>络筒车速900m/min，张力7cN</textarea></div>
+      </div>
+    </div>
+
+    <!-- Tab4 工序路线 -->
+    <div id="p4" style="display:none">
+      <div class="btn-group">
+        <button class="btn primary mini">新增工序</button>
+        <button class="btn mini">工艺配置</button>
+        <button class="btn mini">上移</button>
+        <button class="btn mini">下移</button>
+        <button class="btn success mini" id="btnCraft" onclick="toggleCraft()">编制工艺单</button>
+        <button class="btn mini">删除工序</button>
+        <button class="btn mini">选择工序标识</button>
+        <span id="craftBadge" style="margin-left:8px;font-size:12px;color:#909399;align-self:center"></span>
+      </div>
+
+      <!-- ══ 工艺编制区（点击「编制工艺单」展开） ══ -->
+      <div id="craftPanel" style="display:none;border:1px solid #409eff;border-radius:6px;margin:10px 0;padding:14px;background:#f8fbff">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap">
+          <b style="font-size:13px;color:#303133">工艺编制</b>
+          <span style="font-size:12px;color:#909399">按「工序 + 机型」从车间工艺库自动带出工艺项参数，可编辑后保存</span>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+            <span id="craftProg" style="font-size:12px;color:#409eff;font-weight:600">已编制 0/10</span>
+            <div style="width:120px;height:6px;background:#d9ecff;border-radius:3px"><div id="craftProgFill" style="height:6px;background:#409eff;border-radius:3px;width:0;transition:width .3s"></div></div>
+          </div>
+        </div>
+        <div id="craftChips" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px"></div>
+        <table class="tbl">
+          <thead><tr><th>序号</th><th>工艺项</th><th>工艺值</th><th>下限</th><th>上限</th><th>单位</th></tr></thead>
+          <tbody id="craftTb"></tbody>
+        </table>
+        <div style="margin-top:10px;display:flex;gap:8px">
+          <button class="btn mini" id="craftPrev" onclick="craftStep(-1)">← 上一工序</button>
+          <button class="btn primary mini" id="craftNext" onclick="craftStep(1)">保存本工序工艺，下一工序 →</button>
+          <button class="btn warn mini" onclick="craftAutoAll()">全部带出（按工艺库默认值）</button>
+          <button class="btn success mini" id="craftDone" style="display:none" onclick="craftFinish()">完成编制</button>
+          <span id="craftCur" style="align-self:center;font-size:12px;color:#606266"></span>
+        </div>
+      </div>
+
+      <table class="tbl">
+        <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>类型</th><th>工序</th><th>排序</th><th>投料</th><th>报产</th><th>上下料</th><th>线边仓</th><th>物料单位</th><th>生产单位</th><th>计划产量</th><th>排程量</th><th>产出量</th><th>车间</th><th>了批</th><th>工序标识</th><th>机型</th></tr></thead>
+        <tbody>
+          <tr><td class="ck"><input type="checkbox"></td><td>1</td><td><span class="tag blue">主</span></td><td>混条(一)</td><td>10</td><td>是</td><td>是</td><td>是</td><td>是</td><td>KG</td><td>KG</td><td>396.68</td><td>396.68</td><td>0</td><td>纺十车间</td><td><span class="tag gray">否</span></td><td>混条标识A</td><td>混条机</td></tr>
+          <tr><td class="ck"><input type="checkbox"></td><td>2</td><td><span class="tag blue">主</span></td><td>头针</td><td>20</td><td>否</td><td>是</td><td>是</td><td>是</td><td>KG</td><td>KG</td><td>392.0</td><td>0</td><td>0</td><td>纺十车间</td><td><span class="tag gray">否</span></td><td>针梳标识B</td><td>GC15</td></tr>
+          <tr><td class="ck"><input type="checkbox"></td><td>3</td><td><span class="tag blue">主</span></td><td>二针</td><td>30</td><td>否</td><td>是</td><td>是</td><td>是</td><td>KG</td><td>KG</td><td>388.0</td><td>0</td><td>0</td><td>纺十车间</td><td><span class="tag gray">否</span></td><td>针梳标识B</td><td>GC15</td></tr>
+          <tr><td class="ck"><input type="checkbox"></td><td>4</td><td><span class="tag blue">主</span></td><td>三针</td><td>40</td><td>否</td><td>是</td><td>是</td><td>是</td><td>KG</td><td>KG</td><td>385.0</td><td>0</td><td>0</td><td>纺十车间</td><td><span class="tag gray">否</span></td><td>针梳标识C</td><td>GC30</td></tr>
+          <tr><td class="ck"><input type="checkbox"></td><td>5</td><td><span class="tag blue">主</span></td><td>四针</td><td>45</td><td>否</td><td>是</td><td>是</td><td>是</td><td>KG</td><td>KG</td><td>383.5</td><td>0</td><td>0</td><td>纺十车间</td><td><span class="tag gray">否</span></td><td>针梳标识D</td><td>GC30</td></tr>
+          <tr><td class="ck"><input type="checkbox"></td><td>6</td><td><span class="tag blue">主</span></td><td>粗纱</td><td>50</td><td>否</td><td>是</td><td>是</td><td>是</td><td>KG</td><td>KG</td><td>382.4</td><td>0</td><td>0</td><td>纺十车间</td><td><span class="tag gray">否</span></td><td>浅三粗纱管</td><td>F9粗纱1</td></tr>
+          <tr><td class="ck"><input type="checkbox"></td><td>7</td><td><span class="tag blue">主</span></td><td>细纱</td><td>60</td><td>否</td><td>是</td><td>是</td><td>是</td><td>KG</td><td>KG</td><td>376.0</td><td>0</td><td>0</td><td>纺十车间</td><td><span class="tag gray">否</span></td><td>细纱标识C</td><td>进口紧密纺</td></tr>
+          <tr><td class="ck"><input type="checkbox"></td><td>8</td><td><span class="tag blue">主</span></td><td>并线</td><td>70</td><td>否</td><td>是</td><td>是</td><td>是</td><td>KG</td><td>KG</td><td>375.0</td><td>0</td><td>0</td><td>纺十车间</td><td><span class="tag gray">否</span></td><td>并线标识E</td><td>SINCRO B 306</td></tr>
+          <tr><td class="ck"><input type="checkbox"></td><td>9</td><td><span class="tag blue">主</span></td><td>倍捻</td><td>80</td><td>否</td><td>是</td><td>是</td><td>是</td><td>KG</td><td>KG</td><td>373.0</td><td>0</td><td>0</td><td>纺十车间</td><td><span class="tag gray">否</span></td><td>倍捻标识F</td><td>VTS-08</td></tr>
+          <tr><td class="ck"><input type="checkbox"></td><td>10</td><td><span class="tag blue">主</span></td><td>摇绞</td><td>90</td><td>否</td><td>是</td><td>是</td><td>是</td><td>KG</td><td>KG</td><td>372.0</td><td>0</td><td>0</td><td>纺十车间</td><td><span class="tag gray">否</span></td><td>摇绞标识G</td><td>摇绞机</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tab5 原料检验报告 -->
+    <div id="p5" style="display:none">
+      <table class="tbl">
+        <thead><tr><th>取样批次</th><th>取样产品</th><th>备注</th><th>每米重量</th><th>不匀率</th><th>毛粒50克</th><th>杂质/毛屑不清</th><th>回潮</th><th>毛片</th><th>异色毛</th><th>异纤</th><th>毛粒大</th><th>毛粒中</th><th>毛粒小</th><th>含油</th><th>草屑50克</th><th>长度</th><th>离散</th></tr></thead>
+        <tbody>
+          <tr><td>F2609906-01</td><td>70s澳毛条</td><td>合格</td><td>19.2</td><td>3.8</td><td>2.4</td><td>无</td><td>16.2</td><td>0.5</td><td>0</td><td>0</td><td>0</td><td>1</td><td>3</td><td>0.53</td><td>1.2</td><td>86.5</td><td>36.2</td></tr>
+          <tr><td>F2609906-02</td><td>70s澳毛条</td><td>合格</td><td>19.0</td><td>3.5</td><td>2.1</td><td>无</td><td>15.8</td><td>0.4</td><td>0</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0.56</td><td>1.0</td><td>87.1</td><td>35.8</td></tr>
+          <tr><td>F2609916-01</td><td>复精梳毛条</td><td>复精梳</td><td>18.8</td><td>4.2</td><td>3.0</td><td>轻微</td><td>16.5</td><td>0.6</td><td>0</td><td>0</td><td>0</td><td>1</td><td>4</td><td>0.83</td><td>1.5</td><td>85.9</td><td>37.0</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tab6 生产备注 -->
+    <div id="p6" style="display:none">
+      <div class="form-item full"><label>生产备注</label><textarea style="height:120px">本批为阳离子防缩处理批次，前纺各工序注意与常规批次隔离；换批时须清机防混色。客户浙澳订单优先排产，预计交期2026-10-15，了批后及时通知质检取样。</textarea></div>
+    </div>
+  </div>
+</div>
+<script>
+function pt(el,i){document.querySelectorAll('#ptabs .t').forEach(t=>t.classList.remove('on'));el.classList.add('on');for(let k=0;k<7;k++)document.getElementById('p'+k).style.display=k===i?'':'none';}
+
+/* ---------- 保存并继续：保存 → 激活工序路线 Tab ---------- */
+function saveAndContinue(){
+  edToast('JH2609280011 保存成功，已切换到「工序路线」，请继续编制工艺单','ok');
+  var tabs=document.querySelectorAll('#ptabs .t');
+  pt(tabs[4],4);
+  var p4=document.getElementById('p4');
+  p4.style.boxShadow='0 0 0 2px #409eff';
+  setTimeout(function(){p4.style.boxShadow='';},1500);
+  if(document.getElementById('craftPanel').style.display==='none'){
+    setTimeout(function(){toggleCraft(true);},600);
+  }
+}
+
+/* ---------- 编制工艺单：行内工艺编制区 ---------- */
+var CRAFT_DATA={
+ '混条(一)':[['喂入单重','22','18','25','g/m'],['并合根数','8','6','10','根'],['牵伸倍数','7.2','6.5','8.0','倍'],['出条定量','28','26','30','g/m'],['出条速度','60','50','70','m/min']],
+ '头针':[['喂入单重','28','25','30','g/m'],['并合根数','8','6','10','根'],['牵伸倍数','8.0','7.2','8.5','倍'],['出条定量','25','23','27','g/m'],['针板打击数','800','700','900','次/min']],
+ '二针':[['喂入单重','25','23','27','g/m'],['并合根数','8','6','10','根'],['牵伸倍数','8.2','7.5','8.6','倍'],['出条定量','23','21','25','g/m'],['针板打击数','850','750','950','次/min']],
+ '三针':[['喂入单重','23','21','25','g/m'],['并合根数','7','6','8','根'],['牵伸倍数','8.5','8.0','9.0','倍'],['出条定量','21','19','23','g/m'],['出条速度','75','65','85','m/min']],
+ '四针':[['喂入单重','21','19','23','g/m'],['并合根数','7','6','8','根'],['牵伸倍数','8.8','8.2','9.2','倍'],['出条定量','19','17','21','g/m'],['出条速度','80','70','90','m/min']],
+ '粗纱':[['喂入单重','19','17','21','g/m'],['牵伸倍数','9.5','9.0','10.0','倍'],['粗纱定量','6.5','6.0','7.0','g/10m'],['捻系数','105','100','110','-'],['锭速','900','800','1000','r/min']],
+ '细纱':[['粗纱定量','6.5','6.0','7.0','g/10m'],['牵伸倍数','32','30','34','倍'],['捻度','620','590','650','T/m'],['锭速','11000','10000','12000','r/min'],['钢丝圈型号','PG1/0','-','-','号']],
+ '并线':[['喂入筒数','2','2','3','只'],['并合根数','2','2','3','根'],['卷绕速度','700','600','800','m/min'],['张力控制','18','16','20','cN']],
+ '倍捻':[['捻度','620','590','650','T/m'],['捻向','S','-','-','-'],['锭速','8000','7500','8500','r/min'],['超喂比','1.06','1.04','1.08','-'],['钢领','φ210','-','-','mm']],
+ '摇绞':[['每绞圈数','2000','1800','2200','圈'],['框长','1.37','1.35','1.39','m'],['车速','220','200','240','r/min'],['扎绞数','5','4','6','道']]
+};
+var craftDoneMap={}, craftCurIdx=0;
+var craftProcs=Object.keys(CRAFT_DATA);
+function toggleCraft(open){
+  var p=document.getElementById('craftPanel');
+  var willOpen=open===true?true:(p.style.display==='none');
+  p.style.display=willOpen?'block':'none';
+  if(willOpen&&!document.getElementById('craftTb').children.length){
+    craftCurIdx=craftProcs.findIndex(function(k){return !craftDoneMap[k];});
+    if(craftCurIdx<0)craftCurIdx=0;
+    renderCraftChips(); renderCraftTable();
+  }
+}
+function renderCraftChips(){
+  var html='';
+  craftProcs.forEach(function(k,i){
+    var cls=craftDoneMap[k]?'done':(i===craftCurIdx?'cur':'');
+    html+='<span onclick="craftSel('+i+')" style="cursor:pointer;padding:2px 10px;border-radius:12px;font-size:12px;border:1px solid '+
+      (craftDoneMap[k]?'#67c23a;background:#f0f9eb;color:#67c23a':(i===craftCurIdx?'#409eff;background:#ecf5ff;color:#409eff':'#dcdfe6;color:#909399'))+'">'+
+      (craftDoneMap[k]?'✓ ':'')+k+'</span>';
+  });
+  document.getElementById('craftChips').innerHTML=html;
+  var n=craftProcs.filter(function(k){return craftDoneMap[k];}).length;
+  document.getElementById('craftProg').textContent='已编制 '+n+'/'+craftProcs.length;
+  document.getElementById('craftProgFill').style.width=(n/craftProcs.length*100)+'%';
+  document.getElementById('craftCur').textContent='当前工序：'+craftProcs[craftCurIdx];
+  document.getElementById('craftPrev').style.display=craftCurIdx>0?'':'none';
+  document.getElementById('craftNext').textContent=craftCurIdx>=craftProcs.length-1?'保存本工序工艺':'保存本工序工艺，下一工序 →';
+  document.getElementById('craftDone').style.display=n>=craftProcs.length?'':'none';
+}
+function renderCraftTable(){
+  var k=craftProcs[craftCurIdx], html='';
+  CRAFT_DATA[k].forEach(function(r,i){
+    html+='<tr><td>'+(i+1)+'</td><td>'+r[0]+'</td>'+
+      '<td><input class="ipt" value="'+r[1]+'" style="width:110px"></td>'+
+      '<td><input class="ipt" value="'+r[2]+'" style="width:80px"></td>'+
+      '<td><input class="ipt" value="'+r[3]+'" style="width:80px"></td>'+
+      '<td>'+r[4]+'</td></tr>';
+  });
+  document.getElementById('craftTb').innerHTML=html;
+}
+function craftSel(i){craftCurIdx=i;renderCraftChips();renderCraftTable();}
+function craftStep(dir){
+  if(dir===1){
+    var k=craftProcs[craftCurIdx];
+    craftDoneMap[k]=true;
+    markMainRow(k);
+    edToast('「'+k+'」工艺已保存（工艺项 '+CRAFT_DATA[k].length+' 项）','ok');
+    if(craftCurIdx<craftProcs.length-1)craftCurIdx++;
+  }else if(dir===-1&&craftCurIdx>0){
+    craftCurIdx--;
+  }
+  renderCraftChips();renderCraftTable();
+}
+function craftAutoAll(){
+  craftProcs.forEach(function(k){craftDoneMap[k]=true;markMainRow(k);});
+  renderCraftChips();
+  edToast('已按车间工艺库默认值带出全部 '+craftProcs.length+' 道工序的工艺参数，可逐工序核对修改','ok');
+}
+function craftFinish(){
+  document.getElementById('craftPanel').style.display='none';
+  var b=document.getElementById('btnCraft');
+  b.textContent='编制工艺单（已编制✓）';
+  document.getElementById('craftBadge').innerHTML='<span style="color:#67c23a">工序路线工艺编制完成：10/10 道工序</span>';
+  edToast('工序路线工艺编制完成，工艺参数将随「生成排程→上机制造卡」下发电机','ok');
+}
+function markMainRow(proc){
+  var tb=document.querySelectorAll('#p4 > table.tbl tbody tr');
+  tb.forEach(function(tr){
+    if(tr.children[3]&&tr.children[3].textContent.trim()===proc&&!tr.children[3].querySelector('.okmark')){
+      tr.children[3].innerHTML=proc+' <span class="okmark" style="color:#67c23a;font-size:12px">✓</span>';
+      tr.style.background='#f0f9eb';
+    }
+  });
+}
+
+/* 操作反馈：toast / 确认框 / 刷新排程 */
+var edToastTimer;
+/* ══ 引入K3订单（仅新增模式显示，?from=new）══ */
+(function(){
+  if(location.search.indexOf('from=new')>-1){
+    document.getElementById('btnImportK3').style.display='';
+  }
+})();
+var K3_ORDERS=[
+ {no:'HCLD00466911',date:'2026-09-30',type:'后处理',ws:'倒毛车间',batch:'RBJP2606122-11',vat:'26092910033...',qty:'4.53',aux:'90%防缩短毛条(阳离子)',color:''},
+ {no:'HCLD00466912',date:'2026-09-30',type:'后处理',ws:'倒毛车间',batch:'RL2507480-11',vat:'26092140...',qty:'228',aux:'70% CASHFEEL',color:''},
+ {no:'HCLD00466909',date:'2026-09-30',type:'后处理',ws:'倒毛车间',batch:'RQIP2607729...',vat:'26092910...',qty:'4.45',aux:'110% LT防缩条(阳离子)',color:''},
+ {no:'FBDC772348',date:'2026-09-29',type:'生产',ws:'总厂精梳车间(一)',batch:'26091340',vat:'-',qty:'138.9',aux:'70%澳毛条',color:'HY-M63634'},
+ {no:'MO638057',date:'2026-09-18',type:'生产',ws:'纺十车间',batch:'251013566',vat:'-',qty:'368',aux:'70s防缩短毛条(阳离子)55%亚麻纱45%',color:''}
+];
+var opSel=-1;
+function toggleOrderPicker(){
+  var p=document.getElementById('orderPicker');
+  var show=p.style.display==='none';
+  p.style.display=show?'block':'none';
+  if(show){opSel=-1;renderOp('');}
+}
+function renderOp(kw){
+  var tb=document.getElementById('opTb');tb.innerHTML='';
+  var list=K3_ORDERS.filter(function(o){return !kw||o.no.indexOf(kw)>-1||o.batch.indexOf(kw)>-1;});
+  if(!list.length){tb.innerHTML='<tr><td colspan="9" style="color:#909399;text-align:center;padding:14px">无匹配订单</td></tr>';return;}
+  list.forEach(function(o,i){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td style="text-align:center"><input type="radio" name="opR" '+(opSel===K3_ORDERS.indexOf(o)?'checked':'')+' onchange="selOp('+K3_ORDERS.indexOf(o)+')"></td><td><b>'+o.no+'</b></td><td>'+o.date+'</td><td><span class="tag '+(o.type==='生产'?'green':'blue')+'">'+o.type+'</span></td><td>'+o.ws+'</td><td>'+o.batch+'</td><td>'+o.vat+'</td><td>'+o.qty+'</td><td>'+o.aux+(o.color?'（'+o.color+'）':'')+'</td>';
+    tr.style.cursor='pointer';
+    tr.onclick=function(ev){if(ev.target.type!=='radio'){var r=tr.querySelector('input');r.checked=true;}selOp(K3_ORDERS.indexOf(o));};
+    tb.appendChild(tr);
+  });
+}
+function selOp(i){opSel=i;document.getElementById('opConfirm').disabled=false;}
+function filterOrders(){renderOp(document.getElementById('opKw').value.trim());}
+function pickOrder(){
+  if(opSel<0)return;
+  var o=K3_ORDERS[opSel];
+  if(!confirm('引入订单 '+o.no+' ？\n订单信息将填充：生产订单号、生产批号、原料明细、车间、下单日期、投料量/计划产量、色号。确认前未保存的修改将被覆盖。'))return;
+  document.getElementById('pcOrder').value=o.no;
+  document.getElementById('pcBatch').value=o.batch;
+  document.getElementById('pcRaw').value=o.aux;
+  if(o.color)document.getElementById('pcColor').value=o.color;
+  document.getElementById('pcWs').value=o.ws;
+  document.getElementById('pcDate').value=o.date;
+  document.getElementById('pcFeed').value=o.qty;
+  document.getElementById('pcQty').value=o.qty;
+  toggleOrderPicker();
+  edToast('已引入 K3 订单 '+o.no+'，订单信息已填充（引入量将回写订单的「引入量」字段）','ok');
+}
+
+function edToast(msg,type){
+  var t=document.getElementById('edToast');
+  t.textContent=msg; t.className='show '+(type||'ok');
+  clearTimeout(edToastTimer); edToastTimer=setTimeout(function(){t.className=''},2600);
+}
+var edCb=null;
+function edConfirm(title,content,cb){
+  document.getElementById('edMbTitle').textContent=title;
+  document.getElementById('edMbContent').textContent=content;
+  edCb=cb; document.getElementById('edMb').style.display='flex';
+}
+function edMbClose(){document.getElementById('edMb').style.display='none'; edCb=null;}
+document.addEventListener('DOMContentLoaded',function(){
+  document.getElementById('edMbOk').onclick=function(){var cb=edCb; edMbClose(); if(cb)cb();};
+});
+function edRefresh(){
+  var el=document.getElementById('edRf'); if(!el)return;
+  el.style.display='block'; var i=0;
+  var steps=['正在读取工序路线…','正在同步汇报/投料实绩…','正在重算已排产量…','更新完成'];
+  var tm=setInterval(function(){
+    if(i>=steps.length){clearInterval(tm);el.style.display='none';edToast('JH2609280011 排程数据刷新完成：9道工序的已排产量已按实绩更新','ok');return;}
+    el.textContent='刷新排程：'+steps[i]; i++;
+  },600);
+}
+</script>
+<div id="edToast" style="position:fixed;top:18px;right:18px;z-index:999;padding:10px 16px;border-radius:4px;font-size:13px;display:none;background:#f0f9eb;border:1px solid #e1f3d8;color:#67c23a"></div>
+<div id="edRf" style="display:none;position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:999;padding:8px 16px;background:#ecf5ff;border:1px solid #d9ecff;border-radius:4px;color:#409eff;font-size:12px">刷新排程…</div>
+<div id="edMb" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:99;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:6px;width:420px;padding:20px 20px 14px">
+    <div id="edMbTitle" style="font-size:15px;font-weight:600;margin-bottom:12px"></div>
+    <div id="edMbContent" style="color:#606266;margin-bottom:18px;line-height:1.7"></div>
+    <div style="text-align:right"><button class="btn" onclick="edMbClose()">取消</button> <button class="btn primary" id="edMbOk">确定</button></div>
+  </div>
+</div>
+</body>
+</html>

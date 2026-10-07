@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>保养记录</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="card" style="margin-bottom:12px">
+    <div class="search-bar">
+      <div class="search-item"><label>生产车间</label><select class="ipt"><option>全部</option><option selected>纺四车间</option><option>纺六车间</option><option>纺十二车间</option></select></div>
+      <div class="search-item"><label>机台</label><input class="ipt" placeholder="细纱05"></div>
+      <div class="search-item"><label>是否完成</label><select class="ipt"><option>全部</option><option selected>是</option><option>否</option></select></div>
+      <button class="btn primary">搜索</button><button class="btn">重置</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="btn-group"><button class="btn primary">搜索</button><button class="btn">重置</button><button class="btn">编辑保养登记</button><button class="btn warn">批量设置周期</button></div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>保养计划</th><th>是否完成</th><th>预计保养日期</th><th>车间</th><th>机台</th><th>保养类型</th><th>保养项目</th><th>保养人</th><th>保养完成日期</th></tr></thead>
+      <tbody>
+        <tr><td class="ck"><input type="checkbox" checked></td><td>1</td><td>细纱机月度大保养</td><td><span class="tag green">是</span></td><td>2026-09-20</td><td>纺四车间</td><td>细纱05</td><td>月度保养</td><td>牵伸区清洁、锭子加油</td><td>徐海涛</td><td>2026-09-21</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>2</td><td>络筒机周保养</td><td><span class="tag green">是</span></td><td>2026-09-22</td><td>纺六车间</td><td>络筒02</td><td>周保养</td><td>槽筒清洁、张力器校验</td><td>马春华</td><td>2026-09-22</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>3</td><td>倍捻机季度保养</td><td><span class="tag red">否</span></td><td>2026-09-28</td><td>纺十二车间</td><td>110倍捻12</td><td>季度保养</td><td>龙带张力调整</td><td>—</td><td>—</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>4</td><td>细纱机月度大保养</td><td><span class="tag green">是</span></td><td>2026-09-15</td><td>纺四车间</td><td>细纱06</td><td>月度保养</td><td>钢领板校平、清洁</td><td>徐海涛</td><td>2026-09-16</td></tr>
+      </tbody>
+    </table>
+    <div class="pager">共 58 条 <select><option>50条/页</option></select> <span class="pno">‹</span><span class="pno on">1</span><span class="pno">2</span><span class="pno">›</span></div>
+  </div>
+</div>
+</body>
+</html>

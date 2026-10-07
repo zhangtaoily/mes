@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.xinao</groupId>
+        <artifactId>mes-plugins</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>mes-plugin-pda</artifactId>
+    <name>mes-plugin-pda</name>
+    <description>PDA 插件：优博讯 MF919 报文适配（JSON 解析由宿主公共库提供，插件 jar 保持轻量）</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.xinao</groupId>
+            <artifactId>mes-plugin-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!-- Jackson 由宿主容器提供（fat jar 内置），插件编译期可见运行期不打包 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

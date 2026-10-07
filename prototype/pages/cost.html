@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>车间生产费用</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="card" style="margin-bottom:12px">
+    <div class="search-bar">
+      <div class="search-item"><label>期间</label><input class="ipt" type="month" value="2026-09"></div>
+      <div class="search-item"><label>车间</label><select class="ipt"><option>全部</option><option selected>纺四车间</option><option>纺六车间</option></select></div>
+      <div class="search-item"><label>状态</label><select class="ipt"><option>全部</option><option selected>已提交</option></select></div>
+      <button class="btn primary">搜索</button><button class="btn">重置</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="sec-title">生产费用编辑 - 2026-09 纺四车间</div>
+    <div class="form-grid">
+      <div class="form-item"><label>期间<span class="req">*</span></label><div class="w"><input type="month" value="2026-09"></div></div>
+      <div class="form-item"><label>车间<span class="req">*</span></label><div class="w"><select style="border:none;outline:none;flex:1;font-size:13px;color:#606266"><option selected>纺四车间</option><option>纺六车间</option></select></div></div>
+      <div class="form-item"><label>用水量(吨)</label><div class="w"><input value="1286.5"></div></div>
+      <div class="form-item"><label>用水费用(元)</label><div class="w"><input value="7719.0"></div></div>
+      <div class="form-item"><label>用电量(KWh)</label><div class="w"><input value="386420"></div></div>
+      <div class="form-item"><label>用电费用(元)</label><div class="w"><input value="270494.0"></div></div>
+      <div class="form-item"><label>机物料(元)</label><div class="w"><input value="58200"></div></div>
+      <div class="form-item"><label>包装费用(元)</label><div class="w"><input value="36400"></div></div>
+      <div class="form-item"><label>月折旧(元)</label><div class="w"><input value="186000"></div></div>
+      <div class="form-item"><label>加工费分摊(元)</label><div class="w"><input value="42500"></div></div>
+      <div class="form-item"><label>工资(元)</label><div class="w"><input value="512800"></div></div>
+      <div class="form-item"><label>月度考核指标</label><div class="w"><input value="吨纱成本≤28500元"></div></div>
+      <div class="form-item"><label>折算产量(吨)</label><div class="w"><input value="412.6"></div></div>
+      <div class="form-item"><label>用毛率(%)</label><div class="w"><input value="103.8"></div></div>
+    </div>
+    <div class="btn-group">
+      <button class="btn primary">保存</button><button class="btn">提交</button>
+      <button class="btn success">审核通过</button><button class="btn danger">驳回</button>
+    </div>
+    <div class="muted" style="padding:6px 2px">状态流：保存 → 提交 → 审核通过/驳回；数据用于报表"生产成本分析-纺纱"</div>
+  </div>
+</div>
+</body>
+</html>

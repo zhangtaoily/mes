@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>倒筒任务</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.toast{position:fixed;top:18px;right:18px;z-index:999;padding:10px 16px;border-radius:4px;font-size:13px;display:none;background:#f0f9eb;border:1px solid #e1f3d8;color:#67c23a}
+.toast.err{background:#fef0f0;border-color:#fde2e2;color:#f56c6c}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="sec-title">倒筒任务</div>
+  <div class="card">
+    <div class="search-bar">
+      <div class="search-item"><label>创建时间</label><input class="ipt" type="date" value="2025-09-29"> 至 <input class="ipt" type="date"></div>
+      <div class="search-item"><label>生产车间</label><select class="ipt"><option>==请选择==</option><option>总厂倒筒车间</option><option>纺十车间</option></select></div>
+      <div class="search-item"><label>生产批号</label><input class="ipt"></div>
+      <div class="search-item"><label>产品编号</label><input class="ipt"></div>
+      <div class="search-item"><label>缸号</label><input class="ipt" placeholder="260923B0723"></div>
+      <button class="btn primary" onclick="toast('已按条件刷新列表')">搜索</button><button class="btn">重置</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="btn-group">
+      <button class="btn primary" onclick="location.href='prod-task-dt-edit.html'">新增</button>
+      <button class="btn danger" onclick="toast('请先勾选要删除的任务','err')">删除</button>
+      <button class="btn" onclick="toast('已发送 1 张倒筒工艺单至打印队列')">打印工艺单</button>
+      <button class="btn" onclick="toast('已发送复称标签至打印队列')">复称标签打印</button>
+      <button class="btn warn" onclick="toast('PT26092800124 了批成功，任务状态已更新')">了批</button>
+      <button class="btn" onclick="toast('已取消所选子批')">取消子批</button>
+      <button class="btn" onclick="toast('PT26092800124 提交成功，状态已更新为「生效」')">提交</button>
+      <button class="btn" onclick="toast('PT26092800124 已撤回')">撤回</button>
+      <button class="btn" onclick="toast('PT26092800124 已关闭')">关闭</button>
+    </div>
+    <table class="tbl">
+      <thead><tr>
+        <th class="ck"><input type="checkbox"></th><th>序号</th><th>任务编号</th><th>缸号</th><th>批号标识</th><th>车间</th><th>编制状态</th><th>数量</th><th>预计交期</th><th>创建人</th><th>创建时间</th><th>修改人</th><th>修改时间</th>
+      </tr></thead>
+      <tbody>
+        <tr ondblclick="location.href='prod-task-dt-edit.html'" style="cursor:pointer;background:#ecf5ff">
+          <td class="ck"><input type="checkbox" checked></td><td>1</td><td><a href="prod-task-dt-edit.html">PT26092800124</a></td><td>260923B0723</td><td>RK2608467</td><td>总厂倒筒车间</td><td><span class="tag green">生效</span></td><td>4.42</td><td></td><td>沈应惠</td><td>2026-09-28 14:11:11</td><td>沈应惠</td><td>2026-09-28 14:11:11</td>
+        </tr>
+        <tr ondblclick="location.href='prod-task-dt-edit.html'" style="cursor:pointer">
+          <td class="ck"><input type="checkbox"></td><td>2</td><td><a href="prod-task-dt-edit.html">PT26092800123</a></td><td>260928B0232</td><td>RS12601009-11【3】</td><td>总厂倒筒车间</td><td><span class="tag green">生效</span></td><td>58.5</td><td></td><td>陈大武</td><td>2026-09-28 13:52:09</td><td>陈大武</td><td>2026-09-28 13:52:09</td>
+        </tr>
+        <tr ondblclick="location.href='prod-task-dt-edit.html'" style="cursor:pointer">
+          <td class="ck"><input type="checkbox"></td><td>3</td><td><a href="prod-task-dt-edit.html">PT26092800119</a></td><td>260924B0901</td><td>RM2608877-2</td><td>总厂倒筒车间</td><td><span class="tag green">生效</span></td><td>510</td><td></td><td>陈大武</td><td>2026-09-28 09:20:47</td><td>陈大武</td><td>2026-09-28 09:20:47</td>
+        </tr>
+        <tr ondblclick="location.href='prod-task-dt-edit.html'" style="cursor:pointer">
+          <td class="ck"><input type="checkbox"></td><td>4</td><td><a href="prod-task-dt-edit.html">PT26092800116</a></td><td>260926B0755</td><td>RK2608431</td><td>总厂倒筒车间</td><td><span class="tag orange">编制中</span></td><td>96.3</td><td></td><td>沈应惠</td><td>2026-09-28 08:41:26</td><td>沈应惠</td><td>2026-09-28 08:41:26</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pager">第1条到第50条，记录总数6012 <select><option>50条/页</option></select> <span class="pno">‹</span><span class="pno on">1</span><span class="pno">2</span><span class="pno">3</span><span class="pno">›</span></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+var toastTimer;
+function toast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast'; t.style.display='block';
+  clearTimeout(toastTimer); toastTimer=setTimeout(function(){t.style.display='none'},2600);
+}
+</script>
+</body>
+</html>

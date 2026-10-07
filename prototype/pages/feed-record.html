@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><title>投料记录 - XINAO MES</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="sec-title">投料记录</div>
+  <div class="card">
+    <div class="search-bar">
+      <div class="search-item"><label>投料日期</label><input class="ipt" type="date" value="2026-09-29"></div>
+      <div class="search-item"><label>结束时间</label><input class="ipt" type="date" value="2026-09-29"></div>
+      <div class="search-item"><label>车间</label><select class="ipt"><option>==请选择==</option><option>总厂复精梳车间(一)</option><option>纺四车间</option><option>纺八车间</option></select></div>
+      <div class="search-item"><label>批号</label><input class="ipt" placeholder="如 F26099919"></div>
+      <div class="search-item"><label>班组</label><select class="ipt"><option>==请选择==</option><option>甲班</option><option>乙班</option></select></div>
+      <div class="search-item"><label>原料明细</label><input class="ipt" placeholder="如 90s 防缩短毛条"></div>
+      <button class="btn primary">🔍 搜索</button><button class="btn">更多 ▾</button><button class="btn">↺ 重置</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="btn-group">
+      <button class="btn primary" onclick="location.href='feed-record-edit.html'">＋ 新增</button>
+      <button class="btn danger" onclick="toast('请先勾选要删除的投料记录（仅未投料完毕的可删）','err')">－ 删除</button>
+    </div>
+    <table class="tbl">
+      <thead><tr>
+        <th class="ck"><input type="checkbox"></th><th>序号</th><th>车间</th><th>原料明细</th><th>批号</th><th>投料数量</th><th>投料时间</th><th>投料完毕</th><th>创建人</th><th>创建时间</th><th>修改人</th><th>修改时间</th>
+      </tr></thead>
+      <tbody>
+        <tr ondblclick="location.href='feed-record-edit.html'" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>1</td><td>总厂复精梳车间(一)</td><td>90s 防缩短毛条(阳离子)</td><td><a href="feed-record-edit.html">F26099919</a></td><td>5480.2</td><td>2026-09-29</td><td><span class="dot ok">✓</span></td><td>沈丽琳</td><td>2026-09-29 10:04:38</td><td>沈丽琳</td><td>2026-09-29 10:04:38</td></tr>
+        <tr ondblclick="location.href='feed-record-edit.html'" style="cursor:pointer;background:#ecf5ff"><td class="ck"><input type="checkbox" checked></td><td>5</td><td>纺四车间</td><td>70s YO防缩短毛条(阳离子)</td><td><a href="feed-record-edit.html">LP26091216-4</a></td><td>4100.9</td><td>2026-09-29</td><td><span class="dot ok">✓</span></td><td>汤悦飞</td><td>2026-09-29 09:32:19</td><td>汤悦飞</td><td>2026-09-29 09:32:19</td></tr>
+        <tr ondblclick="location.href='feed-record-edit.html'" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>7</td><td>纺八车间</td><td>66s 澳毛条</td><td><a href="feed-record-edit.html">2609785-8</a></td><td>312.7</td><td>2026-09-28</td><td><span class="dot ok">✓</span></td><td>瞿美玉</td><td>2026-09-28 16:37:11</td><td>瞿美玉</td><td>2026-09-28 16:37:11</td></tr>
+        <tr ondblclick="location.href='feed-record-edit.html'" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>9</td><td>纺八车间</td><td>80s 澳毛条</td><td><a href="feed-record-edit.html">2609812-2</a></td><td>185.4</td><td>2026-09-28</td><td><span class="dot ok">✓</span></td><td>何廷永</td><td>2026-09-28 15:02:44</td><td>何廷永</td><td>2026-09-28 15:02:44</td></tr>
+      </tbody>
+    </table>
+    <div class="pager">第1条到第50条，记录总数 36222 <select><option>50条/页</option><option>100条/页</option></select> <span class="pno">«</span><span class="pno">‹</span><span class="pno on">1</span><span class="pno">›</span><span class="pno">»</span></div>
+  </div>
+</div>
+<style>.dot{display:inline-flex;width:16px;height:16px;border-radius:50%;align-items:center;justify-content:center;font-size:10px;color:#fff}.dot.ok{background:#67c23a}</style>
+<div id="toast" style="position:fixed;top:18px;right:18px;z-index:99;padding:10px 16px;border-radius:4px;font-size:13px;display:none;background:#fef0f0;border:1px solid #fde2e2;color:#f56c6c"></div>
+<script>
+var tTimer;
+function toast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.style.display='block';
+  clearTimeout(tTimer);tTimer=setTimeout(function(){t.style.display='none'},2800);
+}
+</script>
+</body>
+</html>

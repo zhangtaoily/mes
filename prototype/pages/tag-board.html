@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>标识牌</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="card" style="margin-bottom:12px">
+    <div class="search-bar">
+      <div class="search-item"><label>标识名</label><input class="ipt" placeholder="紫叶子"></div>
+      <div class="search-item"><label>适用工序</label><select class="ipt"><option>全部</option><option selected>细纱</option><option>络筒</option><option>倒筒</option><option>倍捻</option></select></div>
+      <button class="btn primary">搜索</button><button class="btn">重置</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="btn-group"><button class="btn primary">新增</button><button class="btn">删除</button></div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>标识名</th><th>别名</th><th>适用工序</th><th>状态</th><th>预览</th></tr></thead>
+      <tbody>
+        <tr><td class="ck"><input type="checkbox" checked></td><td>1</td><td><a href="#">紫叶子</a></td><td>紫叶标</td><td>细纱/络筒</td><td><span class="tag green">启用</span></td><td><span class="flag purple"></span>紫色</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>2</td><td><a href="#">三角</a></td><td>三角标</td><td>倒筒</td><td><span class="tag green">启用</span></td><td><span class="flag blue"></span>蓝色</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>3</td><td><a href="#">菱形</a></td><td>菱形标</td><td>倍捻</td><td><span class="tag green">启用</span></td><td><span class="flag orange"></span>橙色</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>4</td><td><a href="#">粉色</a></td><td>粉标</td><td>细纱</td><td><span class="tag green">启用</span></td><td><span class="flag pink"></span>粉色</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>5</td><td><a href="#">红色</a></td><td>红标</td><td>精梳</td><td><span class="tag green">启用</span></td><td><span class="flag red"></span>红色</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>6</td><td><a href="#">绿色</a></td><td>绿标</td><td>混条</td><td><span class="tag green">启用</span></td><td><span class="flag green"></span>绿色</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>7</td><td><a href="#">黄色</a></td><td>黄标</td><td>前针梳</td><td><span class="tag gray">停用</span></td><td><span class="flag orange"></span>黄色</td></tr>
+      </tbody>
+    </table>
+    <div class="muted" style="padding:6px 2px">批号标识色块用于筒贴/箱单打印与现场周转识别；同车间内并行批次分配不同标识防混淆</div>
+  </div>
+</div>
+</body>
+</html>

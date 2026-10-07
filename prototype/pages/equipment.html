@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>保养计划</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="card" style="margin-bottom:12px">
+    <div class="search-bar">
+      <div class="search-item"><label>生产车间</label><select class="ipt"><option>全部</option><option selected>纺四车间</option><option>纺六车间</option><option>纺十二车间</option></select></div>
+      <div class="search-item"><label>计划编码</label><input class="ipt" placeholder="BY-JH-2609"></div>
+      <div class="search-item"><label>保养名称</label><input class="ipt" placeholder="月度大保养"></div>
+      <div class="search-item"><label>机台</label><input class="ipt" placeholder="细纱05"></div>
+      <button class="btn primary">搜索</button><button class="btn">重置</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="btn-group"><button class="btn primary">新增</button><button class="btn danger">删除</button><button class="btn success">生成任务</button></div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>车间名称</th><th>计划编码</th><th>保养名称</th><th>保养周期</th><th>备注</th><th>创建人</th><th>创建时间</th></tr></thead>
+      <tbody>
+        <tr><td class="ck"><input type="checkbox" checked></td><td>1</td><td><a href="#">纺四车间</a></td><td>BY-JH-260901</td><td>细纱机月度大保养</td><td>每月</td><td>含牵伸区清洁、锭子加油</td><td>徐海涛</td><td>2026-09-01 09:12:35</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>2</td><td><a href="#">纺六车间</a></td><td>BY-JH-260905</td><td>络筒机周保养</td><td>每周</td><td>槽筒清洁、张力器校验</td><td>徐海涛</td><td>2026-09-05 14:20:48</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>3</td><td><a href="#">纺十二车间</a></td><td>BY-JH-260912</td><td>倍捻机季度保养</td><td>每季</td><td>龙带张力调整</td><td>李国强</td><td>2026-09-12 10:36:22</td></tr>
+      </tbody>
+    </table>
+    <div class="pager">共 35 条 <select><option>50条/页</option></select> <span class="pno">‹</span><span class="pno on">1</span><span class="pno">›</span></div>
+    <div class="muted" style="padding:6px 2px">生成任务：按保养周期自动生成下一周期的保养任务，进入「保养记录」执行</div>
+  </div>
+</div>
+</body>
+</html>

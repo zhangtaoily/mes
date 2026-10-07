@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>报表中心</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.rpt-wrap { display:flex; gap:12px; align-items:flex-start; }
+.rpt-tree { width:250px; flex-shrink:0; background:#fff; border-radius:4px; box-shadow:0 1px 3px rgba(0,0,0,.06); padding:10px 0; }
+.rpt-tree .cat { padding:8px 14px; font-weight:600; color:#303133; cursor:pointer; display:flex; justify-content:space-between; }
+.rpt-tree .cat:hover { color:#409eff; }
+.rpt-tree .cat .n { color:#909399; font-weight:400; font-size:12px; }
+.rpt-tree ul { list-style:none; display:none; }
+.rpt-tree ul.open { display:block; }
+.rpt-tree ul li { padding:6px 14px 6px 30px; color:#606266; cursor:pointer; font-size:12px; }
+.rpt-tree ul li:hover { color:#409eff; }
+.rpt-tree ul li.on { color:#409eff; background:#ecf5ff; }
+.pbar { display:inline-block; width:110px; height:10px; background:#ebeef5; border-radius:5px; overflow:hidden; vertical-align:middle; margin-right:6px; }
+.pbar i { display:block; height:100%; background:#409eff; border-radius:5px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="rpt-wrap">
+    <!-- 左侧报表分类树 -->
+    <div class="rpt-tree">
+      <div class="cat" onclick="cat(this)">包装报表 <span class="n">12项</span>
+        <ul class="open">
+          <li onclick="pick(this,'车间产品质量检验日报表')">车间产品质量检验日报表</li>
+          <li onclick="pick(this,'原棉产量月汇总表')">原棉产量月汇总表</li>
+          <li onclick="pick(this,'筒子称重产量表')">筒子称重产量表</li>
+          <li onclick="pick(this,'包装批次入库汇总')">包装批次入库汇总</li>
+          <li onclick="pick(this,'疵纱统计表')">疵纱统计表</li>
+        </ul>
+      </div>
+      <div class="cat" onclick="cat(this)">细毛报表 <span class="n">7项</span>
+        <ul>
+          <li onclick="pick(this,'细毛产量日报')">细毛产量日报</li>
+          <li onclick="pick(this,'细毛质量月报')">细毛质量月报</li>
+          <li onclick="pick(this,'前纺产量统计')">前纺产量统计</li>
+        </ul>
+      </div>
+      <div class="cat" onclick="cat(this)">纺纱报表 <span class="n">8项</span>
+        <ul class="open">
+          <li class="on" onclick="pick(this,'纺纱车间生产进度跟踪')">纺纱车间生产进度跟踪</li>
+          <li onclick="pick(this,'盘存报表')">盘存报表（期初/入库/出库/期末）</li>
+          <li onclick="pick(this,'配棉分析')">配棉分析</li>
+          <li onclick="pick(this,'电耗报表')">电耗报表</li>
+          <li onclick="pick(this,'纺纱生产日报')">纺纱生产日报</li>
+        </ul>
+      </div>
+      <div class="cat" onclick="cat(this)">纺纱考核类 <span class="n">22项</span>
+        <ul>
+          <li onclick="pick(this,'纺纱细纱考核统计')">纺纱细纱考核统计</li>
+          <li onclick="pick(this,'车间用毛率统计')">车间用毛率统计</li>
+          <li onclick="pick(this,'粗纱库存表')">粗纱库存表</li>
+          <li onclick="pick(this,'设备利用率报表')">设备利用率报表</li>
+          <li onclick="pick(this,'纺纱生产周期（天）')">纺纱生产周期（天）</li>
+        </ul>
+      </div>
+      <div class="cat" onclick="cat(this)">试验报表 <span class="n">9项</span>
+        <ul>
+          <li onclick="pick(this,'纱线物理指标数据统计')">纱线物理指标数据统计</li>
+          <li onclick="pick(this,'成品强力报表')">成品强力报表</li>
+          <li onclick="pick(this,'成品毛羽报表')">成品毛羽报表</li>
+          <li onclick="pick(this,'条干CV统计')">条干CV统计</li>
+        </ul>
+      </div>
+      <div class="cat" onclick="cat(this)">中心实验室 <span class="n">3项</span>
+        <ul>
+          <li onclick="pick(this,'实验室检验数据统计')">实验室检验数据统计</li>
+          <li onclick="pick(this,'原料检验汇总')">原料检验汇总</li>
+        </ul>
+      </div>
+      <div class="cat" onclick="cat(this)">设备管理 <span class="n">5项</span>
+        <ul>
+          <li onclick="pick(this,'设备保养完成率统计')">设备保养完成率统计</li>
+          <li onclick="pick(this,'设备故障停机分析')">设备故障停机分析</li>
+        </ul>
+      </div>
+      <div class="cat" onclick="cat(this)">生产成本分析-纺纱 <span class="n">4项</span>
+        <ul>
+          <li onclick="pick(this,'生产成本分析-纺纱')">生产成本分析-纺纱</li>
+          <li onclick="pick(this,'车间费用汇总')">车间费用汇总</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 右侧报表预览 -->
+    <div style="flex:1;min-width:0">
+      <div class="card">
+        <div class="sec-title mt0" id="rptTitle">纺纱车间生产进度跟踪</div>
+        <div class="search-bar">
+          <div class="search-item"><label>车间</label><select class="ipt"><option>全部</option><option selected>纺四车间</option><option>纺六车间</option><option>纺十车间</option></select></div>
+          <div class="search-item"><label>日期</label><input class="ipt" type="date" value="2026-09-01"> ~ <input class="ipt" type="date" value="2026-09-29"></div>
+          <div class="search-item"><label>批号</label><input class="ipt" placeholder="XP2610151-4"></div>
+          <button class="btn primary">查询</button><button class="btn">导出Excel</button><button class="btn">打印</button>
+        </div>
+        <table class="tbl">
+          <thead><tr><th>序号</th><th>生产批号</th><th>产品规格</th><th>计划产量(KG)</th><th>累计产出(KG)</th><th>完成率</th><th>预计交期</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td><a href="#">XP2610151-4</a></td><td>1/72 NM</td><td>1,646.3</td><td>1,646.3</td><td><span class="pbar"><i style="width:100%"></i></span>100%</td><td>2026-10-12</td><td><span class="tag green">已完成</span></td></tr>
+            <tr><td>2</td><td><a href="#">XJP2610052-12</a></td><td>2/60 NM</td><td>982.5</td><td>876.4</td><td><span class="pbar"><i style="width:89%"></i></span>89.2%</td><td>2026-10-08</td><td><span class="tag blue">进行中</span></td></tr>
+            <tr><td>3</td><td><a href="#">26091341</a></td><td>0/0 NM</td><td>396.7</td><td>368.2</td><td><span class="pbar"><i style="width:93%"></i></span>92.8%</td><td>2026-10-05</td><td><span class="tag blue">进行中</span></td></tr>
+            <tr><td>4</td><td><a href="#">26091402</a></td><td>1/40 NM</td><td>1,650.0</td><td>820.0</td><td><span class="pbar"><i style="width:50%"></i></span>49.7%</td><td>2026-10-18</td><td><span class="tag blue">进行中</span></td></tr>
+            <tr><td>5</td><td><a href="#">26091518</a></td><td>2/48 NM</td><td>90.0</td><td>90.0</td><td><span class="pbar"><i style="width:100%"></i></span>100%</td><td>2026-09-30</td><td><span class="tag green">已完成</span></td></tr>
+            <tr><td>6</td><td><a href="#">26091519</a></td><td>2/60 NM</td><td>745.5</td><td>742.0</td><td><span class="pbar"><i style="width:99%"></i></span>99.5%</td><td>2026-10-02</td><td><span class="tag orange">待验收</span></td></tr>
+            <tr><td>7</td><td><a href="#">RJ2601001-15</a></td><td>2/100 NM</td><td>2,100.0</td><td>1,312.6</td><td><span class="pbar"><i style="width:63%"></i></span>62.5%</td><td>2026-10-22</td><td><span class="tag blue">进行中</span></td></tr>
+            <tr><td>8</td><td><a href="#">X269568-16</a></td><td>3300 NM</td><td>560.0</td><td>352.8</td><td><span class="pbar"><i style="width:63%"></i></span>63.0%</td><td>2026-10-25</td><td><span class="tag purple">试样</span></td></tr>
+          </tbody>
+        </table>
+        <div class="pager">共 86 条 <select><option>50条/页</option><option>20条/页</option></select> <span class="pno">‹</span><span class="pno on">1</span><span class="pno">2</span><span class="pno">3</span><span class="pno">›</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function cat(el){ el.querySelector('ul').classList.toggle('open'); }
+function pick(el,name){
+  document.querySelectorAll('.rpt-tree ul li').forEach(function(li){li.classList.remove('on');});
+  el.classList.add('on');
+  document.getElementById('rptTitle').textContent=name;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>质检方案</title>
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body>
+<div class="page">
+  <div class="card" style="margin-bottom:12px">
+    <div class="search-bar">
+      <div class="search-item"><label>生产车间</label><select class="ipt"><option>全部</option><option selected>纺十二车间</option></select></div>
+      <div class="search-item"><label>状态</label><select class="ipt"><option>全部</option><option selected>启用</option></select></div>
+      <div class="search-item"><label>方案编号</label><input class="ipt" placeholder="FA-0012"></div>
+      <div class="search-item"><label>方案名称</label><input class="ipt" placeholder="原料检方案"></div>
+      <button class="btn primary">搜索</button><button class="btn">重置</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="btn-group"><button class="btn primary">新增</button><button class="btn">删除</button><button class="btn success">启用</button><button class="btn warn">停用</button></div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>方案编号</th><th>方案名称</th><th>车间</th><th>试样数</th><th>状态</th><th>创建人</th><th>创建时间</th></tr></thead>
+      <tbody>
+        <tr ondblclick="showItem('FA-0012 毛条原料检方案')" style="cursor:pointer"><td class="ck"><input type="checkbox" checked></td><td>1</td><td><a href="#" onclick="showItem('FA-0012 毛条原料检方案');return false">FA-0012</a></td><td>毛条原料检方案</td><td>纺十二车间</td><td>4</td><td><span class="tag green">启用</span></td><td>张伟</td><td>2026-01-15 10:20:33</td></tr>
+        <tr ondblclick="showItem('FA-0018 前纺工序检方案')" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>2</td><td><a href="#" onclick="showItem('FA-0018 前纺工序检方案');return false">FA-0018</a></td><td>前纺工序检方案</td><td>纺四车间</td><td>2</td><td><span class="tag green">启用</span></td><td>张伟</td><td>2026-02-11 14:35:26</td></tr>
+        <tr ondblclick="showItem('FA-0025 成品纱检方案')" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>3</td><td><a href="#" onclick="showItem('FA-0025 成品纱检方案');return false">FA-0025</a></td><td>成品纱检方案</td><td>纺六车间</td><td>4</td><td><span class="tag green">启用</span></td><td>李强</td><td>2026-03-08 09:18:42</td></tr>
+        <tr ondblclick="showItem('FA-0031 包装质检方案')" style="cursor:pointer"><td class="ck"><input type="checkbox"></td><td>4</td><td><a href="#" onclick="showItem('FA-0031 包装质检方案');return false">FA-0031</a></td><td>包装质检方案</td><td>质检五组</td><td>1</td><td><span class="tag green">启用</span></td><td>李强</td><td>2026-04-02 16:22:15</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card" id="itemCard">
+    <div class="sec-title mt0" id="itemTitle">方案指标项 - FA-0012 毛条原料检方案</div>
+    <div class="btn-group"><button class="btn primary">新增指标</button><button class="btn">删除</button></div>
+    <table class="tbl">
+      <thead><tr><th class="ck"><input type="checkbox"></th><th>序号</th><th>指标</th><th>标准值</th><th>上限</th><th>下限</th><th>单位</th></tr></thead>
+      <tbody id="itemBody">
+        <tr><td class="ck"><input type="checkbox" checked></td><td>1</td><td>每米重量</td><td>19.25</td><td>19.5</td><td>19.0</td><td>g/m</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>2</td><td>含油</td><td>0.8</td><td>1.0</td><td>0.6</td><td>%</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>3</td><td>回潮</td><td>16.0</td><td>18.0</td><td>14.0</td><td>%</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>4</td><td>短毛率</td><td>4.0</td><td>4.5</td><td>3.0</td><td>%</td></tr>
+        <tr><td class="ck"><input type="checkbox"></td><td>5</td><td>毛粒50克</td><td>1.2</td><td>2.0</td><td>0</td><td>个</td></tr>
+      </tbody>
+    </table>
+    <div class="muted" style="padding:6px 2px">指标项在检验报告中按方案带出，衍生指标（如不匀率）由质检公式（JS脚本 $BQ）计算</div>
+  </div>
+</div>
+<script>
+var ITEMS={
+ 'FA-0012 毛条原料检方案':[['每米重量','19.25','19.5','19.0','g/m'],['含油','0.8','1.0','0.6','%'],['回潮','16.0','18.0','14.0','%'],['短毛率','4.0','4.5','3.0','%'],['毛粒50克','1.2','2.0','0','个']],
+ 'FA-0018 前纺工序检方案':[['条干不匀率','3.2','3.5','2.8','%'],['重量不匀率','1.8','2.0','1.5','%'],['毛粒50克','1.5','2.2','0','个']],
+ 'FA-0025 成品纱检方案':[['线密度','19.2','19.5','18.9','tex'],['捻度','88','92','84','捻/m'],['强力','362','400','320','cN'],['伸长率','22','26','18','%']],
+ 'FA-0031 包装质检方案':[['疵纱分类','—','—','—','—'],['筒子成型','合格','—','—','—']]
+};
+function showItem(name){
+  document.getElementById('itemTitle').textContent='方案指标项 - '+name;
+  var b=document.getElementById('itemBody');
+  b.innerHTML=ITEMS[name].map(function(r,i){
+    return '<tr><td class="ck"><input type="checkbox"'+(i===0?' checked':'')+'></td><td>'+(i+1)+'</td><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td>'+r[4]+'</td></tr>';
+  }).join('');
+  document.getElementById('itemCard').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
