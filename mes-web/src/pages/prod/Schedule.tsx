@@ -6,26 +6,35 @@ import { useWorkshops, useProcesses } from '@/hooks/useOptions'
 import { cleanParams } from '@/utils/cleanParams'
 import type { ProdSchedule } from '@/api/plan'
 
+/** 后端 ScheduleListVO：排程主体 + 车间/工序/机台/任务名称 */
+interface ScheduleRow {
+  schedule: ProdSchedule
+  workshopName?: string
+  processName?: string
+  machineNo?: string
+  taskNo?: string
+}
+
 /** 生产排程（只读查看） */
 export default function Schedule() {
-  const { options: wsOptions, nameMap: wsName } = useWorkshops()
+  const { options: wsOptions } = useWorkshops()
   const { nameMap: procName } = useProcesses()
-  const { rows, loading, pagination, setSearch } = usePagedList<ProdSchedule>('/api/plan/schedules')
+  const { rows, loading, pagination, setSearch } = usePagedList<ScheduleRow>('/api/plan/schedules')
   const [form] = Form.useForm()
 
-  const columns: ColumnsType<ProdSchedule> = [
-    { title: '排程单号', dataIndex: 'scheduleNo', width: 150, fixed: 'left' },
-    { title: '工单号', dataIndex: 'workOrderNo', width: 140 },
-    { title: '车间', dataIndex: 'workshopId', width: 130, render: (v) => wsName[v] ?? v ?? '-' },
-    { title: '生产批号', dataIndex: 'batchNo', width: 115 },
-    { title: '追溯批号', dataIndex: 'traceBatchNo', width: 115 },
-    { title: '工序', dataIndex: 'processId', width: 90, render: (v) => procName[v] ?? v ?? '-' },
-    { title: '机型', dataIndex: 'machineModel', width: 110 },
-    { title: '排程日期', dataIndex: 'scheduleDate', width: 100 },
-    { title: '计划开始', dataIndex: 'planStart', width: 140, render: (v) => (v ? dayjs(v).format('MM-DD HH:mm') : '-') },
-    { title: '计划结束', dataIndex: 'planEnd', width: 140, render: (v) => (v ? dayjs(v).format('MM-DD HH:mm') : '-') },
-    { title: '排产量', dataIndex: 'scheduleQty', width: 90, align: 'right' },
-    { title: '顺序', dataIndex: 'seq', width: 60 },
+  const columns: ColumnsType<ScheduleRow> = [
+    { title: '排程单号', dataIndex: ['schedule', 'scheduleNo'], width: 150, fixed: 'left' },
+    { title: '工单号', dataIndex: ['schedule', 'workOrderNo'], width: 140 },
+    { title: '车间', dataIndex: 'workshopName', width: 130, render: (v) => v ?? '-' },
+    { title: '生产批号', dataIndex: ['schedule', 'batchNo'], width: 115 },
+    { title: '追溯批号', dataIndex: ['schedule', 'traceBatchNo'], width: 115 },
+    { title: '工序', dataIndex: 'processName', width: 90, render: (v) => v ?? '-' },
+    { title: '机型', dataIndex: ['schedule', 'machineModel'], width: 110 },
+    { title: '排程日期', dataIndex: ['schedule', 'scheduleDate'], width: 100 },
+    { title: '计划开始', dataIndex: ['schedule', 'planStart'], width: 140, render: (v) => (v ? dayjs(v).format('MM-DD HH:mm') : '-') },
+    { title: '计划结束', dataIndex: ['schedule', 'planEnd'], width: 140, render: (v) => (v ? dayjs(v).format('MM-DD HH:mm') : '-') },
+    { title: '排产量', dataIndex: ['schedule', 'scheduleQty'], width: 90, align: 'right' },
+    { title: '顺序', dataIndex: ['schedule', 'seq'], width: 60 },
   ]
 
   return (
@@ -50,7 +59,7 @@ export default function Schedule() {
         </Form>
       </Card>
       <Card size="small">
-        <Table rowKey="id" size="small" columns={columns} dataSource={rows} loading={loading} pagination={pagination} scroll={{ x: 1400 }} />
+        <Table rowKey={(r) => r.schedule?.id ?? r.schedule?.scheduleNo ?? ''} size="small" columns={columns} dataSource={rows} loading={loading} pagination={pagination} scroll={{ x: 1400 }} />
       </Card>
     </div>
   )

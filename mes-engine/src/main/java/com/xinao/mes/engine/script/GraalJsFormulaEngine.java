@@ -165,7 +165,7 @@ public class GraalJsFormulaEngine implements FormulaEngine {
                     }
 
                     @Override
-                    public void set(long index, Object value) {
+                    public void set(long index, Value value) {
                         throw new UnsupportedOperationException("质检值集合只读");
                     }
 

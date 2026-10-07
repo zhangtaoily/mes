@@ -7,7 +7,7 @@ import type { MachineCardRow } from '@/api/plan'
 import StatusTag from '@/components/StatusTag'
 import { useWorkshops, useProcesses } from '@/hooks/useOptions'
 
-const CARD_STATUS = ['已生成', '已打印', '已撤回'].map((s) => ({ label: s, value: s }))
+const CARD_STATUS = ['已排在做', '了机'].map((s) => ({ label: s, value: s }))
 
 /** 上机制造卡：打印留痕与撤回（撤回释放排程占用） */
 export default function MachineCard() {
@@ -36,12 +36,12 @@ export default function MachineCard() {
       title: '操作', width: 120, fixed: 'right',
       render: (_, r) => (
         <>
-          {r.card.status === '已生成' ? (
-            <Popconfirm title="确认打印？（打印动作留痕 flow_card_print_log）" onConfirm={async () => { await printCard(r.card.id); message.success('已打印'); reload() }}>
-              <a>打印</a>
+          {r.card.status === '已排在做' ? (
+            <Popconfirm title="确认补打？（打印动作留痕 flow_card_print_log）" onConfirm={async () => { await printCard(r.card.id); message.success('已补打'); reload() }}>
+              <a>补打</a>
             </Popconfirm>
           ) : null}
-          {r.card.status === '已打印' ? (
+          {r.card.status === '已排在做' ? (
             <Popconfirm title="撤回后释放排程占用，可重新排程。确认撤回？" onConfirm={async () => { await withdrawCard(r.card.id); message.success('已撤回'); reload() }}>
               <a style={{ color: '#e6a23c', marginLeft: 8 }}>撤回</a>
             </Popconfirm>

@@ -67,6 +67,7 @@ public class MachineCardAppService {
     public PageResult<CardListVO> page(CardQueryDTO query) {
         Page<ProdMachineCard> p = Page.of(query.getPageNum(), query.getPageSize());
         Page<ProdMachineCard> result = cardMapper.selectPage(p, Wrappers.<ProdMachineCard>lambdaQuery()
+                .isNull(ProdMachineCard::getWithdrawTime)
                 .eq(StringUtils.isNotBlank(query.getStatus()), ProdMachineCard::getStatus, query.getStatus())
                 .like(StringUtils.isNotBlank(query.getBatchNo()), ProdMachineCard::getBatchNo, query.getBatchNo())
                 .like(StringUtils.isNotBlank(query.getCardNo()), ProdMachineCard::getCardNo, query.getCardNo())
