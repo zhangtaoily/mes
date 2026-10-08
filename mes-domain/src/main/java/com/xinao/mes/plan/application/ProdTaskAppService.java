@@ -12,6 +12,7 @@ import com.xinao.mes.engine.flow.FlowEngine;
 import com.xinao.mes.plan.domain.event.PlanCraftSubmittedEvent;
 import com.xinao.mes.plan.domain.model.BaseCraftParam;
 import com.xinao.mes.plan.domain.model.BaseProcess;
+import com.xinao.mes.plan.domain.model.BaseWorkshop;
 import com.xinao.mes.plan.domain.model.PlanCraft;
 import com.xinao.mes.plan.domain.model.PlanCraftCraft;
 import com.xinao.mes.plan.domain.model.PlanCraftMaterial;
@@ -28,6 +29,7 @@ import com.xinao.mes.plan.dto.TaskCraftApplyDTO;
 import com.xinao.mes.plan.dto.TaskQueryDTO;
 import com.xinao.mes.plan.dto.TaskSaveDTO;
 import com.xinao.mes.plan.infrastructure.mapper.BaseProcessMapper;
+import com.xinao.mes.plan.infrastructure.mapper.BaseWorkshopMapper;
 import com.xinao.mes.plan.infrastructure.mapper.PlanCraftCraftMapper;
 import com.xinao.mes.plan.infrastructure.mapper.PlanCraftMapper;
 import com.xinao.mes.plan.infrastructure.mapper.PlanCraftMaterialMapper;
@@ -66,6 +68,7 @@ import java.util.stream.Collectors;
 public class ProdTaskAppService {
 
     private final ProdTaskMapper taskMapper;
+    private final BaseWorkshopMapper workshopMapper;
     private final ProdTaskOrderMapper orderMapper;
     private final ProdTaskMaterialMapper materialMapper;
     private final ProdTaskRouteMapper routeMapper;
@@ -85,7 +88,18 @@ public class ProdTaskAppService {
 
     public PageResult<ProdTask> page(TaskQueryDTO query) {
         Page<ProdTask> p = Page.of(query.getPageNum(), query.getPageSize());
+        // 车间类型过滤（复精梳/倒筒任务页）：先取该类型车间 id 集合再 in 查询
+        List<Long> workshopIds = null;
+        if (query.getWorkshopType() != null) {
+            workshopIds = workshopMapper.selectList(Wrappers.<BaseWorkshop>lambdaQuery()
+                            .eq(BaseWorkshop::getWorkshopType, query.getWorkshopType()))
+                    .stream().map(BaseWorkshop::getId).toList();
+            if (workshopIds.isEmpty()) {
+                return PageResult.of(0L, List.of());
+            }
+        }
         Page<ProdTask> result = taskMapper.selectPage(p, Wrappers.<ProdTask>lambdaQuery()
+                .in(workshopIds != null, ProdTask::getWorkshopId, workshopIds)
                 .eq(query.getWorkshopId() != null, ProdTask::getWorkshopId, query.getWorkshopId())
                 .like(StringUtils.isNotBlank(query.getBatchNo()), ProdTask::getBatchNo, query.getBatchNo())
                 .like(StringUtils.isNotBlank(query.getActualCount()), ProdTask::getActualCount, query.getActualCount())

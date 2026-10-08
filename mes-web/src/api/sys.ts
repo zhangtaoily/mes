@@ -47,3 +47,31 @@ export function getAllRoles() {
 export function pageRoles(params: { pageNum?: number; pageSize?: number; roleName?: string }) {
   return get<PageResult<SysRole>>('/api/sys/roles', params)
 }
+
+// ============ 字典管理（sys_dict / sys_dict_item） ============
+
+export interface SysDict {
+  id: number
+  dictType: string
+  dictName?: string
+  status?: number
+}
+export interface SysDictItem {
+  id: number
+  dictType: string
+  itemLabel: string
+  itemValue: string
+  sortNo?: number
+  status?: number
+}
+
+export function pageDicts(params: { pageNum?: number; pageSize?: number; dictName?: string; dictType?: string; status?: number }) {
+  return get<PageResult<SysDict>>('/api/sys/dicts', params)
+}
+export function saveDict(body: Partial<SysDict>) { return post<void>('/api/sys/dicts', body) }
+export function updateDict(id: number, body: Partial<SysDict>) { return put<void>(`/api/sys/dicts/${id}`, body) }
+export function deleteDict(id: number) { return del<void>(`/api/sys/dicts/${id}`) }
+export function getDictItems(id: number) { return get<SysDictItem[]>(`/api/sys/dicts/${id}/items`) }
+export function saveDictItem(id: number, body: Partial<SysDictItem>) { return post<void>(`/api/sys/dicts/${id}/items`, body) }
+export function updateDictItem(id: number, itemId: number, body: Partial<SysDictItem>) { return put<void>(`/api/sys/dicts/${id}/items/${itemId}`, body) }
+export function deleteDictItem(id: number, itemId: number) { return del<void>(`/api/sys/dicts/${id}/items/${itemId}`) }

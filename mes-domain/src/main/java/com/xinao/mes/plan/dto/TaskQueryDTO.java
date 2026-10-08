@@ -7,6 +7,8 @@ import lombok.Data;
 public class TaskQueryDTO {
 
     private Long workshopId;
+    /** 车间类型过滤：1纺纱 2复精梳 3倒筒 4包装（复精梳/倒筒任务页） */
+    private Integer workshopType;
     private String batchNo;
     private String actualCount;
     private String rawMaterial;

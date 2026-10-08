@@ -31,7 +31,7 @@ export default function BatchOn() {
     { title: '生产批号', dataIndex: ['batchOn', 'batchNo'], width: 115 },
     { title: '追溯批号', dataIndex: ['batchOn', 'traceBatchNo'], width: 115 },
     { title: '车间', dataIndex: ['batchOn', 'workshopId'], width: 130, render: (v) => wsName[v] ?? v ?? '-' },
-    { title: '工序', dataIndex: 'processName', width: 90, render: (v, r) => v ?? procName[r.batchOn.processId] ?? '-' },
+    { title: '工序', dataIndex: 'processName', width: 90, render: (v, r) => v ?? procName[r.batchOn?.processId ?? -1] ?? '-' },
     { title: '产品名称', dataIndex: ['batchOn', 'productName'], width: 150, ellipsis: true },
     { title: '班次', dataIndex: ['batchOn', 'shift'], width: 70 },
     { title: '上批时间', dataIndex: ['batchOn', 'batchOnTime'], width: 145, render: (v) => (v ? dayjs(v).format('MM-DD HH:mm') : '-') },

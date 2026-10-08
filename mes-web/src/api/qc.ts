@@ -1,4 +1,4 @@
-import { get, post } from './request'
+import { get, post, put, del } from './request'
 import type { PageResult } from './request'
 import type { PageParams } from './plan'
 
@@ -67,4 +67,59 @@ export function unvoidQcReport(id: number) {
 }
 export function publicQcReport(id: number) {
   return post<void>(`/api/qc/reports/${id}/public`)
+}
+
+// ============ 质检公式 ============
+
+export interface QcFormula {
+  id: number
+  formulaName: string
+  processId?: number
+  workshopType?: string
+  formulaType?: string
+  targetIndicatorId?: number
+  affectIndicators?: string
+  sortNo?: number
+  script?: string
+  updateTime?: string
+}
+
+export function pageFormulas(params: PageParams & { formulaName?: string; formulaType?: string; processId?: number }) {
+  return get<PageResult<QcFormula>>('/api/qc/formulas', params)
+}
+export function saveFormula(body: Partial<QcFormula>) { return post<number>('/api/qc/formulas', body) }
+export function updateFormula(id: number, body: Partial<QcFormula>) { return put<void>(`/api/qc/formulas/${id}`, body) }
+export function deleteFormula(id: number) { return del<void>(`/api/qc/formulas/${id}`) }
+
+// ============ 包装质检报告 ============
+
+export interface QcPackageReport {
+  id: number
+  warehouseBatchNo: string
+  batchNo?: string
+  workshopId?: number
+  qcWorkshopId?: number
+  docDate?: string
+  firstGradeQty?: number
+  passRate?: number
+  remark?: string
+}
+export interface QcPackageDefect {
+  id: number
+  packageQcId?: number
+  defectType?: string
+  value?: number
+  remark?: string
+}
+
+export const DEFECT_TYPES = ['正纱', 'AA BB纱', '尾纱', '辫子纱', '松捻纱', '紧捻纱', '重纱', '轻纱', '断纱', '多股纱', '油纱', '大小肚', '乱纱', '圈圈纱', '其它']
+
+export function pagePackageReports(params: PageParams & { warehouseBatchNo?: string; batchNo?: string }) {
+  return get<PageResult<QcPackageReport>>('/api/qc/package-reports', params)
+}
+export function getPackageReportDetail(id: number) {
+  return get<{ report: QcPackageReport; defects: QcPackageDefect[] }>(`/api/qc/package-reports/${id}`)
+}
+export function savePackageReport(body: Partial<QcPackageReport> & { defects?: { defectType?: string; value?: number; remark?: string }[] }) {
+  return post<number>('/api/qc/package-reports', body)
 }
