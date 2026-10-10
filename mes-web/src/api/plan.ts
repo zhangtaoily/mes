@@ -35,12 +35,17 @@ export interface ErpK3Order {
   k3Qty?: number
   mergeFeedQty?: number
   importedQty?: number
+  unit?: string
   productName?: string
   colorNo?: string
   spinCount?: string
   customerName?: string
   saleDept?: string
   materialDetail?: string
+  materialSpec?: string
+  rawMaterial?: string
+  dyeType?: string
+  planStartDate?: string
   deliveryDate?: string
   planEndDate?: string
   isClosed?: number
@@ -52,6 +57,32 @@ export function pageErpOrders(params: PageParams & { orderNo?: string; batchNo?:
 }
 export function getErpOrder(id: number) {
   return get<ErpK3Order>(`/api/plan/erp-orders/${id}`)
+}
+
+/** 手工录入/编辑订单入参（orderNo 留空自动取号 SO；编辑时订单号不可改） */
+export interface ErpOrderSave {
+  orderNo?: string
+  batchNo: string
+  k3Qty: number
+  unit?: string
+  orderDate?: string
+  planStartDate?: string
+  planEndDate?: string
+  workshopName?: string
+  productName?: string
+  colorNo?: string
+  spinCount?: string
+  materialDetail?: string
+  materialSpec?: string
+  rawMaterial?: string
+  customerName?: string
+  dyeType?: string
+}
+export function createErpOrder(data: ErpOrderSave) {
+  return post<number>('/api/plan/erp-orders', data)
+}
+export function updateErpOrder(id: number, data: ErpOrderSave) {
+  return put<void>(`/api/plan/erp-orders/${id}`, data)
 }
 
 export interface ProdTask {
