@@ -58,6 +58,11 @@ http.interceptors.response.use(undefined, (error) => {
     antd.message?.error(r?.msg || '没有操作权限')
     return Promise.reject(new BizError(r?.msg || '没有操作权限', 403))
   }
+  // 网关/代理错误（响应体非统一返回体，如 dev proxy 不可达）按网络异常处理，PDA 离线暂存依赖此判定
+  if (!r || typeof r.code !== 'number') {
+    antd.message?.error(error.message || '网络异常')
+    return Promise.reject(new BizError(error.message || '网络异常', -1))
+  }
   antd.message?.error(r?.msg || error.message || '网络异常')
   return Promise.reject(new BizError(r?.msg || error.message, status ?? -1))
 })
