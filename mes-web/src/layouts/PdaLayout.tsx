@@ -10,6 +10,9 @@ const TITLES: Record<string, string> = {
   '/pda/feed': '投料',
   '/pda/stop': '启停汇报',
   '/pda/front-report': '前纺情况',
+  '/pda/pack': '装箱作业',
+  '/pda/pallet': '组托作业',
+  '/pda/print': '打印作业',
   '/pda/mine': '我的',
 }
 

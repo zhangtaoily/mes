@@ -101,6 +101,9 @@ const PdaOutput = lazy(() => import('@/pages/pda/Output'))
 const PdaFeed = lazy(() => import('@/pages/pda/Feed'))
 const PdaStop = lazy(() => import('@/pages/pda/Stop'))
 const PdaFrontReport = lazy(() => import('@/pages/pda/FrontReport'))
+const PdaPackBox = lazy(() => import('@/pages/pda/PackBox'))
+const PdaPallet = lazy(() => import('@/pages/pda/Pallet'))
+const PdaPrint = lazy(() => import('@/pages/pda/Print'))
 const PdaMine = lazy(() => import('@/pages/pda/Mine'))
 
 const Loading = (
@@ -145,6 +148,10 @@ export default function App() {
           <Route path="feed" element={<Page comp={PdaFeed} />} />
           <Route path="stop" element={<Page comp={PdaStop} />} />
           <Route path="front-report" element={<Page comp={PdaFrontReport} />} />
+          {/* PDA-M2：包装线（装箱/组托/打印） */}
+          <Route path="pack" element={<Page comp={PdaPackBox} />} />
+          <Route path="pallet" element={<Page comp={PdaPallet} />} />
+          <Route path="print" element={<Page comp={PdaPrint} />} />
           <Route path="mine" element={<Page comp={PdaMine} />} />
         </Route>
         <Route

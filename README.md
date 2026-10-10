@@ -219,6 +219,36 @@ M6 关键实现：报表口径全部集中在 AppService（percent/进度状态�
 
 PDA-M1 关键实现：后端 PdaController 仅 5 个新端点（stop/front-report/workshops/teams/machines），全部薄委托 SiteReportAppService；前端 9 页 + PdaLayout + api/pda.ts，antd Select 在 CDP 自动化下用"type 过滤 + Enter"选择。验收中修复两处表结构缺陷：① rep_start_stop 缺 update_by/update_time 审计列（V1 建表遗漏，BaseEntity INSERT_UPDATE 填充导致插入报错）→ V12 补列；② rep_front_report.workshop_id NOT NULL 与"车间选填"页面语义冲突 → V13 改可空。两条测试数据（rep_start_stop id=1 / rep_front_report id=1）已验证后清理。
 
+## PDA-M2 开发完成（手持终端二期·包装线，待统一验收）
+
+范围：包装线三大作业 PDA 化——装箱（逐箱称重）、组托（扫箱绑托）、打印（筒贴留痕/箱贴补打）。延续 M1 架构原则：BFF 薄委托 + 同源校验链（五列重量恒等式、公重回潮公式、重复组托拦截、了包不可再称重/删箱等不变量全部复用 pack application 层）；扫码驱动、少输入多确认、无审批流。
+
+后端新增 `PdaPackController`（`/api/pda/pack/*`，11 个端点）：
+
+| 端点 | 权限 | 说明 |
+|---|---|---|
+| `GET /api/pda/pack/executes?keyword=` | pack:execute:list | 执行单查询（单号/包装批号/入库批号模糊，未了包在前，LIMIT 50） |
+| `GET /api/pda/pack/executes/{id}` | pack:execute:list | 执行单详情（主表+箱子明细，复用 detail） |
+| `POST /api/pda/pack/boxes` | pack:execute:list | 逐箱称重（packUser 缺省当前用户，OperLog"PDA逐箱称重"） |
+| `DELETE /api/pda/pack/boxes/{boxId}` | pack:execute:list | 删箱（审计留痕+汇总回退） |
+| `POST /api/pda/pack/executes/{id}/finish` | pack:execute:list | 了包 |
+| `POST /api/pda/pack/scan-box` | pack:pallet:list | 组托扫箱（返回箱子+执行单，已组托提前拦截） |
+| `GET /api/pda/pack/box-info?boxCode=` | pack:trace:list | 箱子信息查询（补打用，已组托不拦截） |
+| `POST /api/pda/pack/palletize` | pack:pallet:list | 组托（executeId 可空，按第一个箱码自动解析） |
+| `GET /api/pda/pack/tasks?keyword=` | pack:task:list | 包装任务查询（筒贴打印选任务用） |
+| `POST /api/pda/pack/print-tube/{taskId}?qty=` | pack:task:list | 筒贴打印留痕 |
+| `POST /api/pda/pack/label-reprint` | pack:trace:list | 箱贴补打（扫箱码，箱子/执行/任务信息自动带出，FG 取号） |
+
+前端新增 3 页 + 工作台"包装作业"模块区（绿色图标区分产线）：
+
+| 页面 | 路由 | 要点 |
+|---|---|---|
+| 装箱作业 | `/#/pda/pack` | 查执行单→称重表单：净/皮/毛输任意两项自动算第三项；装箱后保留皮重/筒数清净重（连续称重）；箱子明细倒序+删箱；了包二次确认 |
+| 组托作业 | `/#/pda/pallet` | 逐箱扫码加入清单（去重+执行单一致性前端预校验）；标准筒数选填；组托取号 TP 大字回显 |
+| 打印作业 | `/#/pda/print` | Tab1 筒贴：查任务→数量→留痕；Tab2 箱贴补打：扫箱码回显→登记补打（后端带出全部信息，无需手填） |
+
+状态：tsc --noEmit 与 mvn compile 均通过；运行时验收（接口/浏览器）按用户要求推迟，与 PDA-M3（质检/领退料/周转车/蒸纱）完成后统一做。注意：操作工角色需分配 `pack:execute:list`/`pack:pallet:list`/`pack:task:list`/`pack:trace:list` 权限点后方可使用包装作业。
+
 ## 开发约定
 
 - 单据状态机：编制中→已提交→生效→了批→已关闭（**无审批流**），由 M1 flow 引擎配置化驱动
