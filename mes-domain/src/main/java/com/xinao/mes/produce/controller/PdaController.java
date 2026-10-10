@@ -2,18 +2,23 @@ package com.xinao.mes.produce.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.xinao.mes.common.auth.AuthContext;
 import com.xinao.mes.common.auth.RequiresPerm;
 import com.xinao.mes.common.exception.BizException;
 import com.xinao.mes.common.log.OperLog;
 import com.xinao.mes.common.result.R;
 import com.xinao.mes.plan.domain.model.BaseEquipment;
 import com.xinao.mes.plan.domain.model.BaseProcess;
+import com.xinao.mes.plan.domain.model.BaseTeam;
+import com.xinao.mes.plan.domain.model.BaseWorkshop;
 import com.xinao.mes.plan.domain.model.ProdMachineCard;
 import com.xinao.mes.plan.domain.model.ProdSchedule;
 import com.xinao.mes.plan.domain.model.ProdScheduleCraft;
 import com.xinao.mes.plan.domain.model.ProdTask;
 import com.xinao.mes.plan.infrastructure.mapper.BaseEquipmentMapper;
 import com.xinao.mes.plan.infrastructure.mapper.BaseProcessMapper;
+import com.xinao.mes.plan.infrastructure.mapper.BaseTeamMapper;
+import com.xinao.mes.plan.infrastructure.mapper.BaseWorkshopMapper;
 import com.xinao.mes.plan.infrastructure.mapper.ProdMachineCardMapper;
 import com.xinao.mes.plan.infrastructure.mapper.ProdScheduleCraftMapper;
 import com.xinao.mes.plan.infrastructure.mapper.ProdScheduleMapper;
@@ -21,8 +26,11 @@ import com.xinao.mes.plan.infrastructure.mapper.ProdTaskMapper;
 import com.xinao.mes.produce.application.BatchOnAppService;
 import com.xinao.mes.produce.application.FeedAppService;
 import com.xinao.mes.produce.application.OutputAppService;
+import com.xinao.mes.produce.application.SiteReportAppService;
 import com.xinao.mes.produce.domain.model.RepBatchOn;
+import com.xinao.mes.produce.domain.model.RepFrontReport;
 import com.xinao.mes.produce.domain.model.RepOutput;
+import com.xinao.mes.produce.domain.model.RepStartStop;
 import com.xinao.mes.produce.dto.BatchOnSaveDTO;
 import com.xinao.mes.produce.dto.FeedSaveDTO;
 import com.xinao.mes.produce.dto.PdaScanDTO;
@@ -35,8 +43,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -57,9 +67,12 @@ public class PdaController {
     private final RepBatchOnMapper batchOnMapper;
     private final BaseProcessMapper processMapper;
     private final BaseEquipmentMapper equipmentMapper;
+    private final BaseWorkshopMapper workshopMapper;
+    private final BaseTeamMapper teamMapper;
     private final BatchOnAppService batchOnAppService;
     private final OutputAppService outputAppService;
     private final FeedAppService feedAppService;
+    private final SiteReportAppService siteReportAppService;
 
     /** 扫码：制造卡二维码/排程单号 → 排程+任务+工艺项+当前活动上批（上批预览） */
     @PostMapping("/scan")
@@ -143,6 +156,70 @@ public class PdaController {
     @RequiresPerm("site:feedRecord:list")
     public R<List<ProdTask>> tasks() {
         return R.ok(feedAppService.availableTasks());
+    }
+
+    // ---------- PDA 启停/前纺汇报（M1） ----------
+
+    /** PDA 启停汇报（与 PC 同源，汇报人/日期/机型缺省自动补齐） */
+    @PostMapping("/stop")
+    @RequiresPerm("site:stopReport:list")
+    @OperLog(title = "PDA启停汇报")
+    public R<Long> saveStop(@RequestBody RepStartStop stop) {
+        if (stop == null) {
+            throw new BizException("停机汇报不能为空");
+        }
+        if (StringUtils.isBlank(stop.getReportUser())) {
+            var user = AuthContext.get();
+            stop.setReportUser(user == null ? "PDA" : user.getUserName());
+        }
+        if (stop.getReportDate() == null) {
+            stop.setReportDate(LocalDate.now());
+        }
+        if (StringUtils.isBlank(stop.getMachineModel()) && stop.getEquipmentId() != null) {
+            BaseEquipment eq = equipmentMapper.selectById(stop.getEquipmentId());
+            if (eq != null) {
+                stop.setMachineModel(eq.getMachineModel());
+            }
+        }
+        return R.ok(siteReportAppService.saveStop(stop));
+    }
+
+    /** PDA 前纺生产情况汇报（与 PC 同源，日期缺省今天） */
+    @PostMapping("/front-report")
+    @RequiresPerm("craft:frontReport:list")
+    @OperLog(title = "PDA前纺汇报")
+    public R<Long> saveFront(@RequestBody RepFrontReport report) {
+        if (report == null) {
+            throw new BizException("前纺汇报不能为空");
+        }
+        if (report.getReportDate() == null) {
+            report.setReportDate(LocalDate.now());
+        }
+        return R.ok(siteReportAppService.saveFront(report));
+    }
+
+    // ---------- PDA 常用下拉（登录即可，避免依赖 PC 基础信息权限） ----------
+
+    /** 车间（启用） */
+    @GetMapping("/workshops")
+    public R<List<BaseWorkshop>> workshops() {
+        return R.ok(workshopMapper.selectList(Wrappers.<BaseWorkshop>lambdaQuery()
+                .eq(BaseWorkshop::getStatus, 1).orderByAsc(BaseWorkshop::getId)));
+    }
+
+    /** 班组（启用） */
+    @GetMapping("/teams")
+    public R<List<BaseTeam>> teams() {
+        return R.ok(teamMapper.selectList(Wrappers.<BaseTeam>lambdaQuery()
+                .eq(BaseTeam::getStatus, 1).orderByAsc(BaseTeam::getId)));
+    }
+
+    /** 机台（可按车间过滤） */
+    @GetMapping("/machines")
+    public R<List<BaseEquipment>> machines(@RequestParam(required = false) Long workshopId) {
+        return R.ok(equipmentMapper.selectList(Wrappers.<BaseEquipment>lambdaQuery()
+                .eq(workshopId != null, BaseEquipment::getWorkshopId, workshopId)
+                .orderByAsc(BaseEquipment::getId)));
     }
 
     // ---------- 内部 ----------

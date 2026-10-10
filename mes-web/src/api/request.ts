@@ -47,9 +47,10 @@ http.interceptors.response.use(undefined, (error) => {
   const r = error.response?.data as R | undefined
   if (status === 401) {
     tokenStore.clear()
-    if (!location.hash.startsWith('#/login')) {
+    const pda = location.hash.startsWith('#/pda')
+    if (!location.hash.startsWith('#/login') && !location.hash.startsWith('#/pda/login')) {
       antd.message?.error('登录已过期，请重新登录')
-      location.hash = '#/login'
+      location.hash = pda ? '#/pda/login' : '#/login'
     }
     return Promise.reject(new BizError('未登录或登录已过期', 401))
   }

@@ -56,7 +56,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = useCallback(() => {
     tokenStore.clear()
     setToken(null)
-    location.hash = '#/login'
+    // PDA 上下文回 PDA 登录页
+    location.hash = location.hash.startsWith('#/pda') ? '#/pda/login' : '#/login'
   }, [])
 
   const hasPerm = useCallback(

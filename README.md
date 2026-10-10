@@ -200,6 +200,25 @@ M6 关键实现：报表口径全部集中在 AppService（percent/进度状态�
 - **试运行与并行核对**：试运行期以 2026-09/10 真实手工台账为基准，12 张 P0 报表逐张与手工核对一致（51/51 断言通过，含用毛率 107.14%、CV 均值 13.97、疵纱合计 6 等口径复验）；上线后报表口径调整仅改 ReportMapper SQL 与 AppService，不动稳定域。
 - **P1/P2 报表后置**：出勤/能耗/费用类报表依赖现场管理页面数据积累，灰显于目录中，待试运行数据沉淀后按同一模式扩展（新增 Mapper 方法 + VO 即可）。
 
+## PDA-M1 验收清单（手持终端一期，均已通过）
+
+范围：移动端壳（PdaLayout 手机壳 + PDA 登录页 + 工作台/我的）+ 生产执行增强（启停/前纺 BFF 化）。设计原则：PDA 仅 BFF 薄委托（参数补齐：汇报人/日期/机型缺省），业务校验全部复用 PC application 层同源校验链；扫码驱动一切操作；少输入多确认；无审批流；PDA 页面不进系统菜单，直接 URL `/#/pda` 进入。与 PC 共享 JWT（localStorage `mes_token`），401 时按 hash 前缀分流回 `/pda/login`。
+
+| 项 | 入口/接口 | 验收结果 |
+|---|---|---|
+| PDA 登录 | `/#/pda/login` → `POST /api/auth/login` | 手机壳居中 max420；已有 token 自动跳工作台（按 localStorage 实时值判断，规避 401 清 store 后 React state 旧值回环） |
+| 工作台 | `/#/pda/home` | 问候卡 + 扫码大卡 + 5 模块卡（上批/产量/投料/启停/前纺）+ 底部三 Tab |
+| 扫码作业 | `POST /api/pda/scan` | 输入 PSC20261007000004 识别 → 排程/任务/当前批次三卡 + 按状态出"上批"按钮（hasPerm 控制） |
+| 上批（同源校验） | `POST /api/pda/batch-on` | 了批任务提交被校验链拦截："任务状态为[了批]，仅生效任务可上批"（BFF 复用 BatchOnAppService 校验链核心验证点） |
+| 产量汇报 | `/#/pda/output` | 无扫码上下文时空态保护"请先扫码"+去扫码按钮；表单大字号 InputNumber |
+| 投料 | `GET /api/pda/tasks` | 任务下拉"暂无数据"正确（库中无生效未封账任务）；提交按钮正确禁用 |
+| 启停汇报 | `POST /api/pda/stop` + `GET /api/pda/{workshops,teams,machines}` | 车间→机台级联（workshopId 过滤）；提交成功"停机汇报成功（1），编号自动取号"，机型/汇报人/日期自动补齐，取号 ST26101000002 |
+| 前纺情况 | `POST /api/pda/front-report` | 绕毛五项×三档大按钮（严重红色）；提交成功（车间选填，workshop_id 可空） |
+| 我的 | `/#/pda/mine` | 用户卡 + 返回 PC 端 + 退出登录（按 PDA 上下文分流回 `/pda/login`） |
+| 下拉端点 | `GET /api/pda/workshops|teams|machines` | 登录即可（不依赖 `base:workshop:list`，操作工无基础信息权限也能用） |
+
+PDA-M1 关键实现：后端 PdaController 仅 5 个新端点（stop/front-report/workshops/teams/machines），全部薄委托 SiteReportAppService；前端 9 页 + PdaLayout + api/pda.ts，antd Select 在 CDP 自动化下用"type 过滤 + Enter"选择。验收中修复两处表结构缺陷：① rep_start_stop 缺 update_by/update_time 审计列（V1 建表遗漏，BaseEntity INSERT_UPDATE 填充导致插入报错）→ V12 补列；② rep_front_report.workshop_id NOT NULL 与"车间选填"页面语义冲突 → V13 改可空。两条测试数据（rep_start_stop id=1 / rep_front_report id=1）已验证后清理。
+
 ## 开发约定
 
 - 单据状态机：编制中→已提交→生效→了批→已关闭（**无审批流**），由 M1 flow 引擎配置化驱动

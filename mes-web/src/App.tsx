@@ -5,6 +5,7 @@ import { Spin } from 'antd'
 import { AuthProvider, useAuth } from '@/store/auth'
 import AntdStaticMount from '@/components/antdStatic'
 import MainLayout from '@/layouts/MainLayout'
+import PdaLayout from '@/layouts/PdaLayout'
 import Login from '@/pages/login'
 
 /**
@@ -91,6 +92,17 @@ const registry: Record<string, LazyExoticComponent<ComponentType>> = {
 
 const Placeholder = lazy(() => import('@/pages/placeholder'))
 
+/** PDA 手持终端页面（不进系统菜单，直接 URL /pda 进入） */
+const PdaLogin = lazy(() => import('@/pages/pda/Login'))
+const PdaHome = lazy(() => import('@/pages/pda/Home'))
+const PdaScan = lazy(() => import('@/pages/pda/Scan'))
+const PdaBatchOn = lazy(() => import('@/pages/pda/BatchOn'))
+const PdaOutput = lazy(() => import('@/pages/pda/Output'))
+const PdaFeed = lazy(() => import('@/pages/pda/Feed'))
+const PdaStop = lazy(() => import('@/pages/pda/Stop'))
+const PdaFrontReport = lazy(() => import('@/pages/pda/FrontReport'))
+const PdaMine = lazy(() => import('@/pages/pda/Mine'))
+
 const Loading = (
   <div style={{ padding: 80, textAlign: 'center' }}>
     <Spin size="large" />
@@ -101,10 +113,10 @@ function Page({ comp: Comp }: { comp: LazyExoticComponent<ComponentType> }) {
   return <Suspense fallback={Loading}>{Comp ? <Comp /> : <Placeholder />}</Suspense>
 }
 
-/** 登录守卫 */
-function RequireAuth({ children }: { children: ReactNode }) {
+/** 登录守卫（loginPath 区分 PC/PDA） */
+function RequireAuth({ children, loginPath = '/login' }: { children: ReactNode; loginPath?: string }) {
   const { token, ready } = useAuth()
-  if (!token) return <Navigate to="/login" replace />
+  if (!token) return <Navigate to={loginPath} replace />
   if (!ready) return Loading
   return <>{children}</>
 }
@@ -115,6 +127,26 @@ export default function App() {
       <AntdStaticMount />
       <Routes>
         <Route path="/login" element={<Login />} />
+        {/* PDA 手持终端（M1：移动端壳 + 生产执行） */}
+        <Route path="/pda/login" element={<PdaLogin />} />
+        <Route
+          path="/pda"
+          element={
+            <RequireAuth loginPath="/pda/login">
+              <PdaLayout />
+            </RequireAuth>
+          }
+        >
+          <Route index element={<Navigate to="/pda/home" replace />} />
+          <Route path="home" element={<Page comp={PdaHome} />} />
+          <Route path="scan" element={<Page comp={PdaScan} />} />
+          <Route path="batch-on" element={<Page comp={PdaBatchOn} />} />
+          <Route path="output" element={<Page comp={PdaOutput} />} />
+          <Route path="feed" element={<Page comp={PdaFeed} />} />
+          <Route path="stop" element={<Page comp={PdaStop} />} />
+          <Route path="front-report" element={<Page comp={PdaFrontReport} />} />
+          <Route path="mine" element={<Page comp={PdaMine} />} />
+        </Route>
         <Route
           path="/"
           element={
