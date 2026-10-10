@@ -1,6 +1,6 @@
 # 毛纺 MES（精梳毛纺·纱线纺织流程制造生产执行系统）
 
-面向**纱线纺织（精梳毛纺）**行业的**流程制造（Process Manufacturing）**生产执行系统；基于参照系统截图逆向重制，混合架构：**DDD 稳定域 + 引擎易变层 + 插件 SPI**。
+面向**纱线纺织（精梳毛纺）**行业的**流程制造（Process Manufacturing）**生产执行系统；混合架构：**DDD 稳定域 + 引擎易变层 + 插件 SPI**。
 
 - 需求与设计：[docs/PRD.md](docs/PRD.md) · [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · [docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md)
 - 数据库：[docs/schema.sql](docs/schema.sql)（123 表，经 Flyway 管理，禁止手改库）
