@@ -249,6 +249,65 @@ PDA-M1 关键实现：后端 PdaController 仅 5 个新端点（stop/front-repor
 
 状态：tsc --noEmit 与 mvn compile 均通过；运行时验收（接口/浏览器）按用户要求推迟，与 PDA-M3（质检/领退料/周转车/蒸纱）完成后统一做。注意：操作工角色需分配 `pack:execute:list`/`pack:pallet:list`/`pack:task:list`/`pack:trace:list` 权限点后方可使用包装作业。
 
+## PDA-M3 开发完成（手持终端三期·质检与物流，待统一验收）
+
+范围：质检与现场物流四大作业 PDA 化——包装质检（15 类疵纱分类录入）、领退料确认（待确认单据批量确认）、毛球周转车（绑定/称重/入库/移库/出库 + 轨迹查看）、蒸纱信息（登记 + 打印/接收闭环）。延续 M1/M2 架构原则：BFF 薄委托 + 同源校验链（合格率服务端计算、flow 迁移 + CAS 确认、车号唯一、未打印不可接收等不变量全部复用 application 层）；扫码驱动、少输入多确认、无审批流。
+
+后端新增 2 个 BFF Controller：
+
+| 端点 | 权限 | 说明 |
+|---|---|---|
+| `GET /api/pda/qc/package-reports?keyword=` | qc:packageReport:list | 包装质检报告查询（入库/生产批次模糊，LIMIT 50） |
+| `GET /api/pda/qc/package-reports/{id}` | qc:packageReport:list | 报告详情（主表+疵纱明细） |
+| `POST /api/pda/qc/package-reports` | qc:packageReport:list | 保存报告（疵纱明细整表保存，合格率服务端计算；新建缺省今天） |
+| `GET /api/pda/site/picks?keyword=&docStatus=` | prod:feed:list | 领退料单查询（单号/订单号/批号模糊，待确认在前，LIMIT 50） |
+| `POST /api/pda/site/picks/confirm` | prod:feed:list | 批量确认（flow 迁移+CAS，确认人/时间回填） |
+| `GET /api/pda/site/trucks?keyword=` | site:truck:list | 周转车查询（车号/批号模糊） |
+| `GET /api/pda/site/trucks/{id}` | site:truck:list | 周转车详情（主表+移动轨迹） |
+| `POST /api/pda/site/trucks` | site:truck:list | 新增空车（车号唯一校验同 PC） |
+| `POST /api/pda/site/trucks/move` | site:truck:list | 移动操作（scanWorkshop 缺省按车辆车间带出） |
+| `GET /api/pda/site/steams?keyword=` | site:steam:list | 蒸纱查询（批号/车号模糊，未打印在前、未接收在前） |
+| `POST /api/pda/site/steams` | site:steam:list | 新增蒸纱信息 |
+| `POST /api/pda/site/steams/{id}/print` | site:steam:list | 蒸纱打印（已打印拦截同 PC） |
+| `POST /api/pda/site/steams/{id}/receive` | site:steam:list | 蒸纱接收（未打印不可接收） |
+
+前端新增 4 页 + 工作台"质检与物流"模块区（橙色图标区分）：
+
+| 页面 | 路由 | 要点 |
+|---|---|---|
+| 包装质检 | `/#/pda/qc-pack` | Tab1 录入：入库批次扫码 + 15 类疵纱数量网格（正纱高亮，一等品数留空自动取正纱数）；Tab2 查询：合格率 Tag 卡片，点击回显编辑 |
+| 领退料确认 | `/#/pda/pick` | 待确认/已确认/全部切换；卡片勾选 → 底部悬浮批量确认；确认人/时间回显 |
+| 周转车作业 | `/#/pda/truck` | 扫车号（未找到现场登记空车）→ 车辆信息卡 → 按操作类型（绑定/称重/入库/移库/出库）动态切换字段；移动轨迹列表 |
+| 蒸纱作业 | `/#/pda/steam` | Tab1 登记：车号扫码+粒数/重量/车数；Tab2 打印/接收：状态按打印/接收时间推导（未打印/已打印/已接收） |
+
+状态：tsc --noEmit 与 mvn compile 均通过；运行时验收（接口/浏览器）按用户要求推迟统一做。注意：操作工/QC 角色需分配 `qc:packageReport:list`/`prod:feed:list`/`site:truck:list`/`site:steam:list` 权限点后方可使用对应作业。
+
+## PDA-M4 开发完成（手持终端四期·设备点检维护+离线，待统一验收）
+
+范围：设备点检执行（扫机台→逐项正常/异常）、报修登记与维修闭环（登记取号→修复回填）两大作业 PDA 化，外加轻量离线暂存能力（网络异常提交入队、恢复后重放）。消息中心经确认砍掉（系统无消息域，待有真实需求再做）。与 PC 共表同源台账（eq_check_record/eq_repair_record），记录编码由 CodeEngine 自动取号（DJ/WX，V14 迁移补规则种子，操作工免手输），点检人/维修人/日期/车间缺省自动补齐。
+
+后端新增 1 个 BFF Controller（`equip/controller/PdaEquipController`）：
+
+| 端点 | 权限 | 说明 |
+|---|---|---|
+| `GET /api/pda/equip/scan-machine?keyword=` | 登录即可 | 扫机台（机台号精确匹配，带出车间名+点检责任人） |
+| `GET /api/pda/equip/check-items` | 登录即可 | 点检项目字典（启用） |
+| `GET /api/pda/equip/fault-types` | 登录即可 | 故障分类字典（启用） |
+| `POST /api/pda/equip/checks` | equip:checkRecord:list | 提交点检（编码取号 DJ；点检人/日期缺省补齐） |
+| `GET /api/pda/equip/repairs?keyword=&equipmentId=&unsolved=` | equip:repairRecord:list | 报修单查询（未解决在前，LIMIT 50） |
+| `POST /api/pda/equip/repairs` | equip:repairRecord:list | 报修登记（编码取号 WX；故障时间缺省现在、车间按机台带出、solveTime 留空待维修） |
+| `POST /api/pda/equip/repairs/{id}/solve` | equip:repairRecord:list | 维修完成（回填解决时间+维修人；已修复拦截） |
+
+前端新增 2 页 + 离线能力 + 工作台"设备点检维护"模块区（紫色 #722ed1 图标区分）：
+
+| 页面 | 路由 | 要点 |
+|---|---|---|
+| 点检执行 | `/#/pda/check` | 扫机台 → 机台卡（车间/型号/责任人）→ 点检项目逐项 正常/异常 切换 → 异常说明（选填）→ 提交（describe 自动拼装台账） |
+| 报修登记 | `/#/pda/repair` | Tab1 登记：扫机台 → 该机台未解决报修提示 → 故障分类下拉 + 详情 → 提交；Tab2 维修处理：报修单卡片（未解决在前）→ 修复完成 |
+| 离线暂存 | `/#/pda/mine` | 提交遇网络异常自动入队（localStorage `mes_pda_offline`）；「我的-离线待提交」支持全部重试/单条删除/清空；重放后端重新取号无幂等冲突；业务校验失败（400）不入队 |
+
+状态：tsc --noEmit 与 mvn compile 均通过；运行时验收（接口/浏览器）按用户要求推迟与 M1-M3 统一做。注意：操作工角色需分配 `equip:checkRecord:list`/`equip:repairRecord:list` 权限点后方可使用对应作业；后端需重启加载新 Controller 与 V14 迁移。
+
 ## 开发约定
 
 - 单据状态机：编制中→已提交→生效→了批→已关闭（**无审批流**），由 M1 flow 引擎配置化驱动

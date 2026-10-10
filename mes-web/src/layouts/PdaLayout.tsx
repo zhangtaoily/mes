@@ -13,6 +13,12 @@ const TITLES: Record<string, string> = {
   '/pda/pack': '装箱作业',
   '/pda/pallet': '组托作业',
   '/pda/print': '打印作业',
+  '/pda/qc-pack': '包装质检',
+  '/pda/pick': '领退料确认',
+  '/pda/truck': '周转车作业',
+  '/pda/steam': '蒸纱作业',
+  '/pda/check': '点检执行',
+  '/pda/repair': '报修登记',
   '/pda/mine': '我的',
 }
 

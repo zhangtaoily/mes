@@ -2,9 +2,9 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/store/auth'
 import dayjs from 'dayjs'
 import {
-  AppstoreOutlined, BoxPlotOutlined, ExperimentOutlined, ImportOutlined,
-  PauseCircleOutlined, PlayCircleOutlined, PrinterOutlined, RiseOutlined,
-  ScanOutlined,
+  AppstoreOutlined, AuditOutlined, BoxPlotOutlined, CarOutlined, ExperimentOutlined,
+  FireOutlined, ImportOutlined, PauseCircleOutlined, PlayCircleOutlined, PrinterOutlined,
+  RiseOutlined, SafetyCertificateOutlined, ScanOutlined, SwapOutlined, ToolOutlined,
 } from '@ant-design/icons'
 
 const MODULES = [
@@ -21,6 +21,20 @@ const PACK_MODULES = [
   { path: '/pda/pack', label: '装箱作业', desc: '逐箱称重/了包', icon: <BoxPlotOutlined /> },
   { path: '/pda/pallet', label: '组托作业', desc: '扫箱组托取号', icon: <AppstoreOutlined /> },
   { path: '/pda/print', label: '打印作业', desc: '筒贴/箱贴补打', icon: <PrinterOutlined /> },
+]
+
+/** 质检与物流（M3） */
+const QC_LOGISTICS_MODULES = [
+  { path: '/pda/qc-pack', label: '包装质检', desc: '疵纱分类录入', icon: <AuditOutlined /> },
+  { path: '/pda/pick', label: '领退料确认', desc: '待确认单据', icon: <SwapOutlined /> },
+  { path: '/pda/truck', label: '周转车作业', desc: '绑定/称重/出入库', icon: <CarOutlined /> },
+  { path: '/pda/steam', label: '蒸纱作业', desc: '登记/打印/接收', icon: <FireOutlined /> },
+]
+
+/** 设备点检维护（M4） */
+const EQUIP_MODULES = [
+  { path: '/pda/check', label: '点检执行', desc: '扫机台逐项点检', icon: <SafetyCertificateOutlined /> },
+  { path: '/pda/repair', label: '报修登记', desc: '故障报修/维修', icon: <ToolOutlined /> },
 ]
 
 /** PDA 工作台：模块大图标网格 */
@@ -95,6 +109,42 @@ export default function PdaHome() {
             }}
           >
             <div style={{ fontSize: 24, color: '#52c41a' }}>{m.icon}</div>
+            <div style={{ fontSize: 15, fontWeight: 600, marginTop: 8 }}>{m.label}</div>
+            <div className="muted" style={{ fontSize: 12, marginTop: 2 }}>{m.desc}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="sec-title" style={{ marginTop: 18, fontSize: 14 }}>质检与物流</div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 10 }}>
+        {QC_LOGISTICS_MODULES.map((m) => (
+          <div
+            key={m.path}
+            onClick={() => navigate(m.path)}
+            style={{
+              background: '#fff', borderRadius: 12, padding: '16px 14px', cursor: 'pointer',
+              boxShadow: '0 1px 4px rgba(0,0,0,.06)',
+            }}
+          >
+            <div style={{ fontSize: 24, color: '#fa8c16' }}>{m.icon}</div>
+            <div style={{ fontSize: 15, fontWeight: 600, marginTop: 8 }}>{m.label}</div>
+            <div className="muted" style={{ fontSize: 12, marginTop: 2 }}>{m.desc}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="sec-title" style={{ marginTop: 18, fontSize: 14 }}>设备点检维护</div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 10, marginBottom: 14 }}>
+        {EQUIP_MODULES.map((m) => (
+          <div
+            key={m.path}
+            onClick={() => navigate(m.path)}
+            style={{
+              background: '#fff', borderRadius: 12, padding: '16px 14px', cursor: 'pointer',
+              boxShadow: '0 1px 4px rgba(0,0,0,.06)',
+            }}
+          >
+            <div style={{ fontSize: 24, color: '#722ed1' }}>{m.icon}</div>
             <div style={{ fontSize: 15, fontWeight: 600, marginTop: 8 }}>{m.label}</div>
             <div className="muted" style={{ fontSize: 12, marginTop: 2 }}>{m.desc}</div>
           </div>

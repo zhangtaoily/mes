@@ -104,6 +104,12 @@ const PdaFrontReport = lazy(() => import('@/pages/pda/FrontReport'))
 const PdaPackBox = lazy(() => import('@/pages/pda/PackBox'))
 const PdaPallet = lazy(() => import('@/pages/pda/Pallet'))
 const PdaPrint = lazy(() => import('@/pages/pda/Print'))
+const PdaQcPack = lazy(() => import('@/pages/pda/QcPack'))
+const PdaPick = lazy(() => import('@/pages/pda/Pick'))
+const PdaTruck = lazy(() => import('@/pages/pda/Truck'))
+const PdaSteam = lazy(() => import('@/pages/pda/Steam'))
+const PdaCheck = lazy(() => import('@/pages/pda/Check'))
+const PdaRepair = lazy(() => import('@/pages/pda/Repair'))
 const PdaMine = lazy(() => import('@/pages/pda/Mine'))
 
 const Loading = (
@@ -152,6 +158,14 @@ export default function App() {
           <Route path="pack" element={<Page comp={PdaPackBox} />} />
           <Route path="pallet" element={<Page comp={PdaPallet} />} />
           <Route path="print" element={<Page comp={PdaPrint} />} />
+          {/* PDA-M3：质检与物流（包装质检/领退料/周转车/蒸纱） */}
+          <Route path="qc-pack" element={<Page comp={PdaQcPack} />} />
+          <Route path="pick" element={<Page comp={PdaPick} />} />
+          <Route path="truck" element={<Page comp={PdaTruck} />} />
+          <Route path="steam" element={<Page comp={PdaSteam} />} />
+          {/* PDA-M4：设备点检维护（点检/报修） */}
+          <Route path="check" element={<Page comp={PdaCheck} />} />
+          <Route path="repair" element={<Page comp={PdaRepair} />} />
           <Route path="mine" element={<Page comp={PdaMine} />} />
         </Route>
         <Route
