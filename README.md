@@ -27,10 +27,15 @@ Java 17 · Spring Boot 3.2 · MyBatis-Plus · MySQL 8 · Redis · Flyway · JWT�
 mes-parent
 ├── mes-common        技术基础设施：统一返回体 / 全局异常 / JWT鉴权 / 按钮级权限 / 操作日志 / MP配置
 ├── mes-engine        易变层引擎（M1）：code自动编码 / flow状态机 / meta元数据 / script脚本
-├── mes-domain        DDD 稳定域：system(用户/角色/组织/菜单，M0) → plan / produce / pack / qc
+├── mes-domain        稳定域（按复杂度分级）：核心域 DDD——plan / produce / pack / qc；支撑域 CRUD——equip(设备点检维保)；system(用户/角色/菜单) / report(只读跨域聚合) / integration(K3/WMS 同步)
 ├── mes-plugin-api    插件 SPI 框架：@SPI 注解 + PluginManager 加载器（目录扫描/热替换）+ 五契约接口
 ├── mes-plugins       插件实现（独立 jar 放运行目录 plugins/ 加载）：k3 / wms(V1) / wms-b(V2 热替换演示) / printer / scale / pda
-└── mes-bootstrap     启动器：组装 + Flyway 迁移(db/migration) + 验收接口
+├── mes-web           前端单仓双端（React 18 + TypeScript + antd 5 + Vite）：
+│     ├── PC 端        65 叶子页 12 模块（dashboard/base/craft/prod/pack/qc/equip/site/stat/report/sys/login），hash 路由
+│     └── PDA 手持端   18 页（登录/工作台/我的/扫码 + 13 业务页：上批/产量/投料/启停/前纺/装箱/组托/打印/包装质检/领退料/周转车/蒸纱/点检/报修），
+│                      手机壳 PdaLayout，路由 /#/pda/* 不进菜单，与 PC 共享 JWT（401 按路由前缀分流）
+│     src 分层：api(按域接口) / pages(页面) / layouts(PC框架+PDA壳) / components / hooks(usePagedList/useOptions) / store(auth) / utils(request 拦截 + offline 离线队列)
+└── mes-bootstrap     启动器：组装 + Flyway 迁移(db/migration，V1~V16) + 验收接口
 ```
 
 ## 构建与启动
